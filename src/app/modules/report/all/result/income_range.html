@@ -1,0 +1,86 @@
+<div class="row" ng-controller="Report.KetQua.Incomerange" ng-init="init()">
+  <div class="tab-pane active col-md-9 no-padding border-right"
+    ng-class="{'col-md-12': viewMode=='full', 'col-md-9': viewMode!='full' }">
+
+    <div class="col-md-12 m-accordion m-accordion--bordered" role="tablist" id="m_accordion_6">
+      <div class="m-accordion__item">
+        <div class="m-accordion__item-head" role="tab" id="m_accordion_6_item_2_head" data-toggle="collapse"
+          href="#m_accordion_6_item_2_body" aria-expanded="false">
+          <span class="m-accordion__item-title">{{'Lương thấp nhất' | translate}}</span>
+          <span class="m-accordion__item-mode"></span>
+        </div>
+        <div class="m-accordion__item-body collapse show" id="m_accordion_6_item_2_body" role="tabpanel"
+          aria-labelledby="m_accordion_6_item_2_head" data-parent="#m_accordion_6" style="">
+          <div class="m-accordion__item-content no-padding">
+            <div class="m-portlet__body">
+              <div ng-if="dataReport" class="m-portlet__body collapse show"
+                style="height: 600px;  padding: 5px; overflow-x: auto">
+                <table class="table table-striped table-bordered table-hover table-checkable dataTable no-footer"
+                  role="grid">
+                  <thead>
+                    <tr role='row'>
+                      <th class="text-center" style="min-width: 80px" ng-repeat="item in columnsRender track by $index">
+                        {{item.title}}</th>
+                    </tr>
+                  </thead>
+                  <tbody ng-repeat="group in dataReport">
+                    <tr>
+                      <td colspan="{{columnsRender.length}}">{{group.center_name}}</td>
+                    </tr>
+                    <tr ng-repeat="item in group.items">
+                      <td class="text-center" ng-repeat="col in columnsRender"><span
+                          ng-show="item[col.key] >0">{{item[col.key] | currency:"":0}}</span><span
+                          ng-show="!(item[col.key]>0)">{{item[col.key]}}</span></td>
+
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-12 m-accordion m-accordion--bordered" role="tablist" id="m_accordion_6">
+      <div class="m-accordion__item">
+        <div class="m-accordion__item-head" role="tab" id="m_accordion_6_item_2_head1" data-toggle="collapse"
+          href="#m_accordion_6_item_2_body1" aria-expanded="false">
+          <span class="m-accordion__item-title">{{'Lương Cao nhất' | translate}}</span>
+          <span class="m-accordion__item-mode"></span>
+        </div>
+        <div class="m-accordion__item-body collapse show" id="m_accordion_6_item_2_body1" role="tabpanel"
+          aria-labelledby="m_accordion_6_item_2_head1" data-parent="#m_accordion_6" style="">
+          <div class="m-accordion__item-content no-padding">
+            <div class="m-portlet__body">
+              <div ng-if="dataReport" class="m-portlet__body collapse show"
+                style="height: 600px;  padding: 5px; overflow-x: auto">
+                <table class="table table-striped table-bordered table-hover table-checkable dataTable no-footer"
+                  role="grid">
+                  <thead>
+                    <tr role='row'>
+                      <th class="text-center" style="min-width: 80px" ng-repeat="item in columnsRender track by $index">
+                        {{item.title}}</th>
+                    </tr>
+                  </thead>
+                  <tbody ng-repeat="group in dataReport">
+                    <tr>
+                      <td colspan="{{columnsRender.length}}">{{group.center_name}}</td>
+                    </tr>
+                    <tr ng-repeat="item in group.items">
+                      <td class="text-center" ng-repeat="col in columnsRender">{{item[col.max] | currency:"":0}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="col-md-3" ng-hide="viewMode=='full'">
+    <div ng-include="'/app/modules/report/search.html'"></div>
+  </div>
+</div>

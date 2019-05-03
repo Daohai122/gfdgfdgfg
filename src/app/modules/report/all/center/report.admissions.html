@@ -1,0 +1,84 @@
+<div class="row" ng-controller="Report.Center.Admissions.Controller" ng-init="init()">
+  <div class="tab-pane active col-md-9 no-padding border-right" ng-class="{'col-md-12': viewMode=='full', 'col-md-9': viewMode!='full' }">
+    <div class="m-portlet__body collapse show">
+      <div class="col-md-12 m-accordion m-accordion--bordered" role="tablist" id="m_accordion_6">
+        <div class="m-accordion__item">
+          <div class="m-accordion__item-head" role="tab" id="m_accordion_6_item_2_head" data-toggle="collapse"
+            href="#m_accordion_6_item_2_body" aria-expanded="false">
+            <span class="m-accordion__item-title">{{'Kết quả phỏng vấn các lớp' | translate}}</span>
+            <span class="m-accordion__item-mode"></span>
+          </div>
+          <div class="m-accordion__item-body collapse show" id="m_accordion_6_item_2_body" role="tabpanel"
+            aria-labelledby="m_accordion_6_item_2_head" data-parent="#m_accordion_6" style="">
+            <div class="m-accordion__item-content no-padding" style="height: 600px;  padding: 5px; overflow-x: auto">
+              <div class="m-portlet__body">
+                <table class="table table-striped table-bordered table-hover table-checkable dataTable no-footer"
+                  role="grid">
+                  <thead>
+                    <tr role='row'>
+                      <th style="min-width: 80px;" class="text-center">Lớp</th>
+                      <th style="min-width: 80px;" class="text-center">Tổng số hồ sơ nộp</th>
+                      <th style="min-width: 80px;" class="text-center">Tổng số hồ sơ phỏng vấn</th>
+                      <th style="min-width: 80px;" class="text-center">Số lượng hồ sơ đạt </th>
+                      <th style="min-width: 80px;" class="text-center">Số lượng hồ sơ xem lại(dự phòng) </th>
+                      <th style="min-width: 80px;" class="text-center">Số lượng hồ sơ loại </th>
+                      <th style="min-width: 80px;" class="text-center">Số lượng nam </th>
+                      <th style="min-width: 80px;" class="text-center">Tỉ lệ nam </th>
+                      <th style="min-width: 80px;" class="text-center">Số lượng nữ </th>
+                      <th style="min-width: 80px;" class="text-center">Tỉ lệ nữ </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="item in dataReportClass">
+                      <td>{{item.class_name}}</td>
+                      <td>{{item.ho_so_nop}}</td>
+                      <td>{{item.phong_van}}</td>
+                      <td>{{item.ho_so_dat}}</td>
+                      <td>{{item.ho_so_xem_lai}}</td>
+                      <td>{{item.ho_so_loai}}</td>
+                      <td>{{item.so_luong_nam}}</td>
+                      <td>{{item.so_luong_nam}}</td>
+                      <td>{{item.so_luong_nu}}</td>
+                      <td>{{item.so_luong_nu}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 m-accordion m-accordion--bordered" role="tablist" id="m_accordion_6"
+        style="margin-top:20px">
+        <div class="m-accordion__item">
+          <div class="m-accordion__item-head" role="tab" id="m_accordion_6_item_2_head1" data-toggle="collapse"
+            href="#m_accordion_6_item_2_body1" aria-expanded="false">
+            <span class="m-accordion__item-title">{{'Nguồn nộp' | translate}}</span>
+            <span class="m-accordion__item-mode"></span>
+          </div>
+          <div class="m-accordion__item-body collapse show" id="m_accordion_6_item_2_body1" role="tabpanel"
+            aria-labelledby="m_accordion_6_item_2_head1" data-parent="#m_accordion_6" style="">
+            <div class="m-accordion__item-content no-padding">
+              <div class="m-portlet__body" style="height: 600px;  padding: 5px; overflow-x: auto">
+                <table class="table table-striped table-bordered table-hover table-checkable dataTable no-footer"
+                  role="grid">
+                  <thead>
+                    <th style="min-width: 80px;" ng-repeat="item in columns">{{item.title}} </th>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="item in dataReportChane">
+                      <td ng-repeat="col in columns">{{item[col.key]}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3" ng-hide="viewMode=='full'">
+    <div ng-include="'/app/modules/report/search.html'"></div>
+  </div>
+</div>

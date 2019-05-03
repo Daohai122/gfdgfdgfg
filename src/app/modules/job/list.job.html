@@ -1,0 +1,163 @@
+<div class="m-content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="col-md-12" style="padding:0px">
+        <div class="m-portlet m-portlet--tab">
+          <div class="m-portlet__body">
+            <div si-table config="tableConfig" reload-table="reloadTable" ng-model="dataJobs" search="filter">
+              <div class="filter-region m-portlet m-portlet--tab collapse show" id="collapseExample">
+                <div class="row m-portlet__body">
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <div class="m-input-icon m-input-icon--left">
+                        <input type="text" class="form-control m-input search_params" placeholder="Tìm kiếm" ng-model="filter.SearchString">
+                        <span class="m-input-icon__icon m-input-icon__icon--left">
+                          <span><i class="la la-search"></i></span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <div class="input-group m-input-group">
+                        <div class="input-group-prepend"><span class="input-group-text">{{'Trung tâm' | translate}}</span></div>
+                        <select class="form-control" si-selectpicker title="Chọn trung tâm" multiple title="Tất cả" actions-box="true"  ng-change="centerChange()" update="center" 
+                          ng-model="filter.list_center">
+                          <option ng-repeat="item in center" value="{{item.code}}">{{item.name}}</option>
+                      </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <div class="input-group m-input-group">
+                        <div class="input-group-prepend"><span class="input-group-text">{{'Khóa' | translate}}</span></div>
+                        <select class="form-control" ng-change="batchChange()" multiple si-selectpicker  actions-box="true" title="Tất cả" title="Chọn khóa" update="batch" ng-model="filter.list_batch">
+                           <option ng-repeat="item in batch" value="{{item.id}}">{{item.name}}</option>
+                       </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <div class="input-group m-input-group">
+                        <div class="input-group-prepend"><span class="input-group-text">{{'Lớp' | translate}}</span></div>
+                        <select class="form-control" ng-change="classChange()"  title="Tất cả" actions-box="true" multiple ng-model="filter.list_class" si-selectpicker title="Chọn lớp" update="class">
+                            <option ng-repeat="item in class" value="{{item.id}}">{{item.name}}</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <div class="input-group m-input-group">
+                        <div class="input-group-prepend"><span class="input-group-text">{{'Tên sinh viên' | translate}}</span></div>
+                        <select class="form-control" ng-model="filter.user_id" si-selectpicker title="Chọn người dùng" update="user">
+                            <option value="">Tất cả</option>
+                            <option ng-repeat="item in user" value="{{item.id}}">{{item.last_name}} {{item.middle_name}} {{item.first_name}}</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <div class="col-md-3">
+                    <div class="form-group">
+                      <div class="input-group m-input-group">
+                        <div class="input-group-prepend"><span class="input-group-text">{{'Thời gian băt đầu làm việc' | translate}}</span></div>
+                        <input type="text" class="form-control" date-picker ng-model="filter.FromDate">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <div class="input-group m-input-group">
+                        <div class="input-group-prepend"><span class="input-group-text">{{'Thời gian kết thúc làm việc' | translate}}</span></div>
+                        <input type="text" class="form-control" date-picker ng-model="filter.ToDate">
+                      </div>
+                    </div>
+                  </div> -->
+                  <!-- <div class="col-md-3">
+                    <div class="form-group">
+                      <div class="input-group m-input-group">
+                        <div class="input-group-prepend"><span class="input-group-text">{{'Tên công ty' | translate}}</span></div>
+                        <input type="text" class="form-control"  ng-model="filter.Company">
+                      </div>
+                    </div>
+                  </div> -->
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <div class="input-group m-input-group">
+                        <div class="input-group-prepend"><span class="input-group-text">{{'Mức lương tối thiểu' | translate}}</span></div>
+                        <input type="text" class="form-control"  ng-model="filter.SalaryMin">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <div class="input-group m-input-group">
+                        <div class="input-group-prepend"><span class="input-group-text">{{'Mức lương tối đa' | translate}}</span></div>
+                        <input type="text" class="form-control"  ng-model="filter.SalaryMax">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="btn  btn-info" search-btn>{{'Tìm kiếm' | translate }}</div>
+                  </div>
+                </div>
+
+              </div>
+              <div class="action-region">
+                <div class="btn btn-info" ng-click="openExcel()">{{'Xuất excel' | translate}}</div>&nbsp;
+                <div class="btn btn-info" data-toggle="collapse" toggle-filter-btn data-target="#collapseExample">{{
+                  'Ẩn/Hiện
+                  tìm kiếm' | translate }}</div>
+              </div>
+              <table class="table table-bordered  table-striped table-hover table-checkable dataTable">
+
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="m_modal_excel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document" >
+      <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{'Chọn cột cho xuất excel' | translate}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+          </button>
+      </div>
+      <div class="modal-body">
+          <ul id="sortable_excel">
+              <li class="ui-state-default" data-index="{{ $index }}" ng-repeat="item in columnsExcel"><label class="m-checkbox"><input ng-model="item.select" type="checkbox">{{item.title}}<span></span></label></li>
+          </ul>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-info" ng-click="exportData()" >{{'Xuất excel' | translate}}</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">{{'Đóng' | translate}}</button>
+      </div>
+      </div>
+  </div>
+</div>
+
+<div class="modal fade" id="updateCompany" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog"  style="width: 95%; max-width: 95%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{'Thêm doanh nghiệp vào hệ thống' | translate}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div ng-include="'/app/modules/company/add.company.html'">
+  
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

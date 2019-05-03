@@ -1,0 +1,398 @@
+<div id="m_aside_left" class="m-grid__item	m-aside-left">
+
+  <!-- BEGIN: Aside Menu -->
+  <div id="m_ver_menu" class="m-aside-menu" m-menu-vertical="1" m-menu-scrollable="1" m-menu-dropdown-timeout="500"
+    style="position: relative;">
+    <div class="m-logo-wrapper">
+      <img src="/assets/images/logo_reach_179_128.png">
+    </div>
+    <ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow m-padding-bottom-0">
+      <li class="m-menu__item  m-menu__item--active" aria-haspopup="true">
+        <a class="m-menu__link ">
+          <i class="m-menu__link-icon flaticon-line-graph"></i>
+          <span class="m-menu__link-title">
+            <span class="m-menu__link-wrap">
+              <span class="m-menu__link-text" ng-if="menuMode == 'admin'"
+                ng-click="setMenuMode('mobile')">{{'Alumni App' | translate}}</span>
+              <span class="m-menu__link-text" ng-if="menuMode == 'mobile'"
+                ng-click="setMenuMode('admin')">{{'Mis Admin' | translate}}</span>
+              <!-- <span class="m-menu__link-badge">
+                <span class="m-badge m-badge--danger">2</span>
+              </span> -->
+            </span>
+          </span>
+        </a>
+      </li>
+      <li class="m-menu__section m--visible-tablet-and-mobile-inline-block">
+        <h4 class="m-menu__section-text">{{'Menu' | translate}}</h4>
+        <i class="m-menu__section-icon flaticon-more-v2"></i>
+      </li>
+    </ul>
+
+    <ul class="m-menu__nav m-menu__nav--dropdown-submenu-arrow m--visible-tablet-and-mobile-inline-block m-padding-top-0"
+      ng-if="menuMode == 'admin'">
+      <li ng-repeat="item in menuItems" class="m-menu__item m-menu__item--submenu" aria-haspopup="true"
+        ng-show="item.visible == true">
+        <a ng-if="item.state" class="m-menu__link m-menu__toggle" ui-sref="{{item.state}}">
+          <span class="m-menu__link-text">{{item.title | translate}}</span>
+        </a>
+
+        <a ng-if="!item.state" class="m-menu__link m-menu__toggle">
+          <span class="m-menu__link-text">{{item.title | translate}}</span>
+          <i class="m-menu__ver-arrow la la-angle-right"></i>
+        </a>
+
+        <div ng-if="item.children" class="m-menu__submenu">
+          <span class="m-menu__arrow"></span>
+          <ul ng-if="item.mega == true" class="m-menu__subnav">
+            <li ng-repeat="subItem in item.children" class="m-menu__item m-menu__item--submenu"
+              ng-show="subItem.visible == true" aria-haspopup="true" m-menu-submenu-toggle="hover">
+              <a class="m-menu__link m-menu__toggle">
+                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                  <span>
+                  </span>
+                </i>
+                <span class="m-menu__link-text">{{subItem.title | translate}} </span>
+                <i class="m-menu__ver-arrow la la-angle-right"></i>
+              </a>
+              <div class="m-menu__submenu m-menu__submenu--left">
+                <span class="m-menu__arrow"></span>
+                <ul class="m-menu__subnav">
+                  <li ng-repeat="subItem2 in subItem.children" class="m-menu__item " aria-haspopup="true"
+                    ng-show="subItem2.visible == true">
+                    <a ui-sref="{{subItem2.state}}" class="m-menu__link ">
+                      <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                        <span>
+                        </span>
+                      </i>
+                      <span class="m-menu__link-text">{{subItem2.title| translate}}</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+          <ul ng-if="!item.mega" class="m-submenu__subnav">
+            <li ng-repeat="subItem in item.children" class="m-menu__item" aria-haspopup="true"
+              ng-show="subItem.visible == true">
+              <a class="m-menu__link" ui-sref="{{subItem.state}}">
+                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                  <span>
+                  </span>
+                </i>
+                <span class="m-menu__link-text ng-binding">{{subItem.title | translate}}</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+
+
+    <ul class="m-menu__nav m-menu__nav--dropdown-submenu-arrow m--visible-tablet-and-mobile-inline-block"
+      ng-if="menuMode == 'mobile'">
+
+      <li ng-repeat="item in appMenuItems" class="m-menu__item m-menu__item--submenu" aria-haspopup="true"
+        ng-show="item.visible == true">
+        <a ng-if="item.state" class="m-menu__link m-menu__toggle" ui-sref="{{item.state}}">
+          <span class="m-menu__link-text">{{item.title | translate}}</span>
+        </a>
+
+        <a ng-if="!item.state" class="m-menu__link m-menu__toggle">
+          <span class="m-menu__link-text">{{item.title | translate}}</span>
+          <i class="m-menu__ver-arrow la la-angle-right"></i>
+        </a>
+
+        <div ng-if="item.children" class="m-menu__submenu">
+          <span class="m-menu__arrow"></span>
+          <ul ng-if="item.mega == true" class="m-menu__subnav">
+            <li ng-repeat="subItem in item.children" class="m-menu__item m-menu__item--submenu"
+              ng-show="subItem.visible == true" aria-haspopup="true" m-menu-submenu-toggle="hover">
+              <a class="m-menu__link m-menu__toggle">
+                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                  <span>
+                  </span>
+                </i>
+                <span class="m-menu__link-text">{{subItem.title | translate}} </span>
+                <i class="m-menu__ver-arrow la la-angle-right"></i>
+              </a>
+              <div class="m-menu__submenu m-menu__submenu--left">
+                <span class="m-menu__arrow"></span>
+                <ul class="m-menu__subnav">
+                  <li ng-repeat="subItem2 in subItem.children" class="m-menu__item " aria-haspopup="true"
+                    ng-show="subItem2.visible == true">
+                    <a ui-sref="{{subItem2.state}}" class="m-menu__link ">
+                      <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                        <span>
+                        </span>
+                      </i>
+                      <span class="m-menu__link-text">{{subItem2.title| translate}}</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+          <ul ng-if="!item.mega" class="m-submenu__subnav">
+            <li ng-repeat="subItem in item.children" class="m-menu__item" aria-haspopup="true"
+              ng-show="subItem.visible == true">
+              <a class="m-menu__link" ui-sref="{{subItem.state}}">
+                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                  <span>
+                  </span>
+                </i>
+                <span class="m-menu__link-text ng-binding">{{subItem.title | translate}}</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<script>
+  (function () {
+    //== Hor menu
+    var initHorMenu = function () {
+      // init aside left offcanvas
+      horMenuOffcanvas = new mOffcanvas('m_header_menu', {
+        overlay: true,
+        baseClass: 'm-aside-header-menu-mobile',
+        closeBy: 'm_aside_header_menu_mobile_close_btn',
+        toggleBy: {
+          target: 'm_aside_header_menu_mobile_toggle',
+          state: 'm-brand__toggler--active'
+        }
+      });
+
+      horMenu = new mMenu('m_header_menu', {
+        submenu: {
+          desktop: 'dropdown',
+          tablet: 'accordion',
+          mobile: 'accordion'
+        },
+        accordion: {
+          slideSpeed: 200, // accordion toggle slide speed in milliseconds
+          expandAll: false // allow having multiple expanded accordions in the menu
+        }
+      });
+    }
+
+    //== Aside menu
+    var initLeftAsideMenu = function () {
+      //== Init aside menu
+      var menu = mUtil.get('m_ver_menu');
+      var menuDesktopMode = (mUtil.attr(menu, 'm-menu-dropdown') === '1' ? 'dropdown' : 'accordion');
+
+      var scroll;
+      if (mUtil.attr(menu, 'm-menu-scrollable') === '1') {
+        scroll = {
+          height: function () {
+            if (mUtil.isInResponsiveRange('desktop')) {
+              return mUtil.getViewPort().height - parseInt(mUtil.css('m_header', 'height'));
+            }
+          }
+        };
+      }
+
+      asideMenu = new mMenu('m_ver_menu', {
+        // vertical scroll
+        scroll: scroll,
+
+        // submenu setup
+        submenu: {
+          desktop: {
+            // by default the menu mode set to accordion in desktop mode
+            default: menuDesktopMode,
+            // whenever body has this class switch the menu mode to dropdown
+            state: {
+              body: 'm-aside-left--minimize',
+              mode: 'dropdown'
+            }
+          },
+          tablet: 'accordion', // menu set to accordion in tablet mode
+          mobile: 'accordion' // menu set to accordion in mobile mode
+        },
+
+        //accordion setup
+        accordion: {
+          autoScroll: false, // enable auto scrolling(focus) to the clicked menu item
+          expandAll: false // allow having multiple expanded accordions in the menu
+        }
+      });
+    }
+
+    //== Aside
+    var initLeftAside = function () {
+      // init aside left offcanvas
+      var body = mUtil.get('body');
+      var asideLeft = mUtil.get('m_aside_left');
+      var asideOffcanvasClass = mUtil.hasClass(asideLeft, 'm-aside-left--offcanvas-default') ?
+        'm-aside-left--offcanvas-default' : 'm-aside-left';
+
+      asideMenuOffcanvas = new mOffcanvas('m_aside_left', {
+        baseClass: asideOffcanvasClass,
+        overlay: true,
+        closeBy: 'm_aside_left_close_btn',
+        toggleBy: {
+          target: 'm_aside_left_offcanvas_toggle',
+          state: 'm-brand__toggler--active'
+        }
+      });
+
+      //== Handle minimzied aside hover
+      if (mUtil.hasClass(body, 'm-aside-left--fixed')) {
+        var insideTm;
+        var outsideTm;
+
+        mUtil.addEvent(asideLeft, 'mouseenter', function () {
+          if (outsideTm) {
+            clearTimeout(outsideTm);
+            outsideTm = null;
+          }
+
+          insideTm = setTimeout(function () {
+            if (mUtil.hasClass(body, 'm-aside-left--minimize') && mUtil.isInResponsiveRange('desktop')) {
+              mUtil.removeClass(body, 'm-aside-left--minimize');
+              mUtil.addClass(body, 'm-aside-left--minimize-hover');
+              asideMenu.scrollerUpdate();
+              asideMenu.scrollerTop();
+            }
+          }, 300);
+        });
+
+        mUtil.addEvent(asideLeft, 'mouseleave', function () {
+          if (insideTm) {
+            clearTimeout(insideTm);
+            insideTm = null;
+          }
+
+          outsideTm = setTimeout(function () {
+            if (mUtil.hasClass(body, 'm-aside-left--minimize-hover') && mUtil.isInResponsiveRange(
+                'desktop')) {
+              mUtil.removeClass(body, 'm-aside-left--minimize-hover');
+              mUtil.addClass(body, 'm-aside-left--minimize');
+              asideMenu.scrollerUpdate();
+              asideMenu.scrollerTop();
+            }
+          }, 500);
+        });
+      }
+    }
+
+    //== Sidebar toggle
+    // var initLeftAsideToggle = function () {
+    //   if ($('#m_aside_left_minimize_toggle').length === 0) {
+    //     return;
+    //   }
+
+    //   asideLeftToggle = new mToggle('m_aside_left_minimize_toggle', {
+    //     target: 'body',
+    //     // targetState: 'm-brand--minimize m-aside-left--minimize',
+    //     targetState: 'm-aside-left--minimize',
+    //     togglerState: 'm-brand__toggler--active'
+    //   });
+
+    //   asideLeftToggle.on('toggle', function (toggle) {
+    //     if (mUtil.get('main_portlet')) {
+    //       // mainPortlet.updateSticky();
+    //     }
+
+    //     // horMenu.pauseDropdownHover(800);
+    //     // asideMenu.pauseDropdownHover(800);
+
+    //     //== Remember state in cookie
+    //     Cookies.set('sidebar_toggle_state', toggle.getState());
+    //     // to set default minimized left aside use this cookie value in your 
+    //     // server side code and add "m-brand--minimize m-aside-left--minimize" classes to 
+    //     // the body tag in order to initialize the minimized left aside mode during page loading.
+    //   });
+
+    //   asideLeftToggle.on('beforeToggle', function (toggle) {
+    //     var body = mUtil.get('body');
+    //     if (mUtil.hasClass(body, 'm-aside-left--minimize') === false && mUtil.hasClass(body,
+    //         'm-aside-left--minimize-hover')) {
+    //       mUtil.removeClass(body, 'm-aside-left--minimize-hover');
+    //     }
+    //   });
+    // }
+
+    //== Sidebar hide
+    // var initLeftAsideHide = function () {
+    //   if ($('#m_aside_left_hide_toggle').length === 0) {
+    //     return;
+    //   }
+
+    //   initLeftAsideHide = new mToggle('m_aside_left_hide_toggle', {
+    //     target: 'body',
+    //     targetState: 'm-aside-left--hide',
+    //     togglerState: 'm-brand__toggler--active'
+    //   });
+
+    //   initLeftAsideHide.on('toggle', function (toggle) {
+    //     // horMenu.pauseDropdownHover(800);
+    //     // asideMenu.pauseDropdownHover(800);
+
+    //     //== Remember state in cookie
+    //     Cookies.set('sidebar_hide_state', toggle.getState());
+    //     // to set default minimized left aside use this cookie value in your 
+    //     // server side code and add "m-brand--minimize m-aside-left--minimize" classes to 
+    //     // the body tag in order to initialize the minimized left aside mode during page loading.
+    //   });
+    // }
+
+
+    // let onLeftSidebarToggle = function (handler) {
+    //   if (asideLeftToggle) {
+    //     asideLeftToggle.on('toggle', handler);
+    //   }
+    // };
+
+    let initAside = function () {
+      initLeftAside();
+      initLeftAsideMenu();
+      // initLeftAsideToggle();
+      // initLeftAsideHide();
+
+      // onLeftSidebarToggle(function (e) {
+      //   //== Update sticky portlet
+      //   // if (mainPortlet) {
+      //   //   mainPortlet.updateSticky();
+      //   // }
+
+      //   //== Reload datatable
+      //   //   var datatables = $('.m-datatable');
+      //   //   if (datatables) {
+      //   //     datatables.each(function () {
+      //   //       $(this).mDatatable('redraw');
+      //   //     });
+      //   //   }
+
+      // });
+    };
+
+    initAside();
+  })();
+
+  $('#m_aside_left_minimize_toggle').click(function (event) {
+    $('.m-aside-left-overlay').remove()
+    event.stopPropagation();
+    $('body').toggleClass('m-aside-left--minimize');
+  });
+
+  $('#m_aside_left_offcanvas_toggle').click(function (event) {
+    $('.m-aside-left-overlay').remove()
+    event.stopPropagation();
+    $('body').addClass('m-aside-left--on');
+    $('#m_aside_left').addClass('m-aside-left--on');
+  })
+
+  $(document).click(function (event) {
+    $('.m-aside-left-overlay').remove()
+    if ($(event.target).closest('#m_aside_left').length == 0) {
+      $('body').addClass('m-aside-left--minimize');
+    }
+  });
+
+</script>

@@ -1,0 +1,75 @@
+<div class="m-content">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="col-md-12" style="padding:0px">
+				<div class="m-portlet m-portlet--tab">
+					<div class="m-portlet__head">
+						<div class="col-md-12 no-padding flex-center anchor-position">
+							<b>{{studentInfo.code + " - " + studentInfo.last_name + ' ' + (studentInfo.middle_name != null ? studentInfo.middle_name : '') + ' ' + studentInfo.first_name}}</b>
+							<div class="btn btn-info child-right-position" ng-click="goToAdd()">{{'Thêm học viên' | translate}}</div>
+						</div>
+					</div>
+					<div class="m-portlet__body">
+						<div class="row">
+							<div class="col-md-2">
+								<div class="m-list">
+									<div class="m-list__body">
+										<div class="m-list__item" ng-repeat="student in dataStudent" ng-click="studentGetDetail(student.id)" title="{{student.code}}" ng-class="{'active': student.id == studentId}">
+											<p>{{student.last_name + ' ' + (student.middle_name != null ? student.middle_name : '') + ' ' + student.first_name}}</p>
+											<i class="fa fa-eye" ng-show="student.id == studentId"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-10" ng-if="studentId && studentId != null">
+								<ul class="nav nav-tabs  nav-tabs-line" role="tablist">
+				                    <li class="nav-item">
+				                        <a class="nav-link" ui-sref-active="active" ui-sref="admin.student.detail.info">Thông tin cơ bản</a>
+				                    </li>
+				                    <li class="nav-item">
+				                        <a class="nav-link" ui-sref-active="active" ui-sref="admin.student.detail.me">Thông tin ME</a>
+				                    </li>
+				                    <li class="nav-item">
+				                        <a class="nav-link" ui-sref-active="active" ui-sref="admin.student.detail.intern">Quản lý thực tập</a>
+				                    </li>
+				                    <li class="nav-item">
+				                        <a class="nav-link" ui-sref-active="active" ui-sref="admin.student.detail.job">Hỗ trợ việc làm</a>
+				                    </li>
+				                    <li class="nav-item">
+				                        <a class="nav-link" ui-sref-active="active" ui-sref="admin.student.detail.survey">Quản lý khảo sát</a>
+				                    </li>
+									<li class="nav-btn">
+				                        <a class="hidden" ui-sref-active="show" ui-sref="admin.student.detail.info">
+											<div class="btn btn-info" ng-click="changeMode('edit')" ng-show="mode == 'view'">{{'Sửa' | translate}}</div>
+											<div class="btn btn-info" ng-click="changeMode('view')" ng-show="mode == 'edit'">{{'Xem' | translate}}</div>
+											<div class="btn btn-danger m--margin-left-15" ng-click="deleteStudent()" ng-show="mode == 'edit'">{{'Xóa' | translate}}</div>
+				                        </a>
+				                    </li>
+				                    <li class="nav-btn">
+				                        <a class="hidden" ui-sref-active="show" ui-sref="admin.student.detail.me">
+											<div class="btn btn-info" ng-click="changeMode('edit')" ng-show="mode == 'view'">{{'Sửa' | translate}}</div>
+											<div class="btn btn-info" ng-click="changeMode('view')" ng-show="mode == 'edit'">{{'Xem' | translate}}</div>
+				                        </a>
+				                    </li>
+				                    <li class="nav-btn">
+				                        <a class="hidden" ui-sref-active="show" ui-sref="admin.student.detail.intern">
+											<div class="btn btn-info" ng-click="goToInternAdd()">{{'Thêm' | translate}}</div>
+				                        </a>
+				                    </li>
+				                    <li class="nav-btn">
+				                        <a class="hidden" ui-sref-active="show" ui-sref="admin.student.detail.job">
+				                        	<div class="btn btn-info" ng-click="goToJobAdd()">{{'Thêm' | translate}}</div>
+				                        </a>
+				                    </li>
+				                </ul>
+				                <div class="tab-content">
+				                    <div class="tab-pane active" ui-view></div>
+				                </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

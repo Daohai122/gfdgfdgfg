@@ -1,0 +1,51 @@
+<div class="portlet light bordered">
+  <div class="portlet-title">
+    <div class="caption">
+      <span class="caption-subject font-dark bold uppercase">Phân quyền cho role</span>
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div id="tree_2" class="tree-demo"> </div>
+  </div>
+</div>
+
+<script>
+  var handleSample2 = function () {
+    $('#tree_2').jstree({
+      'plugins': ["wholerow", "checkbox"],
+      'core': {
+        "themes": {
+          "responsive": false,
+          "icons":false
+        },
+        'data': [{
+          "text": "Same but with checkboxes",
+          "children": [{
+            "text": "initially selected",
+            "state": {
+              "selected": true
+            }
+          }, {
+            "text": "custom icon",
+          }, {
+            "text": "initially open",
+            "state": {
+              "opened": true
+            },
+            "children": ["Another node"]
+          }, {
+            "text": "custom icon",
+          }, {
+            "text": "disabled node",
+            "state": {
+              "disabled": true
+            }
+          }]
+        },
+            "And wholerow selection"
+        ]
+      },
+    });
+  }
+  handleSample2();
+</script>

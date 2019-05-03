@@ -1,0 +1,70 @@
+<div class="form-group m-form__group">
+  <div class="col-md-12 no-padding">
+    <label class="ng-binding">Trung tâm</label>
+    <select class="form-control" multiple si-selectpicker title="Chọn trung tâm" actions-box="true" ng-change="centerChange()"
+      id="select-3" required update="center" ng-model="dataFilter.center">
+      <option ng-repeat="item in center" value="{{item.code}}">{{item.name}}</option>
+    </select>
+  </div>
+</div>
+<div class="form-group m-form__group">
+  <div class="col-md-12 no-padding">
+    <label class="ng-binding">Khóa</label>
+    <select class="form-control" multiple ng-change="batchChange()" id="select-1" actions-box="true" si-selectpicker title="Chọn khóa"
+      update="batch" ng-model="dataFilter.batch">
+      <option ng-repeat="item in batch" value="{{item.id}}">{{item.name}}</option>
+    </select>
+  </div>
+</div>
+<div class="form-group m-form__group">
+  <div class="col-md-12 no-padding">
+    <label class="ng-binding">Lớp</label>
+    <select class="form-control" multiple ng-model="dataFilter.class" actions-box="true" si-selectpicker title="Chọn lớp" update="class">
+      <option ng-repeat="item in class" value="{{item.id}}">{{item.name}}</option>
+    </select>
+  </div>
+</div>
+<div class="form-group m-form__group">
+  <div class="col-md-12 no-padding">
+    <label class="ng-binding">Giới tính</label>
+    <select class="form-control" si-selectpicker ng-model="dataFilter.gender" title="Chọn giới tính">
+      <option value="">Chọn giới tính</option>
+      <option value="true">Nam</option>
+      <option value="false">Nữ</option>
+    </select>
+  </div>
+</div>
+<div class="form-group m-form__group">
+  <div class="col-md-12 no-padding">
+    <label class="ng-binding">Tuổi bắt đầu</label>
+    <input class="form-control m-input" ng-model="dataFilter.fromAge" placeholder="Nhập tuổi bắt đầu">
+  </div>
+</div>
+<div class="form-group m-form__group">
+  <div class="col-md-12 no-padding">
+    <label class="ng-binding">Tuổi kết thúc</label>
+    <input class="form-control m-input" ng-model="dataFilter.toAge" placeholder="Nhập tuổi kết thúc">
+  </div>
+</div>
+<div class="form-group m-form__group">
+    <div class="col-md-12 no-padding">
+      <label class="ng-binding">Học vấn</label>
+      <select class="form-control" si-selectpicker ng-model="dataFilter.gender" title="Chọn">
+        <option value="">Chọn</option>
+        <option value="cap_1">Cấp 1</option>
+        <option value="cap_2">Cấp 2</option>
+        <option value="cap_3">Cấp 3</option>
+        <option value="trung_cap">Trung cấp</option>
+        <option value="false">Cao đẳng, Đại học</option>
+      </select>
+    </div>
+</div>
+<div class="m-portlet__foot m-portlet__foot--fit m-portlet__no-border">
+  <div class="m-form__actions m-form__actions">
+    <div class="row">
+      <div class="col-lg-7 ml-lg-auto">
+        <button type="submit" ng-click="getReportData(true)" class="btn btn-accent">{{'Tìm kiếm' | translate}}</button>
+      </div>
+    </div>
+  </div>
+</div>

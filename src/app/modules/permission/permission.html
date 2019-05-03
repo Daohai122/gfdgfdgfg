@@ -1,0 +1,141 @@
+<style>
+  #contextmenu-node {
+    border: 1px solid #f4f5f8;
+    position: fixed;
+    z-index: 10;
+    background-color: #fff;
+    padding: 10px;
+  }
+
+  .contextmenu-item {
+    padding: 10px 20px;
+    color: black;
+    width: 100%;
+  }
+
+  .contextmenu-item:hover {
+    background-color: cadetblue;
+  }
+
+</style>
+<div class="m-content">
+  <div class="m-portlet m-portlet--tab">
+    <div class="m-portlet__body">
+      <div class="row">
+        <div class="col-md-3">
+          <div>
+            <div ng-repeat="r in roles">
+              <div class="form-control btn text-left"  context-menu="myContextDiv"
+                ng-class="{'active btn-info':r.selected==true, 'btn-secondary': !r.selected}" data-index="{{$index}}"
+                ng-click="selectRole($index)">
+                {{r.name}}
+              </div>
+            </div>
+            <div class="btn btn-info"  ng-click='openModeladd(this)' style="margin-top: 20px">{{'Thêm quyền' | translate}}</div>&nbsp;
+          </div>
+          
+        </div>
+        <div class="col-md-9" ng-if="currentSelectedRole.selected">
+          <div class="form-group">
+            <span>{{'Thiết lập chức năng cho quyền' | translate}}<b> {{currentSelectedRole.name}}</b></span>
+          </div>
+          <table class="table table-bordered">
+            <thead class="text-red bg-red">
+              <tr>
+                <th>{{'Chức năng' | translate}}</th>
+                <th>{{'Tất cả' | translate}}</th>
+                <th ng-repeat="i in actions">{{i | translate}}</th>
+                <!-- <th>{{'Xem' | translate}}</th>
+                <th>{{'Thêm' | translate}}</th>
+                <th>{{'Sửa' | translate}}</th>
+                <th>{{'Xóa' | translate}}</th>
+                <th>{{'Báo cáo Center' | translate}}</th>
+                <th>{{'Báo cáo Hệ thống' | translate}}</th>
+                <th>{{'Nhập' | translate}}</th>
+                <th>{{'Xuất' | translate}}</th> -->
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="i in permissions">
+                <td>{{i.displayName}}</td>
+                <td>
+                  <input type="checkbox" ng-model="i.All" ng-click="toggleCheckAll(i)" />
+                </td>
+                <td ng-repeat="action in actions">
+                  <input type="checkbox" ng-model="i[action]" ng-if="i.hasOwnProperty(action)" /></td>
+              </tr>
+            </tbody>
+          </table>
+          <button class="btn btn-xs btn-info pull-right" ng-click="updatePermission()">{{'Cập nhật'|translate}}</button>
+          <!--Danh sách permission ứng với từng role-->
+          <!-- <button style="position:absolute; right:50px;top:20px; z-index:9999" class="btn btn-success" ng-click="addPermissionToRole()"><i
+                              class="fa fa-refresh"></i> Lưu</button>
+            <div style="overflow:auto;height:100%;" change="data" id="treePermission" class="tree-demo portlet light bordered"
+              event-node="eventNode2(mode,data)" get-data="getAllPermission()" no-add="1" checkbox="1">
+            </div> -->
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+<div class="modal fade" id="m_modal_permission" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <form validation-form submit-function="updateAndAddRoles()" class="m-form m-form--fit m-form--label-align-right">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 ng-show="modeRole == 'add'" class="modal-title" id="exampleModalLabel">{{'Thêm quyền' | translate}}</h5>
+            <h5 ng-show="modeRole == 'edit'" class="modal-title" id="exampleModalLabel">{{'Sửa quyền' | translate}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group m-form__group">
+              <label>{{'Tên quyền' | translate}}<span class="required"> *</span></label>
+              <input type="text"  maxlength="32" ng-model="roleNew.name " class="form-control m-input"
+                placeholder="Nhập tên quyền" required>
+            </div>
+            <div class="form-group m-form__group">
+              <label>{{'Tên hiển thị' | translate}}<span class="required"> *</span></label>
+              <input type="text"  maxlength="64" ng-model="roleNew.displayName" class="form-control m-input"
+                placeholder="Nhập tên hiển thị" required>
+            </div>
+            <!-- <div class="form-group m-form__group">
+              <label>{{'Tên in hoa ' | translate}}<span class="required"> *</span></label>
+              <input type="text" ng-model="roleNew.normalizedName" class="form-control m-input" placeholder="Nhập tên in hoa">
+            </div> -->
+            <div class="form-group m-form__group">
+              <label>{{'Ghi chú' | translate}}<span class="required"> *</span></label>
+              <input type="text" ng-model="roleNew.description" class="form-control m-input" placeholder="Nhập ghi chú"
+                >
+            </div>
+            <div class="form-group m-form__group">
+              <label>{{'isStatic' | translate}}<span class="required"> *</span></label>
+              <select ng-model="roleNew.isStatic" title="Chọn" si-selectpicker class="form-control m-input" name="option" >
+                <option value="">Chọn</option>
+                <option value="true">Có</option>
+                <option value="false">không</option>
+              </select>
+            </div>
+            <!-- <div class="form-group m-form__group">
+              <label>{{'Quyền' | translate}}<span class="required"> *</span></label>
+              <select ng-model="roleNew.permissions" si-selectpicker class="form-control m-input" name="option" >
+                <option value="">Chọn</option>
+                <option value="true">Có</option>
+                <option value="false">không</option>
+              </select>
+             
+            </div> -->
+          </div>
+          <div class="modal-footer">
+            <button type="button" button-reset class="btn btn-secondary" data-dismiss="modal">{{'Quay lại' | translate}}</button>
+            <button type="button" ng-show="modeRole == 'add'" button-submit class="btn btn-primary">{{'Thêm' | translate}}</button>
+            <button type="button" ng-show="modeRole == 'edit'" button-submit class="btn btn-primary">{{'Sửa' | translate}}</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>

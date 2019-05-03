@@ -1,0 +1,1057 @@
+<div class="col-md-12">
+	<div class="info-wrapper">
+		<form validation-form submit-function="editStudent()" class="m-form m-form--fit m-form--label-align-right">
+
+			<!-- Edit Mode -->
+			<div class="col-md-12" ng-show="mode == 'edit'">
+				
+				<!-- BEGIN: Basic Info -->
+				<div class="m-portlet m-portlet--tabs  m-portlet--head-solid-bg m-portlet--head-sm m-portlet--bordered " id="studentForm">
+					<div class="m-portlet__head accordion-toggle" >
+						<div class="m-portlet__head-caption">
+							<div class="m-portlet__head-title">
+								<h3 class="m-portlet__head-text">{{'Thông tin học viên' | translate}}</h3>
+							</div>  
+						</div>
+					</div>
+					<div class="m-portlet__body collapse show" id="demo" aria-expanded="true" >
+						<div class=" m-form__group row m-padding-left-0 m-padding-right-0">
+							<div class="col-md-3">
+								<div class="row">
+									<div class="col-12 text-center">
+										<div class="m-dropzone dropzone m-dropzone--primary dz-clickable" id="m-dropzone">
+											<div class="m-dropzone__msg dz-message needsclick">
+												<h3 class="m-dropzone__msg-title">Upload ảnh đại diện</h3>
+												<span class="m-dropzone__msg-desc">Chọn 1 file</span>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-12 m--margin-top-15">
+										<div class="row">
+											<label class="col-12 col-form-label">{{'Số điện thoại' | translate}} <span class="required">*</span></label>
+											<div class="col-12 form-group">
+												<div class="input-group" ng-repeat="item in studentInfoForm.phones track by $index">
+													<input type="text" data-idx='{{$index}}' ng-model="studentInfoForm.phones[$index]" value="{{studentInfoForm.phones[$index]}}" class=" form-control m-input m--margin-bottom-10" maxlength="15" placeholder="Nhập số điện thoại" required phone>
+													<div style="margin-left: 10px" class="input-group-prepend"><input type="button" ng-click="deletePhone($index)" class="btn btn-secondary" id="basic-addon2" value="Xóa"></div>
+												</div>
+												<button type="button" ng-click="addPhone()" class="btn btn-secondary">Thêm số điện thoại</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-9">
+								<div class=" m-form__group row m-padding-left-0 m-padding-right-0">
+									<div class="col-md-6">
+										<div class="row">
+											<label class="col-4 col-form-label">{{'Mã sinh viên' | translate}} <span class="required">*</span></label>
+											<div class="col-8">
+												<input type="text" validation="validation" ng-model="studentInfoForm.code" class="form-control m-input" maxlength="50" readonly disabled>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="row">
+											<label class="col-4 col-form-label">{{'Trung tâm' | translate}} <span class="required">*</span></label>
+											<div class="col-8">
+												<select class="form-control" update="dataCenter" si-selectpicker ng-model="studentInfoForm.center_code" title="Chọn trung tâm" required readonly disabled>
+													<option value="">Chọn trung tâm</option>
+													<option ng-repeat="center in dataCenter" value="{{center.code}}">{{center.name}}</option>
+												</select>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class=" m-form__group row m-padding-left-0 m-padding-right-0">
+									<div class="col-md-6">
+										<div class="row">
+											<label class="col-4 col-form-label">{{'Khóa học' | translate}} <span class="required">*</span></label>
+											<div class="col-8">
+												<select class="form-control" update="dataBatches" si-selectpicker ng-model="studentInfoForm.batch_id" title="Chọn khóa học" required readonly disabled>
+													<option value="">Chọn khóa học</option>
+													<option ng-repeat="batch in dataBatches" value="{{batch.id}}">{{batch.name}}</option>
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="row">
+											<label class="col-4 col-form-label">{{'Lớp học' | translate}} <span class="required">*</span></label>
+											<div class="col-8">
+												<select class="form-control" update="dataClass" si-selectpicker ng-model="studentInfoForm.class_id" title="Chọn lớp học" required readonly disabled>
+													<option value="">Chọn lớp học</option>
+													<option ng-repeat="class in dataClass" value="{{class.id}}">{{class.name}}</option>
+												</select>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class=" m-form__group row m-padding-left-0 m-padding-right-0">
+									<div class="col-md-6 ">
+										<div class="row">
+											<label class="col-4 col-form-label">{{'Họ' | translate}} <span class="required">*</span></label>
+											<div class="col-8 form-group">
+												<input type="text" validation="validation" ng-model="studentInfoForm.last_name" class="form-control m-input" maxlength='50' placeholder="Nhập họ" required>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="row">
+											<label class="col-4 col-form-label">{{'Tên đệm' | translate}}</label>
+											<div class="col-8 form-group">
+												<input type="text" validation="validation" ng-model="studentInfoForm.middle_name" class="form-control m-input" maxlength='50' placeholder="Nhập tên đệm">
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class=" m-form__group row m-padding-left-0 m-padding-right-0">
+									<div class="col-md-6">
+										<div class="row">
+											<label class="col-4 col-form-label">{{'Tên' | translate}} <span class="required">*</span></label>
+											<div class="col-8 form-group">
+												<input type="text" validation="validation" ng-model="studentInfoForm.first_name" class="form-control m-input" maxlength='50' placeholder="Nhập tên" required>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6 ">
+										<div class="row">
+											<label class="col-4 col-form-label">{{'Ngày sinh' | translate}} <span class="required">*</span></label>
+											<div class="col-8 form-group">
+												<input type="text" class="form-control" ng-model="studentInfoForm.birthday" date-picker future-date="now" autocomplete="off" readonly="" placeholder="Chọn ngày sinh" required>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class=" m-form__group row m-padding-left-0 m-padding-right-0">
+									<div class="col-md-6">
+										<div class="row">
+											<label class="col-4 col-form-label">{{'Giới tính' | translate}} <span class="required">*</span></label>
+											<div class="col-8 form-group">
+												<select class="form-control" update="studentInfoForm" si-selectpicker ng-model="studentInfoForm.gender" title="Chọn giới tính" required>
+													<option value="">Chọn giới tính</option>
+													<option value="true">Nam</option>
+													<option value="false">Nữ</option>
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="row">
+											<label class="col-4 col-form-label">{{'Tình trạng học vấn' | translate}}</label>
+											<div class="col-8 form-group">
+												<select class="form-control" update="studentInfoForm" si-selectpicker ng-model="studentInfoForm.education_level" title="Chọn tình trạng học vấn">
+													<option value="">Tình trạng học vấn</option>
+													<option value="0">Không</option>
+													<option value="1">Cấp 1</option>
+													<option value="2">Cấp 2</option>
+													<option value="3">Cấp 3</option>
+													<option value="4">Trung học / cao đẳng</option>
+													<option value="5">Đại học</option>
+												</select>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class=" m-form__group row m-padding-left-0 m-padding-right-0">
+									<div class="col-md-6">
+										<div class="row">
+											<label class="col-4 col-form-label">{{'Email' | translate}}</label>
+											<div class="col-8 form-group">
+												<input type="text" validation="validation" ng-model="studentInfoForm.email" class="form-control m-input" maxlength='100' placeholder="Nhập email">
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="row">
+											<label class="col-4 col-form-label">{{'Facebook' | translate}}</label>
+											<div class="col-8 form-group">
+												<input type="text" validation="validation" ng-model="studentInfoForm.facebook" class="form-control m-input" maxlength='100' placeholder="Nhập facebook">
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class=" m-form__group row m-padding-left-0 m-padding-right-0" ng-show="studentInfoForm.mobile_account_phone">
+									<div class="col-md-12">
+										<div class="row">
+											<label class="col-2 col-form-label">{{'Số điện thoại trên App' | translate}}</label>
+											<div class="col-10 form-group">
+												<input type="text" validation="validation" ng-model="studentInfoForm.mobile_account_phone" class="form-control m-input" placeholder="Nhập Số điện thoại trên App">
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class=" m-form__group row m-padding-left-0 m-padding-right-0">
+									<div class="col-md-6">
+										<div class="row">
+											<label class="col-12 col-form-label">{{'Hồ sơ cá nhân' | translate}} </label>
+											<div class="col-12 form-group">
+												<div class="m-dropzone dropzone dz-clickable" id="m-dropzone_profile" style="min-height: 60px;">
+													<div style="position: absolute;">
+														<button type="button" id="upload_img" class="btn btn-secondary" >{{'Thêm mới' | translate}}</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- END: Basic Info -->
+
+				<!-- BEGIN: Career before REACH -->
+				<div class="m-portlet m-portlet--tabs  m-portlet--head-solid-bg m-portlet--head-sm m-portlet--bordered " id="studentForm">
+					<div class="m-portlet__head accordion-toggle" >
+						<div class="m-portlet__head-caption">
+							<div class="m-portlet__head-title">
+								<h3 class="m-portlet__head-text">{{'Trước khi vào REACH' | translate}}</h3>
+							</div>  
+						</div>
+					</div>
+					<div class="m-portlet__body collapse show" id="demo" aria-expanded="true" >
+						<div class=" m-form__group row">
+							<div class="col-md-12">
+								<div class="row">
+									<label class="col-2 col-form-label">{{'Biết REACH qua' | translate}} <span class="required">*</span></label>
+									<div class="col-10 form-group">
+										<select class="form-control" si-selectpicker ng-model="studentInfoForm.know_reach_via" title="Biết REACH qua" required>
+											<option value="">Biết REACH qua</option>
+											<option value="1">1. Bạn bè</option>
+											<option value="101">1.1 Bạn đã học ở REACH</option>
+											<option value="102">1.2 Bạn đang học ở REACH</option>
+											<option value="103">1.3 Bạn học cùng cấp 2/3</option>
+											<option value="104">1.4 Bạn đang làm cùng</option>
+											<option value="2">2. Các tổ chức hiệp hội địa phương</option>
+											<option value="201">2.1 Hội phụ nữ</option>
+											<option value="202">2.2 Hội khuyến học</option>
+											<option value="203">2.3 Hội khuyết tật</option>
+											<option value="204">2.4 Đoàn thanh niên phường/xã...</option>
+											<option value="3">3. Quảng cáo in</option>
+											<option value="301">3.1 Tờ rơi</option>
+											<option value="302">3.2 Băng rôn, áp phích REACH</option>
+											<option value="303">3.3 Bài báo giấy viết về REACH</option>
+											<option value="4">4. Đài</option>
+											<option value="5">5. Thông tin trên mạng (Online)</option>
+											<option value="501">5.1 Facebook</option>
+											<option value="502">5.2 Bài báo viết về REACH trên mạng</option>
+											<option value="503">5.3 Website REACH</option>
+											<option value="504">5.4 Trang web tuyển dụng trực tuyến: (timviecnhanh, 24h.com...)</option>
+											<option value="6">6. Các đối tác liên kết với REACH</option>
+											<option value="601">6.1 Đối tác tại trường REACH</option>
+											<option value="602">6.2 Tổ chức/Dự án hỗ trợ chuyển gửi</option>
+											<option value="603">6.3 Doanh nghiệp</option>
+											<option value="7">7. Giới thiệu trực tiếp</option>
+											<option value="701">7.1 Gia đình người thân giới thiệu</option>
+											<option value="702">7.2 Giáo viên, cán bộ trung tâm REACH</option>
+											<option value="703">7.3 Cộng tác viên REACH</option>
+											<option value="8">8. Tivi</option>
+											<option value="9">9. Khác</option>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class=" m-form__group row">
+							<div class="col-md-12">
+								<div class="row">
+                                    <label class="col-2 col-form-label">{{'Việc làm' | translate}} <span class="required">*</span></label>
+                                    <div class="col-10 form-group">
+                                        <div class="row m-margin-right-0 m-margin-left-0">
+                                        	<label class="m-radio col-md-6">
+                                                <input type="radio" name="work_before" value="0" ng-model="studentInfoForm.work_before" required> {{'Không' | translate}}
+                                                <span></span>
+                                            </label>
+                                            <label class="m-radio col-md-6">
+                                                <input type="radio" checked="checked" value="1" name="work_before" ng-model="studentInfoForm.work_before" required> {{'Có' | translate}}
+                                                <span></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+							</div>
+						</div>
+						<div ng-show="studentInfoForm.work_before == 1">
+							<div class=" m-form__group row">
+								<div class="col-md-6">
+									<div class="row">
+										<label class="col-4 col-form-label">{{'Tên công ty / nơi làm việc' | translate}} </label>
+										<div class="col-8 form-group">
+											<input type="text" validation="validation" ng-model="studentInfoForm.company_name" class="form-control m-input" maxlength='255' placeholder="Tên công ty / nơi làm việc">
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="row">
+										<label class="col-4 col-form-label">{{'Quy mô công ty / doanh nghiệp' | translate}}</label>
+										<div class="col-8 form-group">
+											<select class="form-control" si-selectpicker ng-model="studentInfoForm.company_scale" title="Quy mô công việc">
+												<option value="">Quy mô công ty / doanh nghiệp</option>
+												<option value="1">Khu công nghiệp</option>
+												<option value="2">Công ty</option>
+												<option value="3">Cửa hàng nhỏ</option>
+												<option value="4">Quán ăn</option>
+												<option value="5">Kinh doanh hộ gia đình</option>
+											</select>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class=" m-form__group row">
+								<div class="col-md-6">
+									<div class="row">
+										<label class="col-4 col-form-label">{{'Loại hình công việc' | translate}}</label>
+										<div class="col-8 form-group">
+											<select class="form-control" si-selectpicker ng-model="studentInfoForm.work_type" title="Loại hình công việc">
+												<option value="">Loại hình công việc</option>
+												<option value="1">Toàn thời gian</option>
+												<option value="2">Theo ca</option>
+												<option value="3">Bán thời gian</option>
+											</select>
+										</div>
+										<!-- <div class="col-12 m--margin-top-10" ng-show="studentInfoForm.work_time == 4">
+											<input type="text" validation="validation" class="form-control m-input"  placeholder="Thời gian làm việc">
+										</div> -->
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="row">
+										<label class="col-4 col-form-label">{{'Vị trí công việc' | translate}}</label>
+										<div class="col-8 form-group">
+											<input type="text" validation="validation" ng-model="studentInfoForm.work_position" class="form-control m-input" maxlength='200' placeholder="Vị trí công việc">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class=" m-form__group row">
+								<div class="col-md-6">
+									<div class="row">
+										<label class="col-4 col-form-label">{{'Thời gian làm việc' | translate}}</label>
+										<div class="col-8 form-group">
+											<select class="form-control" si-selectpicker ng-model="studentInfoForm.work_time" title="Thời gian làm việc">
+												<option value="">Thời gian làm việc</option>
+												<option value="1">8h / ngày / công việc</option>
+												<option value="2">Trên 8h / ngày / công việc</option>
+												<option value="3">Dưới 8h / ngày / công việc</option>
+												<option value="4">Khác (điền thông tin)</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="row">
+										<label class="col-4 col-form-label">{{'Thu nhập' | translate}}</label>
+										<div class="col-8 form-group">
+											<input type="text" min="0" format="currency" validation="validation" ng-model="studentInfoForm.income_vnd" class="form-control m-input" maxlength='255' placeholder="Thu nhập">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class=" m-form__group row">
+								<div class="col-md-6">
+									<div class="row">
+										<label class="col-4 col-form-label">{{'Lý do nghỉ việc đến REACH' | translate}}</label>
+										<div class="col-8 form-group">
+											<input type="text" validation="validation" ng-model="studentInfoForm.quit_reason" class="form-control m-input" maxlength='255' placeholder="Lý do">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- END: Career before REACH -->
+
+				<!-- BEGIN: Address -->
+				<div class="m-portlet m-portlet--tabs  m-portlet--head-solid-bg m-portlet--head-sm m-portlet--bordered " id="studentForm">
+					<div class="m-portlet__head accordion-toggle" >
+						<div class="m-portlet__head-caption">
+							<div class="m-portlet__head-title">
+								<h3 class="m-portlet__head-text">{{'Địa chỉ thường trú' | translate}}</h3>
+							</div>  
+						</div>
+					</div>
+					<div class="m-portlet__body collapse show" id="demo" aria-expanded="true" >
+						<div class=" m-form__group row">
+							<div class="col-md-6">
+								<div class="row">
+									<label class="col-4 col-form-label">{{'Tỉnh / thành phố' | translate}} <span class="required">*</span></label>
+									<div class="col-8 form-group">
+										<select class="form-control" update="dataProvince" si-selectpicker ng-model="studentInfoForm.province_code" title="Chọn tỉnh / thành phố" required>
+											<option value="">Tỉnh / thành phố</option>
+											<option ng-repeat="province in dataProvince" value="{{province.code}}">{{province.name}}</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="row">
+									<label class="col-4 col-form-label">{{'Quận / huyện' | translate}} <span class="required">*</span></label>
+									<div class="col-8 form-group">
+										<!-- <select class="form-control" update="dataDistrict" si-selectpicker ng-model="studentInfoForm.district" title="Chọn quận / huyện" required>
+											<option value="">Quận / huyện</option>
+											<option ng-repeat="district in dataDistrict" value="{{district.name}}">{{district.name}}</option>
+										</select> -->
+										<input type="text" validation="validation" ng-model="studentInfoForm.district" class="form-control m-input" maxlength='255' placeholder="Nhập quận / huyện" required>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class=" m-form__group row">
+							<div class="col-md-6 ">
+								<div class="row">
+									<label class="col-4 col-form-label">{{'Địa chỉ' | translate}} <span class="required">*</span></label>
+									<div class="col-8 form-group">
+										<input type="text" validation="validation" ng-model="studentInfoForm.address" class="form-control m-input" maxlength='500' placeholder="Nhập địa chỉ" required>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="row">
+									<label class="col-4 col-form-label">{{'Làng' | translate}}</label>
+									<div class="col-8 form-group">
+										<input type="text" validation="validation" ng-model="studentInfoForm.village" class="form-control m-input" maxlength='255' placeholder="Nhập làng">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- END: Address -->
+				
+				<!-- BEGIN: Temporary address -->
+				<div class="m-portlet m-portlet--tabs  m-portlet--head-solid-bg m-portlet--head-sm m-portlet--bordered " id="studentForm">
+					<div class="m-portlet__head accordion-toggle" >
+						<div class="m-portlet__head-caption">
+							<div class="m-portlet__head-title">
+								<h3 class="m-portlet__head-text">{{'Địa chỉ tạm trú' | translate}}</h3>
+							</div>  
+						</div>
+					</div>
+					<div class="m-portlet__body collapse show" id="demo" aria-expanded="true" >
+						<div class=" m-form__group row">
+							<div class="col-md-6">
+								<div class="row">
+									<label class="col-4 col-form-label">{{'Tỉnh / thành phố' | translate}}</label>
+									<div class="col-8 form-group">
+										<select class="form-control" update="dataProvince" si-selectpicker ng-model="studentInfoForm.temp_province_code" title="Chọn tỉnh / thành phố">
+											<option value="">Tỉnh / thành phố</option>
+											<option ng-repeat="province in dataProvince" value="{{province.code}}">{{province.name}}</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="row">
+									<label class="col-4 col-form-label">{{'Quận / huyện' | translate}}</label>
+									<div class="col-8 form-group">
+										<!-- <select class="form-control" update="dataTempDistrict" si-selectpicker ng-model="studentInfoForm.temp_district" title="Chọn quận / huyện">
+											<option value="">Quận / huyện</option>
+											<option ng-repeat="district in dataTempDistrict" value="{{district.name}}">{{district.name}}</option>
+										</select> -->
+										<input type="text" validation="validation" ng-model="studentInfoForm.temp_district" class="form-control m-input" maxlength='255' placeholder="Nhập quận / huyện">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class=" m-form__group row">
+							<div class="col-md-6">
+								<div class="row">
+									<label class="col-4 col-form-label">{{'Địa chỉ' | translate}}</label>
+									<div class="col-8 form-group">
+										<input type="text" validation="validation" ng-model="studentInfoForm.temp_address" class="form-control m-input" maxlength='500' placeholder="Nhập địa chỉ">
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="row">
+									<label class="col-4 col-form-label">{{'Làng' | translate}}</label>
+									<div class="col-8 form-group">
+										<input type="text" validation="validation" ng-model="studentInfoForm.temp_village" class="form-control m-input" maxlength='255' placeholder="Nhập làng">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- END: Temporary address -->
+				
+				<!-- BEGIN: Family infomation -->
+				<div class="m-portlet m-portlet--tabs  m-portlet--head-solid-bg m-portlet--head-sm m-portlet--bordered " id="studentForm">
+					<div class="m-portlet__head accordion-toggle" >
+						<div class="m-portlet__head-caption">
+							<div class="m-portlet__head-title">
+								<h3 class="m-portlet__head-text">{{'Thông tin gia đình' | translate}}</h3>
+							</div>  
+						</div>
+					</div>
+					<div class="m-portlet__body collapse show" id="demo" aria-expanded="true" >
+						<div class=" m-form__group row">
+							<div class="col-md-12">
+								<div class="row">
+									<label class="col-2 col-form-label">{{'Tình trạng hôn nhân' | translate}} <span class="required">*</span></label>
+									<div class="col-10 form-group">
+										<div class="row m-margin-right-0 m-margin-left-0">
+											<label class="m-radio col-md-6">
+												<input type="radio" name="marital_status" value="0" ng-model="studentInfoForm.marital_status" required> {{'Không' | translate}}
+												<span></span>
+											</label>
+											<label class="m-radio col-md-6">
+												<input type="radio" checked="checked" value="1" name="marital_status" ng-model="studentInfoForm.marital_status" required> {{'Có' | translate}}
+												<span></span>
+											</label>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class=" m-form__group row">
+							<div class="col-md-6">
+								<div class="row">
+									<label class="col-4 col-form-label">{{'Thu nhập trung bình' | translate}}</label>
+									<div class="col-8 form-group">
+										<input type="text" pattern="[0-9,]*" min="0" format="currency" validation="validation" ng-model="studentInfoForm.avg_income_family" class="form-control m-input" maxlength='255' placeholder="Nhập thu nhập trung bình của gia đình">
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="row">
+									<label class="col-4 col-form-label">{{'Số thành viên' | translate}}</label>
+									<div class="col-8 form-group">
+										<input type="text" pattern="[0-9]*" validation="validation" ng-model="studentInfoForm.number_family_member" class="form-control m-input" maxlength='255' placeholder="Nhập số thành viên trong gia đình">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class=" m-form__group row">
+							<div class="col-md-6">
+								<div class="row">
+									<label class="col-4 col-form-label">{{'Nghề nghiệp bố' | translate}}</label>
+									<div class="col-8 form-group">
+										<input type="text" validation="validation" ng-model="studentInfoForm.father_job" class="form-control m-input" maxlength='255' placeholder="Nhập nghề nghiệp bố">
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="row">
+									<label class="col-4 col-form-label">{{'Nghề nghiệp mẹ' | translate}}</label>
+									<div class="col-8 form-group">
+										<input type="text" validation="validation" ng-model="studentInfoForm.mother_job" class="form-control m-input" maxlength='255' placeholder="Nhập nghề nghiệp mẹ">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class=" m-form__group row">
+							<div class="col-md-12">
+								<div class="row">
+									<label class="col-12 col-form-label">{{'Ghi chú' | translate}}</label>
+									<div class="col-12 form-group">
+										<textarea type="text" ng-model="studentInfoForm.remark" maxlength="2000" rows="5" class="form-control m-input" placeholder="Nhập nôi dung"></textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- END: Family infomation -->
+
+			</div>
+
+			<!-- View Mode -->
+			<div class="col-md-12" ng-show="mode == 'view'">
+				
+				<!-- BEGIN: Basic Info -->
+				<div class="m-portlet m-portlet--tabs  m-portlet--head-solid-bg m-portlet--head-sm m-portlet--bordered " id="studentForm">
+					<div class="m-portlet__head accordion-toggle" >
+						<div class="m-portlet__head-caption">
+							<div class="m-portlet__head-title">
+								<h3 class="m-portlet__head-text">{{'Thông tin học viên' | translate}}</h3>
+							</div>  
+						</div>
+					</div>
+					<div class="m-portlet__body collapse show" id="demo" aria-expanded="true" >
+						<div class=" m-form__group row m-padding-left-0 m-padding-right-0">
+							<div class="col-md-3">
+								<div class="row">
+									<div class="col-12 text-center"	>
+										<img src="{{ studentInfo.avatar }}" alt="Ảnh đại diện" class="student-image">
+									</div>
+									<div class="col-md-12 m--margin-top-15">
+										<div class="row">
+											<label class="col-12 col-form-label">{{'Số điện thoại' | translate}}</label>
+											<div class="col-12">
+												<div class="input-group" ng-repeat="item in studentInfo.phones">
+													<p class="form-control m--margin-bottom-10" disabled readonly>{{studentInfo.phones[$index]}}</p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-9">
+								<div class=" m-form__group row m-padding-left-0 m-padding-right-0">
+									<div class="col-md-6">
+										<div class="row">
+											<label class="col-4 col-form-label">{{'Mã sinh viên' | translate}}</label>
+											<div class="col-8">
+												<p class="form-control" disabled readonly>{{studentInfo.code}}</p>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="row">
+											<label class="col-4 col-form-label">{{'Trung tâm' | translate}}</label>
+											<div class="col-8">
+												<p class="form-control" disabled readonly>{{centerName}}</p>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class=" m-form__group row m-padding-left-0 m-padding-right-0">
+									<div class="col-md-6">
+										<div class="row">
+											<label class="col-4 col-form-label">{{'Khóa học' | translate}}</label>
+											<div class="col-8">
+												<p class="form-control" disabled readonly>{{batchName}}</p>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="row">
+											<label class="col-4 col-form-label">{{'Lớp học' | translate}}</label>
+											<div class="col-8">
+												<p class="form-control" disabled readonly>{{className}}</p>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class=" m-form__group row m-padding-left-0 m-padding-right-0">
+									<div class="col-md-6">
+										<div class="row">
+											<label class="col-4 col-form-label">{{'Họ' | translate}}</label>
+											<div class="col-8">
+												<p class="form-control" disabled readonly>{{studentInfo.last_name}}</p>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="row">
+											<label class="col-4 col-form-label">{{'Tên đệm' | translate}}</label>
+											<div class="col-8">
+												<p class="form-control" disabled readonly>{{studentInfo.middle_name}}</p>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class=" m-form__group row m-padding-left-0 m-padding-right-0">
+									<div class="col-md-6">
+										<div class="row">
+											<label class="col-4 col-form-label">{{'Tên' | translate}}</label>
+											<div class="col-8">
+												<p class="form-control" disabled readonly>{{studentInfo.first_name}}</p>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="row">
+											<label class="col-4 col-form-label">{{'Ngày sinh' | translate}}</label>
+											<div class="col-8">
+												<p class="form-control" disabled readonly>{{studentInfo.dateOfBirth}} ({{studentInfo.age}})</p>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class=" m-form__group row m-padding-left-0 m-padding-right-0">
+									<div class="col-md-6">
+										<div class="row">
+											<label class="col-4 col-form-label">{{'Giới tính' | translate}}</label>
+											<div class="col-8">
+												<p class="form-control" disabled readonly ng-if="studentInfo.gender == 'true'">{{'Nam' | translate}}</p>
+												<p class="form-control" disabled readonly ng-if="studentInfo.gender == 'false'">{{'Nữ' | translate}}</p>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="row">
+											<label class="col-4 col-form-label">{{'Tình trạng học vấn' | translate}}</label>
+											<div class="col-8">
+												<p class="form-control" disabled readonly ng-if="studentInfo.education_level == 0">{{'Không' | translate}}</p>
+												<p class="form-control" disabled readonly ng-if="studentInfo.education_level == 1">{{'Cấp 1' | translate}}</p>
+												<p class="form-control" disabled readonly ng-if="studentInfo.education_level == 2">{{'Cấp 2' | translate}}</p>
+												<p class="form-control" disabled readonly ng-if="studentInfo.education_level == 3">{{'Cấp 3' | translate}}</p>
+												<p class="form-control" disabled readonly ng-if="studentInfo.education_level == 4">{{'Trung học / cao đẳng' | translate}}</p>
+												<p class="form-control" disabled readonly ng-if="studentInfo.education_level == 5">{{'Đại học' | translate}}</p>
+											</div>
+										</div>
+									</div>
+
+								</div>
+								<div class=" m-form__group row m-padding-left-0 m-padding-right-0">
+									<div class="col-md-6">
+										<div class="row">
+											<label class="col-4 col-form-label">{{'Email' | translate}}</label>
+											<div class="col-8">
+												<p class="form-control" disabled readonly>{{studentInfo.email}}</p>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="row">
+											<label class="col-4 col-form-label">{{'Facebook' | translate}}</label>
+											<div class="col-8">
+												<p class="form-control" disabled readonly>{{studentInfo.facebook}}</p>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class=" m-form__group row m-padding-left-0 m-padding-right-0">
+									<div class="col-md-12">
+										<div class="row">
+											<label class="col-2 col-form-label">{{'Số điện thoại trên App' | translate}}</label>
+											<div class="col-10">
+												<p class="form-control" disabled readonly>{{studentInfo.mobile_account_phone}}</p>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class=" m-form__group row m-padding-left-0 m-padding-right-0" ng-show="studentInfo.profile_url && studentInfo.profile_url != null">
+									<div class="col-md-12">
+										<div class="row">
+											<label class="col-12 col-form-label">{{'Hồ sơ cá nhân' | translate}}</label>
+											<div class="col-12">
+												<a ng-click="downloadData()" style="cursor: pointer;"><i class="fa fa-download"></i> {{'Tải xuống file đính kèm' | translate}}</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- END: Basic Info -->
+
+				<!-- BEGIN: Career before REACH -->
+				<div class="m-portlet m-portlet--tabs  m-portlet--head-solid-bg m-portlet--head-sm m-portlet--bordered " id="studentForm">
+					<div class="m-portlet__head accordion-toggle" >
+						<div class="m-portlet__head-caption">
+							<div class="m-portlet__head-title">
+								<h3 class="m-portlet__head-text">{{'Trước khi vào REACH' | translate}}</h3>
+							</div>  
+						</div>
+					</div>
+					<div class="m-portlet__body collapse show" id="demo" aria-expanded="true" >
+						<div class=" m-form__group row">
+							<div class="col-md-12">
+								<div class="row">
+									<label class="col-2 col-form-label">{{'Biết REACH qua' | translate}} <span class="required">*</span></label>
+									<div class="col-10">
+										<p class="form-control" disabled readonly ng-if="studentInfo.know_reach_via == 1">1. Bạn bè</p>
+										<p class="form-control" disabled readonly ng-if="studentInfo.know_reach_via == 101">1.1 Bạn đã học ở REACH</p>
+										<p class="form-control" disabled readonly ng-if="studentInfo.know_reach_via == 102">1.2 Bạn đang học ở REACH</p>
+										<p class="form-control" disabled readonly ng-if="studentInfo.know_reach_via == 103">1.3 Bạn học cùng cấp 2/3</p>
+										<p class="form-control" disabled readonly ng-if="studentInfo.know_reach_via == 104">1.4 Bạn đang làm cùng</p>
+										<p class="form-control" disabled readonly ng-if="studentInfo.know_reach_via == 2">2. Các tổ chức hiệp hội địa phương</p>
+										<p class="form-control" disabled readonly ng-if="studentInfo.know_reach_via == 201">2.1 Hội phụ nữ</p>
+										<p class="form-control" disabled readonly ng-if="studentInfo.know_reach_via == 202">2.2 Hội khuyến học</p>
+										<p class="form-control" disabled readonly ng-if="studentInfo.know_reach_via == 203">2.3 Hội khuyết tật</p>
+										<p class="form-control" disabled readonly ng-if="studentInfo.know_reach_via == 204">2.4 Đoàn thanh niên phường/xã...</p>
+										<p class="form-control" disabled readonly ng-if="studentInfo.know_reach_via == 3">3. Quảng cáo in</p>
+										<p class="form-control" disabled readonly ng-if="studentInfo.know_reach_via == 301">3.1 Tờ rơi</p>
+										<p class="form-control" disabled readonly ng-if="studentInfo.know_reach_via == 302">3.2 Băng rôn, áp phích REACH</p>
+										<p class="form-control" disabled readonly ng-if="studentInfo.know_reach_via == 303">3.3 Bài báo giấy viết về REACH</p>
+										<p class="form-control" disabled readonly ng-if="studentInfo.know_reach_via == 4">4. Đài</p>
+										<p class="form-control" disabled readonly ng-if="studentInfo.know_reach_via == 5">5. Thông tin trên mạng (Online)</p>
+										<p class="form-control" disabled readonly ng-if="studentInfo.know_reach_via == 501">5.1 Facebook</p>
+										<p class="form-control" disabled readonly ng-if="studentInfo.know_reach_via == 502">5.2 Bài báo viết về REACH trên mạng</p>
+										<p class="form-control" disabled readonly ng-if="studentInfo.know_reach_via == 503">5.3 Website REACH</p>
+										<p class="form-control" disabled readonly ng-if="studentInfo.know_reach_via == 504">5.4 Trang web tuyển dụng trực tuyến: (timviecnhanh, 24h.com...)</p>
+										<p class="form-control" disabled readonly ng-if="studentInfo.know_reach_via == 6">6. Các đối tác liên kết với REACH</p>
+										<p class="form-control" disabled readonly ng-if="studentInfo.know_reach_via == 601">6.1 Đối tác tại trường REACH</p>
+										<p class="form-control" disabled readonly ng-if="studentInfo.know_reach_via == 602">6.2 Tổ chức/Dự án hỗ trợ chuyển gửi</p>
+										<p class="form-control" disabled readonly ng-if="studentInfo.know_reach_via == 603">6.3 Doanh nghiệp</p>
+										<p class="form-control" disabled readonly ng-if="studentInfo.know_reach_via == 7">7. Giới thiệu trực tiếp</p>
+										<p class="form-control" disabled readonly ng-if="studentInfo.know_reach_via == 701">7.1 Gia đình người thân giới thiệu</p>
+										<p class="form-control" disabled readonly ng-if="studentInfo.know_reach_via == 702">7.2 Giáo viên, cán bộ trung tâm REACH</p>
+										<p class="form-control" disabled readonly ng-if="studentInfo.know_reach_via == 703">7.3 Cộng tác viên REACH</p>
+										<p class="form-control" disabled readonly ng-if="studentInfo.know_reach_via == 8">8. Tivi</p>
+										<p class="form-control" disabled readonly ng-if="studentInfo.know_reach_via == 9">9. Khác</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class=" m-form__group row">
+							<div class="col-md-12">
+								<div class="row">
+                                    <label class="col-2 col-form-label">{{'Việc làm' | translate}}</label>
+                                    <div class="col-10">
+                                        <div class="row m-margin-right-0 m-margin-left-0">
+                                            <p class="form-control" disabled readonly ng-if="studentInfo.work_before == 0"> {{'Không' | translate}}
+                                            <p class="form-control" disabled readonly ng-if="studentInfo.work_before == 1"> {{'Có' | translate}}
+	                                    </div>
+                                    </div>
+                                </div>
+							</div>
+						</div>
+						<div ng-show="studentInfo.work_before == 1">
+							<div class=" m-form__group row">
+								<div class="col-md-6">
+									<div class="row">
+										<label class="col-4 col-form-label">{{'Tên công ty / nơi làm việc' | translate}} </label>
+										<div class="col-8">
+											<p class="form-control" disabled readonly>{{studentInfo.company_name}}</p>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="row">
+										<label class="col-4 col-form-label">{{'Quy mô công ty / doanh nghiệp' | translate}}</label>
+										<div class="col-8">
+											<p class="form-control" disabled readonly ng-if="studentInfo.company_scale == 1">Khu công nghiệp</p>
+											<p class="form-control" disabled readonly ng-if="studentInfo.company_scale == 2">Công ty</p>
+											<p class="form-control" disabled readonly ng-if="studentInfo.company_scale == 3">Cửa hàng nhỏ</p>
+											<p class="form-control" disabled readonly ng-if="studentInfo.company_scale == 4">Quán ăn</p>
+											<p class="form-control" disabled readonly ng-if="studentInfo.company_scale == 5">Kinh doanh hộ gia đình</p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class=" m-form__group row">
+								<div class="col-md-6">
+									<div class="row">
+										<label class="col-4 col-form-label">{{'Loại hình công việc' | translate}}</label>
+										<div class="col-8">
+											<p class="form-control" disabled readonly ng-if="studentInfo.work_type == 1">Toàn thời gian</p>
+											<p class="form-control" disabled readonly ng-if="studentInfo.work_type == 2">Theo ca</p>
+											<p class="form-control" disabled readonly ng-if="studentInfo.work_type == 3">Bán thời gian</p>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="row">
+										<label class="col-4 col-form-label">{{'Vị trí công việc' | translate}}</label>
+										<div class="col-8">
+											<p class="form-control" disabled readonly>{{studentInfo.work_position}}</p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class=" m-form__group row">
+								<div class="col-md-6">
+									<div class="row">
+										<label class="col-4 col-form-label">{{'Thời gian làm việc' | translate}}</label>
+										<div class="col-8">
+											<p class="form-control" disabled readonly ng-if="studentInfo.work_time == 1">8h / ngày / công việc</p>
+											<p class="form-control" disabled readonly ng-if="studentInfo.work_time == 2">Trên 8h / ngày / công việc</p>
+											<p class="form-control" disabled readonly ng-if="studentInfo.work_time == 3">Dưới 8h / ngày / công việc</p>
+											<p class="form-control" disabled readonly ng-if="studentInfo.work_time == 4">Khác (điền thông tin)</p>
+										</div>
+										<!-- <div class="col-12 m--margin-top-10" ng-show="studentInfo.work_time == 4">
+											<p></p>
+										</div> -->
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="row">
+										<label class="col-4 col-form-label">{{'Thu nhập' | translate}}</label>
+										<div class="col-8">
+											<p class="form-control" disabled readonly>{{studentInfo.income_vnd}}</p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class=" m-form__group row">
+								<div class="col-md-6">
+									<div class="row">
+										<label class="col-4 col-form-label">{{'Lý do nghỉ việc đến REACH' | translate}}</label>
+										<div class="col-8">
+											<p class="form-control" disabled readonly>{{studentInfo.quit_reason}}</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- END: Career before REACH -->
+	
+				<!-- BEGIN: Address -->
+				<div class="m-portlet m-portlet--tabs  m-portlet--head-solid-bg m-portlet--head-sm m-portlet--bordered " id="studentForm">
+					<div class="m-portlet__head accordion-toggle" >
+						<div class="m-portlet__head-caption">
+							<div class="m-portlet__head-title">
+								<h3 class="m-portlet__head-text">{{'Địa chỉ thường trú' | translate}}</h3>
+							</div>  
+						</div>
+					</div>
+					<div class="m-portlet__body collapse show" id="demo" aria-expanded="true" >
+						<div class=" m-form__group row">
+							<div class="col-md-6">
+								<div class="row">
+									<label class="col-4 col-form-label">{{'Tỉnh / thành phố' | translate}}</label>
+									<div class="col-8">
+										<p class="form-control" disabled readonly>{{provinceName}}</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="row">
+									<label class="col-4 col-form-label">{{'Quận / huyện' | translate}}</label>
+									<div class="col-8">
+										<p class="form-control" disabled readonly>{{studentInfo.district}}</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class=" m-form__group row">
+							<div class="col-md-6">
+								<div class="row">
+									<label class="col-4 col-form-label">{{'Địa chỉ' | translate}}</label>
+									<div class="col-8">
+										<p class="form-control" disabled readonly>{{studentInfo.address}}</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="row">
+									<label class="col-4 col-form-label">{{'Làng' | translate}}</label>
+									<div class="col-8">
+										<p class="form-control" disabled readonly>{{studentInfo.village}}</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- END: Address -->
+				
+				<!-- BEGIN: Temporary address -->
+				<div class="m-portlet m-portlet--tabs  m-portlet--head-solid-bg m-portlet--head-sm m-portlet--bordered " id="studentForm">
+					<div class="m-portlet__head accordion-toggle" >
+						<div class="m-portlet__head-caption">
+							<div class="m-portlet__head-title">
+								<h3 class="m-portlet__head-text">{{'Địa chỉ tạm trú' | translate}}</h3>
+							</div>  
+						</div>
+					</div>
+					<div class="m-portlet__body collapse show" id="demo" aria-expanded="true" >
+						<div class=" m-form__group row">
+							<div class="col-md-6">
+								<div class="row">
+									<label class="col-4 col-form-label">{{'Tỉnh / thành phố' | translate}}</label>
+									<div class="col-8">
+										<p class="form-control" disabled readonly>{{provinceTempName}}</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="row">
+									<label class="col-4 col-form-label">{{'Quận / huyện' | translate}}</label>
+									<div class="col-8">
+										<p class="form-control" disabled readonly>{{studentInfo.temp_district}}</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class=" m-form__group row">
+							<div class="col-md-6">
+								<div class="row">
+									<label class="col-4 col-form-label">{{'Địa chỉ' | translate}}</label>
+									<div class="col-8">
+										<p class="form-control" disabled readonly>{{studentInfo.temp_address}}</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="row">
+									<label class="col-4 col-form-label">{{'Làng' | translate}}</label>
+									<div class="col-8">
+										<p class="form-control" disabled readonly>{{studentInfo.temp_village}}</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- END: Temporary address -->
+				
+				<!-- BEGIN: Family infomation -->
+				<div class="m-portlet m-portlet--tabs  m-portlet--head-solid-bg m-portlet--head-sm m-portlet--bordered " id="studentForm">
+					<div class="m-portlet__head accordion-toggle" >
+						<div class="m-portlet__head-caption">
+							<div class="m-portlet__head-title">
+								<h3 class="m-portlet__head-text">{{'Thông tin gia đình' | translate}}</h3>
+							</div>  
+						</div>
+					</div>
+					<div class="m-portlet__body collapse show" id="demo" aria-expanded="true" >
+						<div class=" m-form__group row">
+							<div class="col-md-12">
+								<div class="row">
+									<label class="col-2 col-form-label">{{'Tình trạng hôn nhân' | translate}}</label>
+									<div class="col-10">
+										<div class="row m-margin-right-0 m-margin-left-0">
+											<p class="form-control" disabled readonly ng-if="studentInfo.marital_status == 0"> {{'Không' | translate}}</p>
+											<p class="form-control" disabled readonly ng-if="studentInfo.marital_status == 1"> {{'Có' | translate}}</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class=" m-form__group row">
+							<div class="col-md-6">
+								<div class="row">
+									<label class="col-4 col-form-label">{{'Thu nhập trung bình' | translate}}</label>
+									<div class="col-8">
+										<p class="form-control" disabled readonly>{{studentInfo.avg_income_family}}</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="row">
+									<label class="col-4 col-form-label">{{'Số thành viên' | translate}}</label>
+									<div class="col-8">
+										<p class="form-control" disabled readonly>{{studentInfo.number_family_member}}</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class=" m-form__group row">
+							<div class="col-md-6">
+								<div class="row">
+									<label class="col-4 col-form-label">{{'Nghề nghiệp bố' | translate}}</label>
+									<div class="col-8">
+										<p class="form-control" disabled readonly>{{studentInfo.father_job}}</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="row">
+									<label class="col-4 col-form-label">{{'Nghề nghiệp mẹ' | translate}}</label>
+									<div class="col-8">
+										<p class="form-control" disabled readonly>{{studentInfo.mother_job}}</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class=" m-form__group row">
+							<div class="col-md-12">
+								<div class="row">
+									<label class="col-12 col-form-label">{{'Ghi chú' | translate}}</label>
+									<div class="col-12">
+										<p class="form-control" disabled readonly>{{studentInfo.remark}}</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- END: Family infomation -->
+
+			</div>
+			<div class="col-lg-12 button-center" ng-show="mode == 'edit'">
+				<button type="button" class="btn btn-secondary" ng-click="changeMode('view')">{{'Hủy' | translate}}</button>
+				<button type="submit" button-submit class="btn btn-accent">{{'Lưu' | translate}}</button>
+			</div>
+		</form>
+	</div>
+</div>

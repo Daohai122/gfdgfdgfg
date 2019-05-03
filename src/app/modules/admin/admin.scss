@@ -1,0 +1,11 @@
+.m-header--fixed .m-body {
+	@media (min-width: 769px) {
+		padding-top: 80px !important;	
+	}
+	padding-top: 40px !important;
+}
+.m-body {
+	.m-content {
+		padding: 15px;
+	}
+}

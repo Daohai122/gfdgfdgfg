@@ -1,0 +1,163 @@
+<div class="m-content">
+        <div class="row">
+            <div class="col-md-12">
+                <form class="m-form m-form--fit m-form--label-align-right">
+                    <div class="col-md-12" style="padding:0px">
+                        <div class="m-portlet m-portlet--tab">
+                            <div class="m-portlet__body">
+                                <div si-table config="tableConfig" reload-table="reloadTable" ng-model="dataPartner" search="filter">
+                                    <div class="filter-region m-portlet m-portlet--tab collapse show" id="collapseExample">
+                                        <div class="row m-portlet__body">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                <div class="m-input-icon m-input-icon--left">
+                                                    <input type="text" class="form-control m-input search_params" placeholder="Tìm kiếm" ng-model="filter.SearchString">
+                                                    <span class="m-input-icon__icon m-input-icon__icon--left">
+                                                    <span><i class="la la-search"></i></span>
+                                                    </span>
+                                                </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="input-group m-input-group">
+                                                        <div class="input-group-prepend">
+                                                        <span class="input-group-text">{{'Loại hình hợp tác' | translate}}</span>
+                                                        </div>
+                                                        <div class="dropdown bootstrap-select input-group-btn form-control m-bootstrap-select m_">
+                                                            <select title="Chọn" class="form-control" si-selectpicker ng-model="filter.partner_type">
+                                                                    <option value="">Chọn</option>
+                                                                    <option value="1">Đối tác chương trình</option>
+                                                                    <option value="2">Truyền thông</option>
+                                                                    <option value="3">Nhà tài trợ</option>
+                                                                    <option value="4">Nhà tài trợ tiềm năng</option>
+                                                                    <option value="5">Tuyển sinh</option>
+                                                                    <option value="6">Đào tạo</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="input-group m-input-group">
+                                                        <div class="input-group-prepend">
+                                                        <span class="input-group-text">{{'Tính pháp lý' | translate}}</span>
+                                                        </div>
+                                                        <div class="dropdown bootstrap-select input-group-btn form-control m-bootstrap-select m_">
+                                                            <select title="Chọn" class="form-control m-bootstrap-select m_selectpicker" ng-model="filter.legal_status">
+                                                                <option value="">Tất cả</option>
+                                                                <option value="1">Trường đào tạo nghề</option>
+                                                                <option value="2">Chính quyền địa phương</option>
+                                                                <option value="3">Tổ chức phi chính phủ/ nhân đạo quốc tế</option>
+                                                                <option value="4">Tổ chức phi chính chủ trong nước</option>
+                                                                <option value="5">Doanh nghiệp</option>
+                                                                <option value="6">Cá nhân</option>
+                                                                <option value="7">Doanh nghiệp xã hội</option>
+                                                                <option value="8">Hiệp hội ngành nghề</option>
+                                                                <option value="9">Đại sứ quán tại việt nam</option>
+                                                                <option value="10">Câu lạc bộ / mạng lưới quan hệ xã hội</option>
+                                                                <option value="11">Cơ quan chính phủ</option>
+                                                                <option value="12">Quỹ</option>
+                                                                <option value="13">Báo trong nước</option>
+                                                                <option value="15">Báo quốc tế</option>
+                                                                <option value="16">Kênh truyền hình quốc tế</option>
+                                                                <option value="17">Khác</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                            <div class="col-md-4">
+                                                <div class="btn  btn-info" search-btn>{{'Tìm kiếm' | translate }}</div>
+                                            </div>
+                                        </div>                
+                                    </div>
+                                    <div class="action-region">
+                                        <div class="btn btn-info" ng-click="goToAdd()">{{'Thêm mới' | translate}}</div>&nbsp;
+                                        <div class="btn btn-info" ng-click="openExcel()">{{'Xuất excel' | translate}}</div>&nbsp;
+
+                                        <div class="btn btn-info" data-toggle="collapse" toggle-filter-btn data-target="#collapseExample">{{
+                                        'Ẩn/Hiện
+                                        tìm kiếm' | translate }}</div>
+                                    </div>
+                                    <table class="table table-bordered  table-striped table-hover table-checkable dataTable">
+                        
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal fade" id="modal_partner" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+                <div class="modal-dialog" role="document" style="width: 90% !important; max-width: 90%;">
+                    <div class="modal-content" >
+                        <div class="modal-header">
+                            <h5 class="modal-title" ng-if="dataPartnerEdit.contact_type">{{dataPartnerEdit.contact_type + dataPartnerEdit.name}}</h5>
+                            <h5 class="modal-title" ng-if="dataPartnerEdit.contact_type == null">{{dataPartnerEdit.name}}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <table ng-if="dataPartnerEdit.partnerContacts" class="table  table-striped table-bordered table-hover table-checkable dataTable no-footer" role="grid">
+                                <thead>
+                                    <tr role='row'>
+                                        <th style="width: 15%">Họ và tên</th>
+                                        <th style="width: 15%">Vị trí</th>
+                                        <th style="width: 15%">Email</th>
+                                        <th style="width: 10%">Điện thoại</th>
+                                        <th style="width: 20%">	Nhà tài trợ biết REACH từ kênh nào?</th>
+                                        <th style="width: 15%">	Mối quan hệ với cán bộ Reach</th>
+                                        <th style="width: 10%">	Hành động</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat ="data in dataPartnerEdit.partnerContacts track by $index">
+                                        <td>{{data.title}}{{data.last_name}} {{data.middle_name}} {{data.first_name}}</td>
+                                        <td>{{data.position}}</td>
+                                        <td>{{data.email}}</td>
+                                        <td>{{data.phone}}</td>
+                                        <td >{{data.from_channel}}</td>
+                                        <td>{{data.reach_relationship}}({{data.reach_position}})</td>
+                                        <td class="text-center">
+                                            <a href="javarscipt:;" ng-click="editPartnerContact($index)" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="m-tooltip"  title="" data-original-title="Sửa"><i class="la la-edit"></i></a>
+                                            <a href="javascript:;" ng-click="deletePartnerContact($index)" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="m-tooltip"  title="" data-original-title="Xóa"><i class="flaticon-delete"></i></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" ng-click='goToAddContact()' class="btn btn-primary">Thêm đối tác</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="m_modal_excel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document" >
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">{{'Chọn cột cho xuất excel' | translate}}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <ul id="sortable_excel">
+                            <li class="ui-state-default" data-index="{{ $index }}" ng-repeat="item in columnsExcel"><label class="m-checkbox"><input ng-model="item.select" type="checkbox">{{item.title}}<span></span></label></li>
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-info" ng-click="exportData()" >{{'Xuất excel' | translate}}</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{'Đóng' | translate}}</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    

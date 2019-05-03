@@ -1,0 +1,77 @@
+<header id="m_header" class="m-grid__item">
+	<div class="m-container m-container--fluid m-container--full-height col-11">
+		<div class="m-stack m-stack--ver m-stack--desktop main-header">
+			<div class="logo">
+				<img src="/assets/images/logo_reach_179_128.png" alt="Logo REACH">
+			</div>
+			<div class="widget m--padding-top-5">
+				<div class="user-block">
+					<div class="user-login" ng-show="userInfo" onclick="location.href='/admin/account/profile';">
+						<span class="m-topbar__userpic">
+							<img src="{{userInfo.image}}" class="m--img-rounded m--marginless" alt="User Avatar" />
+						</span>
+						<span class="m-topbar__username m--visible-desktop-inline-block">{{userInfo.name}}</span>
+					</div>
+					<span class="user-signout" ng-show="userInfo" ng-click="logout()" data-toggle="m-tooltip" data-skin="dark" title="" data-original-title="{{'Đăng xuất' | translate}}">
+						<i class="fa fa-sign-out-alt"></i>
+					</span>
+					<div class="user-signin m--padding-5" ng-show="!userInfo">
+						<span class="m-topbar__userpic" ui-sref="auth.login" ui-sref-opts="{reload: true}">
+							<span class="m--margin-right-10">{{'Đăng nhập' | translate}}</span>
+							<i class="fa fa-sign-in-alt"></i>
+						</span>
+					</div>
+				</div>
+				<div class="language-block m--margin-left-15">
+					<ul class="m-nav m-nav--skin-light">
+						<li class="m-nav__item" ng-show="currentLanguage == 'en'">
+							<a href="javascript:;" class="m-nav__link m-padding-0" ng-click="changeLanguage('vi')">
+								<span class="m-nav__link-icon"><img class="m-topbar__language-img" src="assets/app/media/img/flags/en.svg"></span>
+							</a>
+						</li>
+						<li class="m-nav__item" ng-show="currentLanguage == 'vi'">
+							<a href="javascript:;" class="m-nav__link m-padding-0" ng-click="changeLanguage('en')">
+								<span class="m-nav__link-icon"><img class="m-topbar__language-img" src="assets/app/media/img/flags/vi.svg"></span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="nav m-stack__item m-stack__item--middle m-stack__item--fluid">
+				<a id="m_aside_header_topbar_mobile_toggle" href="javascript:;" class="m-brand__icon m--visible-tablet-and-mobile-inline-block">
+					<i class="flaticon-more"></i>
+				</a>
+				<div class="m-header-menu m-aside-header-menu-mobile m-aside-header-menu-mobile--offcanvas m-header-menu--skin-dark m-header-menu--submenu-skin-light m-aside-header-menu-mobile--skin-light m-aside-header-menu-mobile--submenu-skin-light" id="home-menu">
+					<ul class="m-menu__nav  m-menu__nav--submenu-arrow ">
+						<li class="m-menu__item" aria-haspopup="true">
+							<a ui-sref="home" ui-sref-opts="{ reload: true }" class="m-menu__link ">
+								<span class="m-menu__link-text">{{'Trang Chủ' | translate}}</span>
+							</a>
+						</li>
+						<li class="m-menu__item" aria-haspopup="true">
+							<a onclick="location.href='/admin/center/list'" class="m-menu__link ">
+								<span class="m-menu__link-text">{{'Trung tâm' | translate}}</span>
+							</a>
+						</li>
+						<li class="m-menu__item" aria-haspopup="true">
+							<a onclick="location.href='/admin/project/list'" class="m-menu__link ">
+								<span class="m-menu__link-text">{{'Dự án' | translate}}</span>
+							</a>
+						</li>
+						<li class="m-menu__item" aria-haspopup="true">
+							<a onclick="location.href='/admin/company/list'" class="m-menu__link ">
+								<span class="m-menu__link-text">{{'Mạng lưới doanh nghiệp' | translate}}</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+        </div>
+    </div>
+</header>
+
+<script>
+	$('#m_aside_header_topbar_mobile_toggle').click(function() {
+		$('#home-menu').toggleClass('active');
+	})
+</script>

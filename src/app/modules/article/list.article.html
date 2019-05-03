@@ -1,0 +1,100 @@
+<div class="m-content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="col-md-12" style="padding:0px">
+        <div class="m-portlet m-portlet--tab">
+          <div class="m-portlet__body">
+            <div si-table config="tableConfig" reload-table="reloadTable" ng-model="dataArticle" search="filter">
+              <div class="filter-region m-portlet m-portlet--tab collapse show" id="collapseExample">
+                <div class="row m-portlet__body">
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <div class="m-input-icon m-input-icon--left">
+                        <input type="text" class="form-control m-input search_params" placeholder="Tìm kiếm" ng-model="filter.SearchString">
+                        <span class="m-input-icon__icon m-input-icon__icon--left">
+                          <span><i class="la la-search"></i></span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="form-group">
+                        <div class="input-group m-input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">{{'Ngôn ngữ' | translate}}</span>
+                          </div>
+                          <div class="dropdown bootstrap-select input-group-btn form-control m-bootstrap-select m_">
+                            <select title="Chọn" class="form-control" si-selectpicker ng-model="filter.language">
+                              <option value="">Tất cả</option>
+                              <option value="0">Tiếng Việt</option>
+                              <option value="1">Tiếng Anh</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <div class="input-group m-input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">{{'Trạng thái' | translate}}</span>
+                        </div>
+                        <div class="dropdown bootstrap-select input-group-btn form-control m-bootstrap-select m_">
+                          <select title="Chọn" class="form-control" si-selectpicker ng-model="filter.isVisible">
+                            <option value="">Tất cả</option>
+                            <option value="true">Hiển thị</option>
+                            <option value="false">Ẩn</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <div class="input-group m-input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">{{'Danh mục' | translate}}</span>
+                        </div>
+                          <select class="form-control" id="select_1" si-selectpicker update="dataCategories" title="Chọn danh mục" ng-model="filter.CategoryId">
+                            <option value="">Tất cả</option>
+                            <option ng-repeat= "categories in dataCategories" value="{{categories.id}}">{{categories.title}}</option>
+                          </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <div class="input-group m-input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">{{'Phê duyệt' | translate}}</span>
+                        </div>
+                        <select title="Chọn" class="form-control" si-selectpicker ng-model="filter.IsApproved">
+                          <option value="">Tất cả</option>
+                          <option value="true">Đã phê duyệt</option>
+                          <option value="false">Chưa phê duyệt</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="btn btn-info" search-btn>{{'Tìm kiếm' | translate }}</div>
+                  </div>
+                </div>
+
+              </div>
+              <div class="action-region">
+                <div class="btn btn-info" ng-click="goToAdd()">{{'Thêm mới' | translate}}</div>&nbsp;
+                <div class="btn btn-info" data-toggle="collapse" toggle-filter-btn data-target="#collapseExample">{{
+                  'Ẩn/Hiện
+                  tìm kiếm' | translate }}</div>
+              </div>
+              <table class="table table-bordered table-striped table-hover table-checkable dataTable">
+
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

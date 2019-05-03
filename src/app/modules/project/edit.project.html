@@ -1,0 +1,257 @@
+<div class="m-content">
+    <div class="m-portlet m-portlet--tab row">
+        <div class="col-md-7 no-padding">
+            <form validation-form submit-function="addProject()" class="m-form m-form--fit m-form--label-align-right">
+                <div class="form-body col-lg-12" style="padding-top: 15px">
+                    <div class="m-portlet m-portlet--tabs  m-portlet--head-solid-bg m-portlet--head-sm m-portlet--bordered " id="nangcao">
+                        <div class="m-portlet__head accordion-toggle" >
+                            <div class="m-portlet__head-caption">
+                            <div class="m-portlet__head-title">
+                                <h3 class="m-portlet__head-text">
+                                    {{'Thông tin dự án' | translate}}
+                                </h3>
+                            </div>	
+                            </div>
+                        </div>
+                        <div class="m-portlet__body collapse show" id="demo" aria-expanded="true" >
+                            <div class="form-group m-form__group row">
+                                <div class="col-md-6">
+                                    <label>{{'Tên dự án' | translate}}<span class="required"> *</span></label>
+                                    <input ng-model="dataProject.name" type="text" class="form-control m-input" placeholder="Nhập tên dự án" maxlength="250" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="">{{'Thời gian phê duyệt' | translate}}<span class="required"> *</span></label>
+                                    <input type="text" readonly date-picker ng-model="dataProject.approved_date" class="form-control m-input" placeholder="Chọn thời gian phê duyệt" required>
+                                </div>
+                            </div>
+                            <div class="form-group m-form__group row">
+                                <div class="col-md-6">
+                                    <label>{{'Tình trạng dự án' | translate}}<span class="required"> *</span></label>
+                                    <select ng-model="dataProject.status" class="form-control m-input" name="option" required-select>
+                                            <option value="">{{'Chọn' | translate}}</option>
+                                        <option value="1">{{'Chưa bắt đầu' | translate}}</option>
+                                        <option value="2">{{'Đang thực hiện' | translate}}</option>
+                                        <option value="3">{{'Đã hoàn thành' | translate}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="">{{'Tổng kinh phí dự án' | translate}}<span class="required"> *</span></label>
+                                    <input type="text" ng-model="dataProject.cost" class="form-control m-input" placeholder="Nhập số tiền" required>
+                                </div>
+                            </div>
+                            <div class="form-group m-form__group row">
+                                <div class="col-md-6">
+                                    <label>{{'Mục tiêu dự án' | translate}}<span class="required"> *</span></label>
+                                    <input type="text" ng-model="dataProject.target" class="form-control m-input" placeholder="Nhập mục tiêu dự án" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="">{{'Phụ trách MIS và báo cáo' | translate}}:</label>
+                                    <input type="text" ng-model="dataProject.authorised_person" class="form-control m-input" placeholder="Nhập họ tên" >
+                                </div>
+                            </div>
+                            <div class="form-group m-form__group row">
+                                <div class="col-md-6">
+                                    <label>{{'Nhà tài trợ' | translate}}:</label>
+                                    <select multiple title="Chọn" si-selectpicker update="dataPartners" ng-model="dataProject.partners" class="form-control m-input">
+                                        <option ng-repeat="data in dataPartners" value="{{data.id}}">{{data.name}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="">{{'Trung tâm' | translate}}:</label>
+                                    <select multiple title="Chọn" update='dataCenter' si-selectpicker ng-model="dataProject.center_code" class="form-control m-input" >
+                                        <option ng-repeat="data in dataCenter" value="{{data.code}}">{{data.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group m-form__group row">
+                                <div class="col-md-6">
+                                    <label>{{'Thời gian gia hạn dự án' | translate}}:</label>
+                                    <input type="text" ng-model="dataProject.adjourn_date" class="form-control m-input" maxlength="255" date-picker placeholder="Nhập thời gian">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="">{{'Lý do gia hạn' | translate}}:</label>
+                                    <input type="text" ng-model="dataProject.adjourn_reason" class="form-control m-input" maxlength="255" placeholder="Nhập lý do">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-body col-lg-12" style="margin-top: 20px">
+                    <div class="m-portlet m-portlet--tabs  m-portlet--head-solid-bg m-portlet--head-sm m-portlet--bordered " id="nangcao">
+                        <div class="m-portlet__head accordion-toggle" >
+                            <div class="m-portlet__head-caption">
+                            <div class="m-portlet__head-title">
+                                <h3 class="m-portlet__head-text">
+                                {{'Quản lý dự án' | translate}}
+                                </h3>
+                            </div>	
+                            </div>
+                        </div>
+                        <div class="m-portlet__body collapse show" id="demo" aria-expanded="true" >
+                            <div class="form-group m-form__group row">
+                                <div class="col-md-6">
+                                    <label>{{'Thời gian bắt đầu' | translate}}<span class="required"> *</span></label>
+                                    <input type="text" autocomplete="off" date-picker ng-model="dataProject.from_date" class="form-control m-input" placeholder="Chọn thời gian bắt đầu" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="">{{'Thời gian kết thúc' | translate}}<span class="required"> *</span></label>
+                                    <input autocomplete="off" type="text" date-picker ng-model="dataProject.to_date" class="form-control m-input" placeholder="Chọn thời gian kết thúc" required>
+                                </div>
+                            </div>
+                            <div class="form-group m-form__group row">
+                                <div class="col-md-6">
+                                    <label>{{'Quản lý dự án' | translate}}:</label>
+                                    <input type="text" ng-model="dataProject.manager_person" class="form-control m-input" placeholder="Nhập người quản lý dự án" >
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="">{{'Điện thoại quản lý dự án' | translate}}:</label>
+                                    <input type="text" minlength="10" phone ng-model="dataProject.manager_phone" class="form-control m-input" placeholder="Nhập số điên thoại" >
+                                </div>
+                            </div>
+                            <div class="form-group m-form__group row">
+                                <div class="col-md-6">
+                                    <label>{{'Email quản lý dự án' | translate}}:</label>
+                                    <input type="text" email ng-model="dataProject.manager_email" class="form-control m-input" placeholder="Nhập email">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="">{{'Địa bàn làm việc của quản lý dự án' | translate}}:</label>
+                                    <input type="text" ng-model="dataProject.manager_designation" class="form-control m-input" placeholder="Nhập địa chỉ">
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="form-body col-lg-12" style="margin-top: 20px">
+                    <div class="m-portlet m-portlet--tabs  m-portlet--head-solid-bg m-portlet--head-sm m-portlet--bordered " id="nangcao">
+                        <div class="m-portlet__head accordion-toggle">
+                            <div class="m-portlet__head-caption">
+                            <div class="m-portlet__head-title">
+                                <h3 class="m-portlet__head-text">
+                                    {{'Văn Phòng dự án' | translate}}
+                                </h3>
+                            </div>	
+                            </div>
+                        </div>
+                        <div class="m-portlet__body collapse show" id="demo" aria-expanded="true" >
+                            <div class="form-group m-form__group row">
+                                <div class="col-md-6">
+                                    <label>{{'Điện thoại người phụ trách MIS' | translate}}:</label>
+                                    <input type="text" minlength="10" phone ng-model="dataProject.authorised_phone" class="form-control m-input" placeholder="Nhập số điện thoại" >
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="">{{'Email phụ trách MIS' | translate}}:</label>
+                                    <input type="text" email ng-model="dataProject.authorised_email" class="form-control m-input" placeholder="Nhập Email">
+                                </div>
+                            </div>
+                            <div class="form-group m-form__group row">
+                                <div class="col-md-6">
+                                    <label>{{'Địa chỉ' | translate}}:</label>
+                                    <input type="text" ng-model="dataProject.address_office" class="form-control m-input" placeholder="Nhập địa chỉ văn phòng">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-portlet__foot m-portlet__foot--fit">
+                        <div class="m-form__actions m-form__actions">
+                            <div class="row">
+                                <div class="col-lg-7 ml-lg-auto">
+                                    <button ng-click="goToList()" type="reset" class="btn btn-secondary">{{'Hủy' | translate}}</button>
+                                    <button type="submit" button-submit class="btn btn-accent">{{'Lưu' | translate}}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-5 no-padding" style="margin-top: 15px; padding-right: 15px !important">
+            <div class="m-portlet m-portlet--tabs  m-portlet--head-solid-bg m-portlet--head-sm m-portlet--bordered">
+                <div class="m-portlet__head accordion-toggle" >
+                    <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <h3 class="m-portlet__head-text">
+                        {{'Lịch báo cáo dự án' | translate}}
+                        </h3>
+                    </div>	
+                    </div>
+                </div>
+                <div class="m-portlet__body collapse show" style="padding: 5px">
+                    <button type="button" ng-click="openModalAdd()" class="btn btn-primary">{{'Thêm lịch báo cáo' | translate}}</button>
+                    <table ng-if="dataMilestoneReports.length > 0" class="table  table-striped table-bordered table-hover table-checkable dataTable no-footer" role="grid">
+                        <thead>
+                            <tr role='row'>
+                                <th class="text-center" style="">Tên</th>
+                                <th class="text-center" style="">Ngày báo cáo</th>
+                                <th class="text-center" style="">Loại báo cáo</th>
+                                <th class="text-center" style="">Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat ="data in dataMilestoneReports track by $index">
+                                <td class="text-center">{{data.name}}</td>
+                                <td class="text-center">{{data.date_show_report}}</td>
+                                <td class="text-center">{{data.type}}</td>
+                                <td class="text-center">
+                                    <a href="javarscipt:;" ng-click="openModalEdit($index)" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="m-tooltip"  title="" data-original-title="Sửa"><i class="la la-edit"></i></a>
+                                    <a href="javascript:;" ng-click="deleteReport($index)" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="m-tooltip"  title="" data-original-title="Xóa"><i class="flaticon-delete"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modal_project" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <form validation-form submit-function="updateOrAddProject()" class="m-form m-form--fit m-form--label-align-right">
+                    <div class="modal-header">
+                        <h5 class="modal-title" ng-if="mode=='add'" id="exampleModalLabel">{{'Thêm lịch báo cáo dự án' | translate}}</h5>
+                        <h5 class="modal-title" ng-if="mode=='edit'" id="exampleModalLabel">{{'Sửa lịch báo cáo dự án' | translate}}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group m-form__group row">
+                            <div class="col-md-6">
+                                <label>{{'Tên báo cáo' | translate}}:<span class="required"> *</label>
+                                <input ng-model="dataReportSelect.name" type="text" class="form-control m-input" placeholder="Nhập tên báo cáo" maxlength="250" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label>{{'Loại báo cáo' | translate}}:</label>
+                                <input ng-model="dataReportSelect.type" type="text" class="form-control m-input" placeholder="Nhập loại báo cáo" maxlength="250" >
+                            </div>
+                        </div>
+                        <div class="form-group m-form__group row">
+                            <div class="col-md-6">
+                                <label>{{'Thời gian báo cáo' | translate}}:</label>
+                                <input ng-model="dataReportSelect.date_report" type="text" date-picker class="form-control m-input" placeholder="Nhập thời gian báo cáo" maxlength="250" >
+                            </div>
+                            <div class="col-md-6">
+                                <label>{{'Mẫu báo cáo' | translate}}:</label>
+                                <input ng-model="dataReportSelect.template"  type="text" class="form-control m-input" placeholder="Nhập mẫu báo cáo"  >
+                            </div>
+                        </div>
+                        <div class="form-group m-form__group row">
+                            <div class="col-md-6">
+                                <label>{{'Danh sách địa chỉ email' | translate}}:</label>
+                                <input ng-model="dataReportSelect.listEmail" type="text" class="form-control m-input" placeholder="Mỗi email cách nhau 1 dấu ','"  >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer" ng-if="mode=='edit'">
+                        <button type="reset" class="btn btn-secondary" data-dismiss="modal">{{'Đóng' | translate}}</button>
+                        <button type="button"  button-submit class="btn btn-primary">{{'Lưu' | translate}}</button>
+                    </div>
+                    <div class="modal-footer" ng-if="mode=='add'">
+                        <button type="reset" class="btn btn-secondary" data-dismiss="modal">{{'Đóng' | translate}}</button>
+                        <button type="button" button-submit class="btn btn-primary">{{'Thêm' | translate}}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+          

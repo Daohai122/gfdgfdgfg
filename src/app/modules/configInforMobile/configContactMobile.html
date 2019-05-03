@@ -1,0 +1,80 @@
+
+<div class="m-content">
+    <div class="row">
+        <div class="col-md-12">
+            <form validation-form submit-function="updateInfor()" class="m-form m-form--fit m-form--label-align-right">
+                <div class="col-md-12" style="padding:0px">
+                    <div class="m-portlet m-portlet--tab">
+                        <div class="m-portlet__body ">
+                            <div class="col-md-12 row">
+                                <div class="col-md-6" ng-repeat="data in dataConfig.link track by $index">
+                                    <div class="m-portlet m-portlet--tabs  m-portlet--head-solid-bg m-portlet--head-sm m-portlet--bordered " >
+                                        <div class="m-portlet__head accordion-toggle" >
+                                            <div class="m-portlet__head-caption">
+                                                <div class="m-portlet__head-title">
+                                                    <h3 class="m-portlet__head-text">
+                                                        {{data.title}}
+                                                    </h3>
+                                                </div>
+                                                <div style="position:absolute; right:25px;">
+                                                    <div class="btn btn-secondary" ng-click="deleteInfor($index)">Xóa</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="m-portlet__body collapse show"aria-expanded="true" >
+                                            <div class="m-form__group row">
+                                                <div class=" form-group col-md-6">
+                                                    <label>{{'Title (vn)' | translate}} : </label>
+                                                    <input ng-model="data.title" type="text" class="form-control m-input" placeholder="Nhập title" maxlength="250" required>
+                                                </div>
+                                                <div class=" form-group col-md-6">
+                                                        <label>{{'Title (en)' | translate}} : </label>
+                                                        <input ng-model="data.title_en" type="text" class="form-control m-input" placeholder="Nhập title" maxlength="250" required>
+                                                    </div>
+                                            </div>
+                                           
+                                            <div class="form-group m-form__group row">
+                                                <div class="form-group col-md-6">
+                                                    <label>{{'Color' | translate}} : </label>
+                                                    <input type="text" autocomplete="off"  class="form-control color_picker minicolors-input" ng-model="data.color" data-control="hue" data-color-index='{{$index}}'>                                  
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="">{{'Url' | translate}} : </label>
+                                                    <input type="text"  ng-model="data.url" class="form-control m-input" maxlength="250" placeholder="Nhập url" >
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12" style="margin-bottom: 15px">
+                                <button type="button" ng-click="addInfor()" class="btn btn-success">{{'Thêm liên kết' | translate}}</button>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group m-form__group no-padding row">
+                                    <div class="col-md-6 " >
+                                        <label>{{'Thông tin liên lạc' | translate}} : </label>
+                                        <textarea summernote required-summernote ng-model="dataConfig.contact" class="form-control m-input"></textarea>
+                                    </div>
+                                    <div class="col-md-6 ">
+                                        <label>{{'Thông tin liên lạc' | translate}} : </label>
+                                        <textarea summernote required-summernote ng-model="dataConfig.contact_en" class="form-control m-input"></textarea>
+                                    </div>
+                                </div>   
+                            </div>
+                            <div class="m-portlet__foot m-portlet__foot--fit m-portlet__no-border">
+                                <div class="m-form__actions m-form__actions">
+                                    <div class="row">
+                                        <div class="col-lg-12 button-center">
+                                            <button type="submit" button-submit class="btn btn-accent">{{'Lưu' | translate}}</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

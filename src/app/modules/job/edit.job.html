@@ -1,0 +1,94 @@
+<div class="m-content">
+    <div class="row">
+        <div class="col-md-12">
+            <form validation-form submit-function="updateJobs()" class="m-form m-form--fit m-form--label-align-right">
+                <div class="col-md-12" style="padding:0px">
+                    <div class="m-portlet m-portlet--tab">
+                        <div class="m-portlet__body row">
+                            <div class="form-body col-md-12 no-padding" style="margin-top: 20px">
+                                <div class="form-group row m-form__group">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <label class="col-4 col-form-label">{{'Công việc' | translate}} <span class="required">*</span></label>
+                                            <div class="col-8">
+                                                <input type="text" maxlength="255" ng-model="dataJob.name" class="form-control m-input" placeholder="Nhập công việc" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <label class="col-4 col-form-label">{{'Chức vụ' | translate}} <span class="required">*</span></label>
+                                            <div class="col-8">
+                                                <input type="text" maxlength="255" ng-model="dataJob.title" class="form-control m-input" placeholder="Nhập chức vụ" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row m-form__group">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <label class="col-4 col-form-label">{{'Công ty' | translate}} <span class="required">*</span></label>
+                                            <div class="col-8">
+                                                <input type="text" autocomplete="off" maxlength="255" ng-model="dataJob.company" class="form-control m-input" placeholder="Nhập công ty" required id="company_input">
+                                                <div class="dropdown-menu custom-dropdown-search">
+                                                    <p class="dropdown-item" ng-repeat="company in dataCompany" ng-click="selectCompany(company.id, company.name)">{{company.name}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <label class="col-4 col-form-label">{{'Địa chỉ' | translate}}</label>
+                                            <div class="col-8">
+                                                <input type="text" maxlength="255" ng-model="dataJob.address" class="form-control m-input" placeholder="Nhập địa chỉ">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row m-form__group">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <label class="col-4 col-form-label">{{'Từ ngày' | translate}}</label>
+                                            <div class="col-8">
+                                                <input type="text" date-picker maxlength="255" ng-model="dataJob.fromDate" class="form-control m-input" placeholder="Chọn ngày" id="m_datetimepicker_1">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <label class="col-4 col-form-label">{{'Đến ngày' | translate}}</label>
+                                            <div class="col-8">
+                                                <input autocomplete="off" type="text" date-picker update="dataJob.fromDate" start-date="true" maxlength="255" ng-model="dataJob.toDate" class="form-control m-input" placeholder="Chọn ngày" id="m_datetimepicker_2">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row m-form__group">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <label class="col-4 col-form-label">{{'Lương' | translate}}</label>
+                                            <div class="col-8">
+                                                <input type="text" autocomplete="off" pattern="[0-9,]*" min="0" format="currency" ng-model="dataJob.salary" class="form-control m-input" placeholder="Nhập số lương">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="m-portlet__foot m-portlet__foot--fit m-portlet__no-border">
+                            <div class="m-form__actions m-form__actions">
+                                <div class="row">
+                                    <div class="col-lg-12 button-center">
+                                        <button type="button" ng-click="goToList()" class="btn btn-secondary">{{'Quay lại' | translate}}</button>
+                                        <button type="submit" button-submit class="btn btn-accent">{{'Lưu' | translate}}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>

@@ -1,0 +1,56 @@
+<div class="m-content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="col-md-12" style="padding:0px">
+        <div class="m-portlet m-portlet--tab">
+          <div class="m-portlet__body">
+            <div class="col-md-12 no-padding">
+              <ul class="nav nav-tabs  nav-tabs-line no-margin" role="tablist">
+                <li class="nav-item" ng-repeat="v in reportConfig">
+                  <a class="nav-link"  ng-class="{'active':view == v.viewName }" ng-click="changeView(v.viewName)"
+                    href="javascript:">{{v.title}}</a>
+                </li>
+              </ul>
+              <div class="tab-content">
+                <div class="tab-pane active" ng-repeat="v in reportConfig" ng-if="view==v.viewName">
+                  <div class="m-portlet m-portlet--height-fluid content-report">
+                    <div class="m-portlet__head height-auto">
+                      <div class="m-portlet__head-toolbar">
+                        <ul class="nav nav-pills nav-pills-sm nav-pills-label nav-pills-bold no-margin tab-customer"
+                          role="tablist">
+                          <li class="nav-item" ng-repeat="i in v.reports">
+                            <a class="nav-link" ng-class="{'active': reportName==i.reportName}"
+                              ng-click="changeReportName(i.reportName)" href="javascript:">
+                              {{i.title}}
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="m-portlet__body">
+                      <div class="tab-content">
+                        <div class="tab-pane report-view-section" ng-class="{'active': reportName==i.reportName}"
+                          ng-repeat="i in v.reports" ng-if="visibledReport[i.reportName]">
+                          <span style="cursor: pointer; text-align: right; display: block; ">
+                            <i style="font-size: 20px" class="fa fa-arrow-circle-left" ng-if="viewMode=='full'" title="Hiển thị bộ lọc"
+                              ng-click="toogleSearchFilter($event)"></i>
+
+                            <i style="font-size: 20px" class="fa fa-arrow-circle-right" ng-if="viewMode!='full'" title="Ẩn bộ lọc"
+                              ng-click="toogleSearchFilter($event)"></i>
+                          </span>
+                          <ng-include ng-show="reportName==i.reportName" src="baseFolder + i.templateUrl">
+
+                          </ng-include>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

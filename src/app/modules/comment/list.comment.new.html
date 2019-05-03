@@ -1,0 +1,121 @@
+<div class="m-content">
+        <div class="row">
+            <div class="col-md-12">
+                <form class="m-form m-form--fit m-form--label-align-right">
+                    <div class="col-md-12" style="padding:0px">
+                        <div class="m-portlet m-portlet--tab">
+                            <div class="m-portlet__body row">
+                                <div class="col-md-6 view-comment">
+                                    <table ng-if="dataComment" id="table_comment" class="table  table-bordered table-hover table-checkable dataTable no-footer" role="grid">
+                                        <thead>
+                                            <tr role='row'>
+                                                <th style="width: 25%">{{'Người tạo' | translate }}</th>
+                                                <th style="width: 35%">{{'Bài viết' | translate }}</th>
+                                                <th style="width: 30%">{{'Nội dung bình luận' | translate }}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-class="{selected: data.articleId == idArticleSelect}" ng-repeat ="data in dataComment track by $index" ng-click='viewComment(data.articleId)'>
+                                                <td><p style="font-weight: 600">{{data.creatorName}}</p><p>{{data.creationTime | date:'dd-MM-yyyy HH:mm:ss'}}</p></td>
+                                                <td>{{data.articleInfo.title}} <span class="m-menu__link-badge" data-toggle="m-tooltip" title="" data-original-title="Số comment chưa đọc"><span class="m-badge m-badge--danger">{{data.unReadCount}}</span></span>&nbsp;
+                                                    <span class="m-menu__link-badge" data-toggle="m-tooltip" title="" data-original-title="Tổng số comment"><span class="m-badge m-badge--secondary">{{data.totalCount}}</span></span></td>
+                                                <td>{{data.content}}</td> 
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="m-portlet" ng-if="dataTreeComment.length >0">
+                                        <div class="m-portlet__head height-auto">
+                                            <div class="m-portlet__head-caption">
+                                                <div class="m-portlet__head-title article-detail row">
+                                                    <div class="col-md-4 image_category_comment"> 
+                                                        <img src="{{articleDetail.articleImage}}" alt="">
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <h4 >
+                                                            <a ui-sref="admin.article.edit({id: articleDetail.id})">{{titleArticle}}</a>
+                                                        </h4>
+                                                        <p ng-bind-html="articleDetail.description" class="m--margin-top-15"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="m-portlet__body">
+                                            <div class="m-widget3" ng-repeat= 'data in dataTreeComment'>
+                                                <div class="m-widget3__item">
+                                                    <div class="m-widget3__header">
+                                                        <div class="m-widget3__user-img">							 
+                                                            <img class="m-widget3__img" ng-src="{{data.avatar}}" alt="">  
+                                                        </div>
+                                                        <div class="m-widget3__info">
+                                                            <span style="font-weight: 600; font-size: 14px" class="m-widget3__username">
+                                                                {{data.content}}
+                                                            </span>
+                                                            <span class="m-widget3__username">
+                                                                {{data.creatorName}} {{data.creationTime}}
+                                                            </span><br> 
+                                                            <span class="m-widget3__time" style="font-size: 13px">
+                                                               <span class="repply" ng-click="openBoxComment(data.id)">{{'Trả lời' | translate }}</span><span class="repply" ng-click="unlikeComment(data.id)" ng-if="data.isLiked"> &nbsp;&nbsp;Unlike</span> <span class="repply" ng-click="likeComment(data.id)" ng-if="!data.isLiked"> &nbsp;&nbsp;Like</span> <i class="flaticon-black" style="color: red"></i> {{data.likeCount}}
+                                                            </span>		 
+                                                        </div>
+                                                        <span class="m-widget3__status m--font-info">
+                                                            <i ng-click="deleteComment(data.id)" class="flaticon-delete"></i>
+                                                        </span>	
+                                                    </div> 
+                                                    <div ng-if="idSelect == data.id" class="form-group m-form__group row">
+                                                        <div class="col-md-12 row no-padding">
+                                                            <div class="col-md-10 no-padding">
+                                                                <textarea type="text" ng-model="replyComment.content" rows="2" class="form-control m-input ng-valid ng-touched ng-dirty ng-valid-parse ng-not-empty" placeholder="Trả lời"></textarea>
+                                                            </div>
+                                                            <div class="col-md-2 no-padding text-right">
+                                                                <button type="reset" ng-click="postComment(data.id,data.articleId)" class="btn btn-success">Submit</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="comment-children" style="padding-left: 55px; width: 100%">
+                                                    <div class="m-widget3__item" ng-repeat="item in data.children">
+                                                        <div class="m-widget3__header">
+                                                            <div class="m-widget3__user-img">							 
+                                                                <img class="m-widget3__img" ng-src="{{item.avatar}}" alt="">  
+                                                            </div>
+                                                            <div class="m-widget3__info">
+                                                                <span style="font-weight: 600; font-size: 14px" class="m-widget3__username">
+                                                                    {{item.content}}
+                                                                </span>
+                                                                <span class="m-widget3__username">
+                                                                    {{item.creatorName}} {{item.creationTime}}
+                                                                </span><br> 
+                                                                <span class="m-widget3__time">
+                                                                        <span class="repply" ng-click="openBoxComment(item.id)">{{'Trả lời' | translate }}</span><span class="repply" ng-click="unlikeComment(item.id)" ng-if="item.isLiked"> &nbsp;&nbsp;Unlike</span> <span class="repply" ng-click="likeComment(item.id)" ng-if="!item.isLiked"> &nbsp;&nbsp;Like</span> <i class="flaticon-black" style="color: red"></i> {{item.likeCount}}
+                                                                </span>		 
+                                                            </div>
+                                                            <span class="m-widget3__status m--font-info">
+                                                                <i ng-click="deleteComment(item.id)" class="flaticon-delete"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div ng-repeat="item in data.children" ng-if="idSelect == item.id" class="form-group m-form__group row">
+                                                        <div class="col-md-12 row no-padding">
+                                                            <div class="col-md-10 no-padding">
+                                                                <textarea type="text" ng-model="replyComment.content" rows="2" class="form-control m-input ng-valid ng-touched ng-dirty ng-valid-parse ng-not-empty" placeholder="Trả lời"></textarea>
+                                                            </div>
+                                                            <div class="col-md-2 no-padding text-right">
+                                                                <button type="reset" ng-click="postComment(item.id,item.articleId,item.id)" class="btn btn-success">Submit</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+<div class="row" ng-controller="Report.Output.HocVienTotNghiep" ng-init="init()">
+  <div class="tab-pane active col-md-9 no-padding border-right"
+    ng-class="{'col-md-12': viewMode=='full', 'col-md-9': viewMode!='full' }">
+    <div class="m-portlet__body collapse show" style="padding: 5px">
+      <table id="totnghiep" ng-if="hvTotNghiepReport.length > 0"
+        class="table  table-striped table-bordered table-hover table-checkable dataTable no-footer" role="grid">
+        <thead>
+          <tr role='row'>
+            <th class="text-center" style="">Tên trung tâm</th>
+            <th class="text-center">Tổng số</th>
+            <th class="text-center" style="">Nam</th>
+            <th class="text-center" style="">Nữ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="data in hvTotNghiepReport track by $index">
+            <td class="text-center">{{data.center_name}}</td>
+            <td class="text-center">{{data.total_count}}</td>
+            <td class="text-center">{{data.male_count}}&nbsp;({{data.male_percent}} %)</td>
+            <td class="text-center">{{data.female_count}}&nbsp;({{data.feMale_percent}} %)</td>
+          </tr>
+        </tbody>
+      </table>
+      <div ng-if="hvTotNghiepReport.length > 0" class="btn btn-info ng-binding"
+        ng-click="xuatexel('totnghiep','HocVienTotNghiep')">Xuất excel</div>
+    </div>
+  </div>
+  <div class="col-md-3" ng-hide="viewMode=='full'">
+    <div ng-include="'/app/modules/report/search.html'"></div>
+  </div>
+</div>

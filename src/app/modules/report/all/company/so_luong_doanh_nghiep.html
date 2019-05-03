@@ -1,0 +1,32 @@
+<div class="row" ng-controller="Report.DoanhNghiep.SoLuongDoanhNghiep" ng-init="init()">
+  <div class="tab-pane active col-md-9 no-padding border-right"
+    ng-class="{'col-md-12': viewMode=='full', 'col-md-9': viewMode!='full' }">
+    <div class="m-portlet__body collapse show" style="padding: 5px">
+      <table ng-if="dataReport.length > 0"
+        class="table  table-striped table-bordered table-hover table-checkable dataTable no-footer" role="grid">
+        <thead>
+          <tr role='row'>
+            <th class="text-center">Trung tâm</th>
+            <th class="text-center">Tổng số doanh nghiệp</th>
+            <th class="text-center">Nhỏ</th>
+            <th class="text-center">Vừa</th>
+            <th class="text-center">Lớn</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="data in dataReport track by $index">
+            <td class="text-center">{{data.center_name}}</td>
+            <td class="text-center">{{data.total_company}}</td>
+            <td class="text-center">{{data.small}}</td>
+            <td class="text-center">{{data.medium}}</td>
+            <td class="text-center">{{data.large}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div ng-hide="dataReport.length < 1" id="chartPice"></div>
+  </div>
+  <div class="col-md-3" ng-hide="viewMode=='full'">
+    <div ng-include="'/app/modules/report/search.html'"></div>
+  </div>
+</div>

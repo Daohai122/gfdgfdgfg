@@ -1,0 +1,133 @@
+$header-height: 40px;
+$fill-color: #676a8a;
+$hover-color: #716aca;
+
+.m-header__bottom {
+    z-index: 98;
+	background-color: #fff;
+	position: fixed;
+	top: $header-height;
+	left: 0;
+	right: 0;
+	box-shadow: 0 1px 15px 1px rgba(69,65,78,.1);
+	@media (min-width: 769px) {
+		height: $header-height;
+	}
+	.m-menu__nav {
+		.m-menu__item {
+			cursor: pointer;
+			position: relative;
+			a {
+				.m-menu__link-text {
+					text-transform: capitalize !important;
+				}
+				i {
+					font-weight: bold;
+				}
+			}
+			.m-menu__submenu {
+				@media (min-width: 769px) {
+					width: auto !important;
+				}
+			}
+			&:hover {
+				background-color: darken(#fff, 5%);
+				a.m-menu__link {
+					span {
+						color: $hover-color !important;
+					}
+					i {
+						color: $hover-color !important;
+					}
+				}
+			}
+			.m-submenu__subnav {
+				background-color: #fff;
+				box-shadow: 0 0 15px 1px rgba(69,65,78,.2);
+				padding: 20px 0;
+				list-style: none !important;
+				margin: 0;
+				border-radius: 4px;
+				&.m-submenu__mega-menu {
+					display: flex;
+					list-style: none;
+					padding: 0;
+					margin: 0;
+					.m-submenu__mega-item {
+						padding: 0 0 10px 0;
+						margin: 0;
+					    border-right: 1px solid #f6f7fa;
+					    min-width: 250px;
+					    &:last-child {
+					    	border-right: none;
+					    }
+					    .m-menu__heading {
+					    	margin: 0;
+							display: table;
+							table-layout: fixed;
+							text-decoration: none;
+							position: relative;
+							vertical-align: middle;
+							padding: 15px 15px 5px 15px;
+							span {
+								font-weight: 500;
+								font-size: 1.25rem;
+								color: $fill-color;
+								text-transform: capitalize !important;
+							}
+					    }
+					    .m-menu__inner {
+					    	.m-submenu__item {
+					    		a {
+					    			padding: 10px 30px;
+					    		}
+					    	}
+					    }
+					}
+				}
+				.m-submenu__item {
+					cursor: pointer;
+					min-width: 250px;
+					a {
+						cursor: pointer;
+						padding: 10px 30px;
+						display: table;
+						table-layout: fixed;
+						text-decoration: none;
+						position: relative;
+						vertical-align: middle;
+						width: 100%;
+						height: 100%;
+						color: $fill-color;
+						outline: 0!important;
+						span {
+							width: 100%;
+							display: table-cell;
+							height: 100%;
+							padding: 0;
+							vertical-align: middle;
+						}
+					}
+					&:hover {
+						background-color: darken(#fff, 5%);
+						a.m-submenu__link {
+							span {
+								color: $hover-color !important;
+							}
+							i {
+								color: $hover-color !important;
+							}
+						}
+					}
+				}
+			}
+			.m-menu__submenu {
+				&.m-submenu__on {
+					display: block;
+					-webkit-animation: m-header-menu-submenu-fade-in 0.3s ease 1,m-header-menu-submenu-move-up 0.3s ease-out 1;
+					animation: m-header-menu-submenu-fade-in 0.3s ease 1,m-header-menu-submenu-move-up 0.3s ease-out;
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,340 @@
+<header id="m_header" class="m-grid__item m-header " m-minimize-offset="200" m-minimize-mobile-offset="200">
+  <div class="m-container m-container--fluid m-container--full-height">
+    <div class="m-stack m-stack--ver m-stack--desktop">
+      <!-- BEGIN: Brand -->
+      <div class="m-stack__item m-brand">
+        <div class="m-stack m-stack--ver m-stack--general">
+          <div class="m-stack__item m-stack__item--middle m-brand__tools">
+
+            <!-- BEGIN: Left Aside Minimize Toggle -->
+            <a href="javascript:;" id="m_aside_left_minimize_toggle" class="m-brand__icon m-brand__toggler m-brand__toggler--left m--visible-desktop-inline-block">
+              <span></span>
+            </a>
+            <!-- END -->
+
+            <!-- BEGIN: Title Page -->
+              <div class="m-page__title m--visible-tablet-and-mobile-inline-block">
+                <p>{{pageTitle | translate }}</p>
+              </div>
+            <!-- END: Title Page -->
+
+            <div class="m--visible-tablet-and-mobile-inline-block">
+              <!-- BEGIN: Responsive Aside Left Menu Toggler -->
+              <a href="javascript:;" id="m_aside_left_offcanvas_toggle" class="m-brand__icon m-brand__toggler m-brand__toggler--left m--visible-tablet-and-mobile-inline-block">
+                <span></span>
+              </a>
+
+              <!-- END -->
+
+              <!-- BEGIN: Topbar Toggler -->
+              <a id="m_aside_header_topbar_mobile_toggle" href="javascript:;" class="m-brand__icon m--visible-tablet-and-mobile-inline-block">
+                <i class="flaticon-more"></i>
+              </a>
+
+              <!-- BEGIN: Topbar Toggler -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- END: Brand -->
+      <div class="m-stack__item m-stack__item--fluid m-header-head" id="m_header_nav">
+
+        <!-- BEGIN: Title Page -->
+          <div class="m-header__title m--visible-desktop-inline-block">
+            <p ng-if="menuMode == 'admin'">{{'Trang quản trị MIS REACH' | translate}}</p>
+            <p ng-if="menuMode == 'mobile'">{{'Trang quản trị Alumni App' | translate}}</p>
+          </div>
+        <!-- END: Title Page -->
+
+        <!-- BEGIN: Title Page -->
+          <div class="m-page__title m--visible-desktop-inline-block">
+            <p>{{pageTitle | translate }}</p>
+          </div>
+        <!-- END: Title Page -->
+
+        <!-- BEGIN: Topbar -->
+        <div id="m_header_topbar" class="m-topbar  m-stack m-stack--ver m-stack--general m-stack--fluid">
+          <div class="m-stack__item m-topbar__nav-wrapper">
+            <ul class="m-topbar__nav m-nav m-nav--inline">
+              <li class="m-nav__item m-topbar__languages m-dropdown m-dropdown--small m-dropdown--header-bg-fill m-dropdown--arrow m-dropdown--align-right m-dropdown--mobile-full-width"
+                m-dropdown-toggle="click">
+                <a href="javascript:" class="m-nav__link m-dropdown__toggle">
+                  <span class="m-nav__link-text">
+                    <img class="m-topbar__language-selected-img" src="assets/app/media/img/flags/{{currentLanguage}}.svg">
+                  </span>
+                </a>
+                <div class="m-dropdown__wrapper">
+                  <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
+                  <div class="m-dropdown__inner">
+                    <div class="m-dropdown__header m--align-center" style="background: url(assets/app/media/img/misc/quick_actions_bg.jpg); background-size: cover;">
+                      <span class="m-dropdown__header-subtitle">{{'Chọn ngôn ngữ'|translate}}</span>
+                    </div>
+                    <div class="m-dropdown__body">
+                      <div class="m-dropdown__content">
+                        <ul class="m-nav m-nav--skin-light">
+                          <li class="m-nav__item" ng-class="{'m-nav__item--active': currentLanguage =='en'}">
+                            <a href="javascript:" class="m-nav__link" ng-click="changeLanguage('en')">
+                              <span class="m-nav__link-icon"><img class="m-topbar__language-img" src="assets/app/media/img/flags/en.svg"></span>
+                              <span class="m-nav__link-title m-topbar__language-text m-nav__link-text">English</span>
+                            </a>
+                          </li>
+                          <li class="m-nav__item" ng-class="{'m-nav__item--active': currentLanguage =='vi'}">
+                            <a href="javascript:" class="m-nav__link" ng-click="changeLanguage('vi')">
+                              <span class="m-nav__link-icon"><img class="m-topbar__language-img" src="assets/app/media/img/flags/vi.svg"></span>
+                              <span class="m-nav__link-title m-topbar__language-text m-nav__link-text">Tiếng Việt</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="m-nav__item m-topbar__notifications m-topbar__notifications--img m-dropdown m-dropdown--large m-dropdown--header-bg-fill m-dropdown--arrow m-dropdown--align-center   m-dropdown--mobile-full-width"
+                  m-dropdown-toggle="click" ng-controller="Notification.Controller">
+                  <a href="javascript:" class="m-nav__link m-dropdown__toggle" id="m_topbar_notification_icon">
+                    <span class="m-nav__link-badge m-badge m-badge--dot m-badge--dot-small m-badge--white" ng-show="countUnread > 0"></span>
+                    <span class="m-nav__link-icon"><i class="flaticon-alarm"></i></span>
+                  </a>
+                  <div class="m-dropdown__wrapper">
+                    <span class="m-dropdown__arrow m-dropdown__arrow--center"></span>
+                    <div class="m-dropdown__inner">
+                      <div class="m-dropdown__header m--align-center" style="background: url(assets/app/media/img/misc/notification_bg.jpg); background-size: cover;">
+                        <span class="m-dropdown__header-title">{{countUnread}}</span>
+                        <span class="m-dropdown__header-subtitle">{{'Thông báo mới' | translate}}</span>
+                      </div>
+                      <div class="m-dropdown__body m-padding-bottom-0">
+                        <div class="m-dropdown__content">
+                          <div class="m-scrollable max-height-250" data-scrollable="true" data-height="250" data-mobile-height="200">
+                            <div class="m-list-timeline m-list-timeline--skin-light">
+                              <div class="m-list-timeline__items" ng-if="dataNotification.length > 0">
+                                <div class="m-list-timeline__item" ng-repeat="item in dataNotification" ng-class="{'noti-highlight': item.state == '0'}" ng-click="clickNotification(item)">
+                                  <span class="m-list-timeline__badge -m-list-timeline__badge--state-success"></span>
+                                  <span class="m-list-timeline__text">{{item.notification.data.properties.Message}}</span>
+                                  <span class="m-list-timeline__time">{{item.offsetTime}}</span>
+                                </div>
+                                <div class="m-list-timeline__item" ng-click="getNotification('more')">
+                                  <span class="m-list-timeline__text text-center">{{'Xem thêm' | translate}}</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="m-dropdown__footer m--padding-top-5">
+                        <div class="m-dropdown__footer-wrapper text-right">
+                          <a ng-click="readAllNoti()" class="m-readall-noti">{{'Đánh dấu đã xem tất cả' | translate}}</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              <li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img  m-dropdown m-dropdown--medium m-dropdown--arrow m-dropdown--header-bg-fill m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light"
+                m-dropdown-toggle="click">
+                <a href="javascript:" class="m-nav__link m-dropdown__toggle">
+                  <span class="m-topbar__userpic">
+                    <img src="{{dataMyinfomation.profileImageUrl}}" class="m--img-rounded m--marginless" alt="" />
+                  </span>
+                  <span class="m-topbar__username">{{dataMyinfomation.name}}</span>
+                </a>
+                <div class="m-dropdown__wrapper">
+                  <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
+                  <div class="m-dropdown__inner">
+                    <div class="m-dropdown__header m--align-center" style="background: url(assets/app/media/img/misc/user_profile_bg.jpg); background-size: cover;">
+                      <div class="m-card-user m-card-user--skin-dark">
+                        <div class="m-card-user__pic">
+                          <img src="{{dataMyinfomation.profileImageUrl}}" class="m--img-rounded m--marginless" alt="" />
+                          <!--
+                            <span class="m-type m-type--lg m--bg-danger"><span class="m--font-light">S<span><span>
+                            -->
+                        </div>
+                        <div class="m-card-user__details">
+                          <span class="m-card-user__name m--font-weight-500">{{dataMyinfomation.name}}</span>
+                          <a href="" class="m-card-user__email m--font-weight-300 m-link">{{dataMyinfomation.emailAddress}}</a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="m-dropdown__body">
+                      <div class="m-dropdown__content">
+                        <ul class="m-nav m-nav--skin-light">
+                          <li class="m-nav__section m--hide">
+                            <span class="m-nav__section-text">Section</span>
+                          </li>
+                          <li class="m-nav__item">
+                            <a ui-sref="admin.account.profile" class="m-nav__link">
+                              <i class="m-nav__link-icon flaticon-profile-1"></i>
+                              <span class="m-nav__link-title">
+                                <span class="m-nav__link-wrap">
+                                  <span class="m-nav__link-text">{{'Thông tin cá nhân' | translate}}</span>
+                                  <!-- <span class="m-nav__link-badge"><span class="m-badge m-badge--success">2</span></span> -->
+                                </span>
+                              </span>
+                            </a>
+                          </li>
+                          <li class="m-nav__separator m-nav__separator--fit">
+                          </li>
+
+                          <li class="m-nav__item">
+                            <a href="javascript:" class="btn m-btn--pill btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder"
+                              ng-click="doLogout()">
+                              {{'Đăng xuất' | translate}}
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- END: Topbar -->
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  (function () {
+
+    var initStickyHeader = function () {
+      var tmp;
+      var headerEl = mUtil.get('m_header');
+      var options = {
+        offset: {},
+        minimize: {}
+      };
+
+      if (mUtil.attr(headerEl, 'm-minimize-mobile') == 'hide') {
+        options.minimize.mobile = {};
+        options.minimize.mobile.on = 'm-header--hide';
+        options.minimize.mobile.off = 'm-header--show';
+      } else {
+        options.minimize.mobile = false;
+      }
+
+      if (mUtil.attr(headerEl, 'm-minimize') == 'hide') {
+        options.minimize.desktop = {};
+        options.minimize.desktop.on = 'm-header--hide';
+        options.minimize.desktop.off = 'm-header--show';
+      } else {
+        options.minimize.desktop = false;
+      }
+
+      if (tmp = mUtil.attr(headerEl, 'm-minimize-offset')) {
+        options.offset.desktop = tmp;
+      }
+
+      if (tmp = mUtil.attr(headerEl, 'm-minimize-mobile-offset')) {
+        options.offset.mobile = tmp;
+      }
+
+      header = new mHeader('m_header', options);
+    }
+
+    var initTopbar = function () {
+      $('#m_aside_header_topbar_mobile_toggle').click(function () {
+        $('body').toggleClass('m-topbar--on');
+      });
+
+      // Animated Notification Icon 
+      
+      // setInterval(function() {
+      //     $('#m_topbar_notification_icon .m-nav__link-icon').addClass('m-animate-shake');
+      //     $('#m_topbar_notification_icon .m-nav__link-badge').addClass('m-animate-blink');
+      // }, 3000);
+
+      // setInterval(function() {
+      //     $('#m_topbar_notification_icon .m-nav__link-icon').removeClass('m-animate-shake');
+      //     $('#m_topbar_notification_icon .m-nav__link-badge').removeClass('m-animate-blink');
+      // }, 6000);
+      
+    }
+
+    //== Quicksearch
+    var initQuicksearch = function () {
+      if ($('#m_quicksearch').length === 0) {
+        return;
+      }
+
+      quicksearch = new mQuicksearch('m_quicksearch', {
+        mode: mUtil.attr('m_quicksearch', 'm-quicksearch-mode'), // quick search type
+        minLength: 1
+      });
+
+      //<div class="m-search-results m-search-results--skin-light"><span class="m-search-result__message">Something went wrong</div></div>
+
+      quicksearch.on('search', function (the) {
+        the.showProgress();
+
+        $.ajax({
+          url: 'https://keenthemes.com/metronic/themes/themes/metronic/dist/preview/inc/api/quick_search.php',
+          data: {
+            query: the.query
+          },
+          dataType: 'html',
+          success: function (res) {
+            the.hideProgress();
+            the.showResult(res);
+          },
+          error: function (res) {
+            the.hideProgress();
+            the.showError('Connection error. Pleae try again later.');
+          }
+        });
+      });
+    }
+
+    //== Scrolltop
+    var initScrollTop = function () {
+      var scrollTop = new mScrollTop('m_scroll_top', {
+        offset: 300,
+        speed: 600
+      });
+    }
+
+    var initHorMenu = function () {
+      // init aside left offcanvas
+      horMenuOffcanvas = new mOffcanvas('m_header_menu', {
+        overlay: true,
+        baseClass: 'm-aside-header-menu-mobile',
+        closeBy: 'm_aside_header_menu_mobile_close_btn',
+        toggleBy: {
+          target: 'm_aside_header_menu_mobile_toggle',
+          state: 'm-brand__toggler--active'
+        }
+      });
+
+      horMenu = new mMenu('m_header_menu', {
+        submenu: {
+          desktop: 'dropdown',
+          tablet: 'accordion',
+          mobile: 'accordion'
+        },
+        accordion: {
+          slideSpeed: 200, // accordion toggle slide speed in milliseconds
+          expandAll: false // allow having multiple expanded accordions in the menu
+        }
+      });
+    };
+
+    let initHeader = function () {
+      initStickyHeader();
+      initHorMenu();
+      initTopbar();
+      initQuicksearch();
+      initScrollTop();
+    };
+
+    initHeader();
+
+
+    $('.m-topbar__notifications .m-dropdown__wrapper').click(function(event) {
+      event.stopPropagation();
+    })
+
+  })()
+
+</script>

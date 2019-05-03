@@ -1,0 +1,347 @@
+
+<div class="m-content">
+        <div class="row">
+            <div class="col-md-12">
+                <form validation-form submit-function="AddPartner()" class="m-form m-form--fit m-form--label-align-right">
+                    <div class="col-md-12" style="padding:0px">
+                        <div class="m-portlet m-portlet--tab">
+                            <div class="m-portlet__body">
+                                <div class="form-body col-lg-12 no-padding" style="margin-top: 20px">
+                                    <div class="form-group m-form__group row">
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <label class="col-4 col-form-label">{{'Loại hình hợp tác' | translate}}:</label>
+                                                <div class="col-8">
+                                                    <select class="form-control" ng-model="dataPartner.partner_type" >
+                                                        <option value="">{{'Chọn' | translate}}</option>
+                                                        <option value="1">{{'Đối tác chương trình' | translate}}</option>
+                                                        <option value="2">{{'Truyền thông' | translate}}</option>
+                                                        <option value="3">{{'Nhà tài trợ' | translate}}</option>
+                                                        <option value="4">{{'Nhà tài trợ tiềm năng' | translate}}</option>
+                                                        <option value="5">{{'Tuyển sinh' | translate}}</option>
+                                                        <option value="6">{{'Đào tạo' | translate}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-form__group row">
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <label class="col-4 col-form-label">{{'Tiêu đề' | translate}}:</label>
+                                                <div class="col-8">
+                                                    <select si-selectpicker title="Chọn tiêu đề" class="form-control" ng-model="dataPartner.contact_type">
+                                                        <option class="">Chọn tiêu đề</option>
+                                                        <option value="Mr.">Mr.</option>
+                                                        <option value="Mrs.">Mrs.</option>
+                                                        <option value="Ms.">Ms.</option>
+                                                    </select>
+                                                    <!-- <input type="text" maxlength="255" ng-model="dataPartner.contact_type" class="form-control" required> -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <label class="col-4 col-form-label">{{'Tên đối tác ' | translate}}:<span class="required"> *</span></label>
+                                                <div class="col-8">
+                                                    <input type="text" maxlength="255" ng-model="dataPartner.name" class="form-control" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-form__group row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <label >{{'Ghi chú ' | translate}}:</label>
+                                                <textarea type="text" ng-model="dataPartner.note" class="form-control" rows="5"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="m-portlet__foot m-portlet__foot--fit m-portlet__no-border">
+                                    <div class="m-form__actions m-form__actions">
+                                        <div class="row">
+                                            <div class="col-lg-7 ml-lg-auto">
+                                                  <button ng-click="goToList()" class="btn btn-secondary">{{'Quay lại' | translate}}</button>
+                                                  <button type="submit" button-submit class="btn btn-accent">{{'Lưu' | translate}}</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="m-accordion m-accordion--bordered" role="tablist" id= "m_accordion_6">
+                                    <div class="m-accordion__item">
+                                        <div class="m-accordion__item-head" role="tab" id="m_accordion_6_item_2_head" data-toggle="collapse" href="#m_accordion_6_item_2_body" aria-expanded="false">
+                                            <span class="m-accordion__item-title">{{'Danh sách thông tin liên hệ' | translate}}</span>
+                                            <span class="m-accordion__item-mode"></span>     
+                                        </div>
+                
+                                        <div class="m-accordion__item-body collapse show" id="m_accordion_6_item_2_body" role="tabpanel" aria-labelledby="m_accordion_6_item_2_head" data-parent="#m_accordion_6" style=""> 
+                                            <div class="m-accordion__item-content no-padding" >
+                                                <div class="m-portlet__body">
+                                                    <button type="button" ng-click="addPartnerContact()" class="btn btn-accent">{{'Thêm' | translate}}</button>
+                                                    <table ng-if="dataPartner.partnerContacts.length >0" class="table  table-striped table-bordered table-hover table-checkable dataTable no-footer" role="grid">
+                                                        <thead>
+                                                            <tr role='row'>
+                                                                <th class="text-center" style="width: 15%">Họ và tên</th>
+                                                                <th class="text-center" style="width: 15%">Vị trí</th>
+                                                                <th class="text-center" style="width: 15%">Email</th>
+                                                                <th class="text-center" style="width: 10%">Điện thoại</th>
+                                                                <th class="text-center" style="width: 20%">	Nhà tài trợ biết REACH từ kênh nào?</th>
+                                                                <th class="text-center" style="width: 15%">	Mối quan hệ với cán bộ Reach</th>
+                                                                <th class="text-center" style="width: 10%">	Hành động</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr ng-repeat ="data in dataPartner.partnerContacts track by $index">
+                                                                <td class="text-center">{{data.title}}{{data.last_name}} {{data.middle_name}} {{data.first_name}}</td>
+                                                                <td class="text-center">{{data.position}}</td>
+                                                                <td class="text-center">{{data.email}}</td>
+                                                                <td class="text-center">{{data.phone}}</td>
+                                                                <td class="text-center" >{{data.from_channel_text}}</td>
+                                                                <td class="text-center">{{data.reach_relationship}}({{data.reach_position}})</td>
+                                                                <td class="text-center">
+                                                                    <a href="javarscipt:;" ng-click="viewPartnerContact($index)" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="m-tooltip"  title="" data-original-title="Sửa"><i class="la la-edit"></i></a>
+                                                                    <a href="javascript:;" ng-click="deletePartnerContact($index)" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="m-tooltip"  title="" data-original-title="Xóa"><i class="flaticon-delete"></i></a>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="modal fade" id="m_modal_contact" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog" role="document" style=" width: 90%;max-width: 90%;">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" ng-if="mode=='them'" id="exampleModalLabel">{{'Thêm thông tin liên hệ' | translate}}</h5>
+                            <h5 class="modal-title" ng-if="mode=='sua'" id="exampleModalLabel">{{'Sửa thông tin liên hệ' | translate}}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form validation-form submit-function="updatePartnerContact()" class="m-form m-form--fit m-form--label-align-right">
+                                    <div class="col-md-12" style="padding:0px">
+                                        <div class="m-portlet m-portlet--tab">
+                                            <div class="m-portlet__body">
+                                                <div class="form-body col-lg-12 no-padding" style="margin-top: 20px">
+                                                    <div class="form-group m-form__group row">
+                                                        <div class="col-md-6">
+                                                            <div class="row">
+                                                                <label class="col-4 col-form-label">{{'Tiêu đề' | translate}}<span class="required"> *</span></label>
+                                                                <div class="col-8">
+                                                                    <select class="form-control" ng-model="dataPartnerContact.title" required>
+                                                                        <option value="">{{'Chọn' | translate}}</option>
+                                                                        <option value="Mr.">Mr.</option>
+                                                                        <option value="Mrs.">Mrs.</option>
+                                                                        <option value="Ms.">Ms.</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="row">
+                                                                <label class="col-4 col-form-label">{{'Họ' | translate}}<span class="required"> *</span></label>
+                                                                <div class="col-8">
+                                                                    <input type="text" ng-model="dataPartnerContact.first_name" maxlength="255" class="form-control m-input" placeholder="Nhập họ" required>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group m-form__group row">
+                                                        <div class="col-md-6">
+                                                            <div class="row">
+                                                                <label class="col-4 col-form-label">{{'Tên đệm' | translate}}<span class="required"> *</span></label>
+                                                                <div class="col-8">
+                                                                    <input type="text" ng-model="dataPartnerContact.middle_name" maxlength="255" class="form-control m-input" placeholder="Nhập họ tên" required>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="row">
+                                                                <label class="col-4 col-form-label">{{'Tên' | translate}}<span class="required"> *</span></label>
+                                                                <div class="col-8">
+                                                                    <input type="text" ng-model="dataPartnerContact.last_name" maxlength="255" class="form-control m-input" placeholder="Nhập họ tên" required>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group m-form__group row">
+                                                        <div class="col-md-6">
+                                                            <div class="row">
+                                                                <label class="col-4 col-form-label">Email<span class="required"> *</span></label>
+                                                                <div class="col-8">
+                                                                    <input type="text" email ng-model="dataPartnerContact.email" maxlength="100" class="form-control m-input" placeholder="Nhập email" required>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="row">
+                                                                <label class="col-4 col-form-label">{{'Địa chỉ' | translate}}:</label>
+                                                                <div class="col-8">
+                                                                    <input type="text" ng-model="dataPartnerContact.address" maxlength="255" class="form-control m-input" placeholder="Nhập địa chỉ">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group m-form__group row">
+                                                        <div class="col-md-6">
+                                                            <div class="row">
+                                                                <label class="col-4 col-form-label">Vị trí<span class="required"> *</span></label>
+                                                                <div class="col-8">
+                                                                    <input type="text" ng-model="dataPartnerContact.position" maxlength="255" class="form-control m-input" placeholder="Nhập vị trí" required>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="row">
+                                                                <label class="col-4 col-form-label">{{'Địa chỉ liên hệ' | translate}}:</label>
+                                                                <div class="col-8">
+                                                                    <input type="text" ng-model="dataPartnerContact.contact_address" maxlength="255" class="form-control m-input" placeholder="Nhập địa chỉ liên hệ">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group m-form__group row">
+                                                        <div class="col-md-6">
+                                                            <div class="row">
+                                                                <label class="col-4 col-form-label">{{'Quốc gia' | translate}}:</label>
+                                                                <div class="col-8">
+                                                                    <select class="form-control" text-key = "name" value-key="code" si-select get-data="getProvince()"  ng-model="dataPartnerContact.country">  
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="row">
+                                                                <label class="col-4 col-form-label">{{'Số điện thoại' | translate}}<span class="required"> *</span></label>
+                                                                <div class="col-8">
+                                                                    <input type="text" maxlength="50" phone minlength="10" ng-model="dataPartnerContact.phone" class="form-control m-input" placeholder="Nhập số điện thoại" required>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group m-form__group row">
+                                                        <div class="col-md-6">
+                                                            <div class="row">
+                                                                <label class="col-4 col-form-label">{{'Số điện thoại 1' | translate}}:</label>
+                                                                <div class="col-8">
+                                                                    <input type="text" maxlength="50" minlength="10" phone ng-model="dataPartnerContact.phone1" class="form-control m-input" placeholder="Nhập số điện thoại">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="row">
+                                                                <label class="col-4 col-form-label">{{'Số điện thoại 2' | translate}}:</label>
+                                                                <div class="col-8">
+                                                                    <input type="text" maxlength="50" phone minlength="10" ng-model="dataPartnerContact.phone2" class="form-control m-input" placeholder="Nhập số điện thoại">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group m-form__group row">
+                                                        <div class="col-md-6">
+                                                            <div class="row">
+                                                                <label class="col-4 col-form-label">Website:</label>
+                                                                <div class="col-8">
+                                                                    <input type="text" ng-model="dataPartnerContact.website" class="form-control m-input" placeholder="Nhập địa chỉ website">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="row">
+                                                                <label class="col-4 col-form-label">{{'Nhà tài trợ biết REACH từ kênh' | translate}}:</label>
+                                                                <div class="col-8">
+                                                                    <select class="form-control" ng-model="dataPartnerContact.from_channel">
+                                                                        <option value="">{{'Chọn' | translate}}</option>
+                                                                        <option value="0">{{'Gặp trực tiếp' | translate}}</option>
+                                                                        <option value="1">Email</option>
+                                                                        <option value="2">Website</option>
+                                                                        <option value="3">{{'Sự kiện reach tổ chức' | translate}}</option>
+                                                                        <option value="4">{{'Báo chí' | translate}}</option>
+                                                                        <option value="5">{{'Mạng lưới NGO' | translate}}</option>
+                                                                        <option value="6">{{'Mạng xã hội' | translate}}</option>
+                                                                        <option value="7">{{'Khác' | translate}}</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group m-form__group row">
+                                                            <div class="col-md-6">
+                                                                <div class="row">
+                                                                    <label class="col-4 col-form-label">{{'Quan hệ với Reach' | translate}}:</label>
+                                                                    <div class="col-8">
+                                                                        <input type="text" ng-model="dataPartnerContact.reach_relationship" maxlength="50" class="form-control m-input" placeholder="Nhập mối quan hệ với Reach" > 
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="row">
+                                                                    <label class="col-4 col-form-label">{{'Tình trạng pháp nhân' | translate}}:</label>
+                                                                    <div class="col-8">
+                                                                        <select ng-model="dataPartnerContact.legal_status" class="form-control" id="">
+                                                                            <option value="">{{'Chọn' | translate}}</option>
+                                                                            <option value="1">{{'Trường đào tạo nghề' | translate}}</option>
+                                                                            <option value="2">{{'Chính quyền địa phương' | translate}}</option>
+                                                                            <option value="3">{{'Tổ chức phi chính phủ/nhân đạo quốc tế' | translate}}</option>
+                                                                            <option value="4">{{'Tổ chức phi chính phủ trong nước' | translate}}</option>
+                                                                            <option value="5">{{'Doanh nghiệp' | translate}}</option>
+                                                                            <option value="6">{{'Cá nhân' | translate}}</option>
+                                                                            <option value="7">{{'Doanh nghiệp xã hội' | translate}}</option>
+                                                                            <option value="8">{{'Hiệp hội ngành nghề' | translate}}</option>
+                                                                            <option value="9">{{'Đại sứ quán tại Việt Nam' | translate}}</option>
+                                                                            <option value="10">{{'Câu lạc bộ/ Mạng lưới quan hệ xã hội' | translate}}</option>
+                                                                            <option value="11">{{'Cơ quan Chính Phủ' | translate}}</option>
+                                                                            <option value="12">{{'Quỹ' | translate}}</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    <div class="form-group m-form__group row">
+                                                        <div class="col-md-6">
+                                                            <div class="row">
+                                                                <label class="col-4 col-form-label">{{'Vị trí người liên hệ' | translate}}:</label>
+                                                                <div class="col-8">
+                                                                    <input type="text" maxlength="255" ng-model="dataPartnerContact.reach_position" class="form-control m-input" placeholder="Nhập vị trí" >
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="m-portlet__foot m-portlet__foot--fit m-portlet__no-border">
+                                                <div class="m-form__actions m-form__actions">
+                                                    <div class="row">
+                                                        <div class="col-lg-12 text-center" ng-if="mode=='sua'">
+                                                            <button  type="submit" button-submit class="btn btn-accent">{{'Lưu' | translate}}</button>
+                                                        </div>
+                                                        <div class="col-lg-12 text-center" ng-if="mode=='them'">
+                                                            <button type="submit" button-submit class="btn btn-accent">{{'Thêm' | translate}}</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+          

@@ -1,0 +1,33 @@
+<div class="m-content">
+    <div class="row">
+        <div class="col-md-12">
+            <form validation-form submit-function="update()" class="m-form m-form--fit m-form--label-align-right">
+                <div class="col-md-12" style="padding:0px">
+                    <div class="m-portlet m-portlet--tab">
+                        <div class="m-portlet__body">
+                            <div class="form-body col-lg-12" style="margin-top: 20px">
+                                <div class="form-group m-form__group row no-padding">
+                                    <div class="col-md-6">
+                                        <label class="">{{'Điều khoản (vn)' | translate}}:</label>
+                                        <textarea height="500" summernote type="text" ng-model="data.term_vi" class="form-control m-input" placeholder="Nhập điều khoản" ></textarea>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="">{{'Điểu khoản (en)' | translate}}:</label>
+                                        <textarea summernote  type="text" ng-model="data.term_en" class="form-control m-input" placeholder="Nhập điều khoản" ></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="m-portlet__foot m-portlet__foot--fit m-portlet__no-border">
+                            <div class="m-form__actions m-form__actions text-center">
+                                
+                                <button button-submit  type="submit" class="btn btn-accent">{{'Sửa' | translate}}</button>
+                                 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

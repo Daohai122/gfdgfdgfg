@@ -1,0 +1,79 @@
+<div class="m-content">
+    <div class="row">
+        <div class="col-md-12">
+            <form validation-form submit-function="AddPartner()" class="m-form m-form--fit m-form--label-align-right">
+                <div class="col-md-12" style="padding:0px">
+                    <div class="m-portlet m-portlet--tab">
+                        <div class="m-portlet__body">
+                            <div class="form-body col-lg-12 no-padding" style="margin-top: 20px">
+                                <div class="form-group m-form__group row">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <label class="col-4 col-form-label">{{'Loại hình hợp tác' | translate}}:</label>
+                                            <div class="col-8">
+                                                <select class="form-control" ng-model="dataPartner.partner_type" >
+                                                    <option value="">{{'Chọn' | translate}}</option>
+                                                    <option value="1">{{'Đối tác chương trình' | translate}}</option>
+                                                    <option value="2">{{'Truyền thông' | translate}}</option>
+                                                    <option value="3">{{'Nhà tài trợ' | translate}}</option>
+                                                    <option value="4">{{'Nhà tài trợ tiềm năng' | translate}}</option>
+                                                    <option value="5">{{'Tuyển sinh' | translate}}</option>
+                                                    <option value="6">{{'Đào tạo' | translate}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group row">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <label class="col-4 col-form-label">{{'Tiêu đề' | translate}}:</label>
+                                            <div class="col-8">
+                                                <select si-selectpicker title="Chọn tiêu đề" class="form-control" ng-model="dataPartner.contact_type">
+                                                    <option value="">Chọn tiêu đề</option>
+                                                    <option value="Mr.">Mr.</option>
+                                                    <option value="Mrs.">Mrs.</option>
+                                                    <option value="Ms.">Ms.</option>
+                                                </select>
+                                                <!-- <input type="text" maxlength="255" ng-model="dataPartner.contact_type" class="form-control" required> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <label class="col-4 col-form-label">{{'Tên đối tác ' | translate}}:<span class="required"> *</span></label>
+                                            <div class="col-8">
+                                                <input type="text" maxlength="255" ng-model="dataPartner.name" class="form-control" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group row">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <label >{{'Ghi chú ' | translate}}:</label>
+                                            <textarea type="text" ng-model="dataPartner.note" class="form-control" rows="5"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="m-portlet__foot m-portlet__foot--fit m-portlet__no-border">
+                            <div class="m-portlet__foot m-portlet__foot--fit m-portlet__no-border">
+                                <div class="m-form__actions m-form__actions">
+                                    <div class="row">
+                                        <div class="col-lg-7 ml-lg-auto">
+                                            <button ng-click="goToList()" class="btn btn-secondary">{{'Quay lại' | translate}}</button>
+                                            <button type="submit" button-submit class="btn btn-accent">{{'Thêm' | translate}}</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+          

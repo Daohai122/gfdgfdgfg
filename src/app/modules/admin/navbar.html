@@ -1,0 +1,118 @@
+<div class="m-header__bottom">
+  <div class="m-container m-container--fluid m-container--full-height">
+    <div class="m-stack m-stack--ver m-stack--desktop">
+      <div class="m-stack__item m-stack__item--middle m-stack__item--fluid" ng-if="menuMode == 'admin'">
+        <div
+          class="m-header-menu m-aside-header-menu-mobile m-aside-header-menu-mobile--offcanvas  m-header-menu--skin-dark m-header-menu--submenu-skin-light m-aside-header-menu-mobile--skin-light m-aside-header-menu-mobile--submenu-skin-light "
+          navigator>
+          <ul class="m-menu__nav  m-menu__nav--submenu-arrow">
+            <li ng-repeat="item in menuItems" class="m-menu__item" aria-haspopup="true" m-menu-submenu-toggle="click"
+              ng-show="item.visible == true">
+              <a ng-if="item.state" class="m-menu__link" ui-sref="{{item.state}}"  ng-click="changeState(item.state)">
+                <span class="m-menu__link-text">{{item.title | translate}}</span>
+              </a>
+
+              <a ng-if="!item.state" class="m-menu__link">
+                <span class="m-menu__link-text">{{item.title | translate}}</span>
+                <i class="m-menu__hor-arrow la la-angle-down"></i>
+              </a>
+
+              <div ng-if="item.children" class="m-menu__submenu m-menu__submenu--classic m-menu__submenu--left">
+                <ul ng-if="item.mega == true" class="m-submenu__subnav m-submenu__mega-menu">
+                  <li ng-repeat="subItem in item.children" class="m-submenu__mega-item" aria-haspopup="true"
+                    ng-show="subItem.visible == true">
+                    <h3 class="m-menu__heading m-menu__toggle">
+                      <span class="m-menu__link-text">{{subItem.title | translate}}</span>
+                    </h3>
+                    <ul class="m-menu__inner">
+                      <li ng-repeat="subItem2 in subItem.children" class="m-submenu__item " aria-haspopup="true"
+                        ng-show="subItem2.visible == true">
+                        <a ui-sref="{{subItem2.state}}" class="m-submenu__link " ng-click="changeState(subItem2.state)">
+                          <span class="m-submenu__link-title">
+                            <span class="m-submenu__link-wrap">
+                              <span class="m-submenu__link-text">{{subItem2.title| translate}}</span>
+                            </span>
+                          </span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+                <ul ng-if="!item.mega" class="m-submenu__subnav">
+                  <li ng-repeat="subItem in item.children" class="m-submenu__item" aria-haspopup="true"
+                    ng-show="subItem.visible == true">
+                    <a class="m-submenu__link" ui-sref="{{subItem.state}}" ng-click="changeState(subItem.state)">
+                      <span class="m-submenu__link-title">
+                        <span class="m-submenu__link-wrap">
+                          <span class="m-submenu__link-text">{{subItem.title | translate}}</span>
+                        </span>
+                      </span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- begin::Horizontal Mobile Menu -->
+      <div class="m-stack__item m-stack__item--middle m-stack__item--fluid" ng-if="menuMode == 'mobile'">
+        <div
+          class="m-header-menu m-aside-header-menu-mobile m-aside-header-menu-mobile--offcanvas  m-header-menu--skin-dark m-header-menu--submenu-skin-light m-aside-header-menu-mobile--skin-light m-aside-header-menu-mobile--submenu-skin-light "
+          navigator>
+          <ul class="m-menu__nav  m-menu__nav--submenu-arrow">
+            <li ng-repeat="item in appMenuItems" class="m-menu__item" aria-haspopup="true" m-menu-submenu-toggle="click"
+              ng-show="item.visible == true">
+              <a ng-if="item.state" class="m-menu__link" ui-sref="{{item.state}}" ng-click="changeState(item.state)">
+                <span class="m-menu__link-text">{{item.title | translate}}</span>
+              </a>
+
+              <a ng-if="!item.state" class="m-menu__link">
+                <span class="m-menu__link-text">{{item.title | translate}}</span>
+                <i class="m-menu__hor-arrow la la-angle-down"></i>
+              </a>
+
+              <div ng-if="item.children" class="m-menu__submenu m-menu__submenu--classic m-menu__submenu--left">
+                <ul ng-if="item.mega == true" class="m-submenu__subnav m-submenu__mega-menu">
+                  <li ng-repeat="subItem in item.children" class="m-submenu__mega-item" aria-haspopup="true"
+                    ng-show="subItem.visible == true">
+                    <h3 class="m-menu__heading m-menu__toggle">
+                      <span class="m-menu__link-text">{{subItem.title | translate}}</span>
+                    </h3>
+                    <ul class="m-menu__inner">
+                      <li ng-repeat="subItem2 in subItem.children" class="m-submenu__item " aria-haspopup="true"
+                        ng-show="subItem2.visible == true">
+                        <a ui-sref="{{subItem2.state}}" class="m-submenu__link " ng-click="changeState(subItem2.state)">
+                          <span class="m-submenu__link-title">
+                            <span class="m-submenu__link-wrap">
+                              <span class="m-submenu__link-text">{{subItem2.title| translate}}</span>
+                            </span>
+                          </span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+                <ul ng-if="!item.mega" class="m-submenu__subnav">
+                  <li ng-repeat="subItem in item.children" class="m-submenu__item" aria-haspopup="true"
+                    ng-show="subItem.visible == true">
+                    <a class="m-submenu__link" ui-sref="{{subItem.state}}" ng-click="changeState(subItem.state)">
+                      <span class="m-submenu__link-title">
+                        <span class="m-submenu__link-wrap">
+                          <span class="m-submenu__link-text">{{subItem.title | translate}}</span>
+                        </span>
+                      </span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!-- end::Horizontal Menu -->
+
+    </div>
+  </div>
+</div>

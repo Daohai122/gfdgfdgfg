@@ -1,0 +1,28 @@
+<div class="row" ng-controller="Report.TacDong.GioiTinh" ng-init="init()">
+  <div class="tab-pane active no-padding border-right"
+    ng-class="{'col-md-12': viewMode=='full', 'col-md-9': viewMode!='full' }">
+    <div class="m-portlet__body collapse show" style="padding: 5px">
+      <table ng-if="genderReport.length > 0"
+        class="table  table-striped table-bordered table-hover table-checkable dataTable no-footer" role="grid">
+        <thead>
+          <tr>
+            <th class="text-center" style="">Tên trung tâm</th>
+            <th class="text-center" style="">Nam</th>
+            <th class="text-center" style="">Nữ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="data in genderReport track by $index">
+            <td class="text-center">{{data.centerName}}</td>
+            <td class="text-center">{{data.male}}&nbsp;({{data.malePercent}}%)</td>
+            <td class="text-center">{{data.feMale}}&nbsp;({{data.feMalePercent}}%)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div ng-show="genderReport.length > 0" id="chartPice"></div>
+  </div>
+  <div class="col-md-3" ng-hide="viewMode=='full'">
+    <div ng-include="'/app/modules/report/search.html'"></div>
+  </div>
+</div>

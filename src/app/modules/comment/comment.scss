@@ -1,0 +1,33 @@
+
+
+.flaticon-delete{
+    cursor: pointer;
+}
+.flaticon-delete:hover{
+    color: #4c6a86;
+}
+    
+.m-widget3 .m-widget3__item {
+    margin-bottom: 0px;
+}
+.view-comment table.table-bordered.dataTable tbody td{
+    cursor: pointer;
+}
+
+.height-auto {
+	height: auto;
+}
+
+.article-detail {
+	padding: 20px 0;
+	align-items: flex-start !important;
+	.image_category_comment{
+		max-width: 185px;
+		height: 150px;
+	}
+	img {
+		object-fit: cover;
+		width: 100%;
+		max-height: 150px;
+	}
+}

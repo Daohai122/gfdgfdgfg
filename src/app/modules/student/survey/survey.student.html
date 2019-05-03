@@ -1,0 +1,921 @@
+<table class="table  table-striped table-bordered table-hover table-checkable dataTable no-footer" role="grid">
+	<thead>
+		<tr role='row'>
+			<th class="text-center" style="width: 15%">{{'STT' | translate }}</th>
+			<th style="width: 50%">{{'Bài khảo sát' | translate }}</th>
+			<th style="width: 20%">{{'Điểm khảo sát' | translate }}</th>
+			<th class="text-center" style="width: 15%">{{'Hành động' | translate }}</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td class="text-center">1</td>
+			<td>Khảo sát chất lượng cuộc sống  lần 1</td>
+			<td class="text-center">{{surveyData.qol_1}}</td>
+			<td class="text-center">
+				<a ng-show="surveyData.survey1_data != null" href="javarscipt:;" ng-click="openSurvey(1, 'update')" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="m-tooltip"  title="" data-original-title="Xem"><i class="la la-edit"></i></a>
+				<a ng-show="surveyData.survey1_data == null" href="javarscipt:;" ng-click="openSurvey(1, 'create')" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="m-tooltip"  title="" data-original-title="Thêm"><i class="fa fa-plus"></i></a>
+			</td>
+		</tr>
+		<tr ng-show="surveyData.survey1_data != null">
+			<td class="text-center">2</td>
+			<td>Khảo sát chất lượng cuộc sống sau khi hoàn thành khóa học</td>
+			<td class="text-center">{{surveyData.qol_2}}</td>
+			<td class="text-center">
+				<a ng-show="surveyData.survey2_data != null" href="javarscipt:;" ng-click="openSurvey(2, 'update')" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="m-tooltip"  title="" data-original-title="Xem"><i class="la la-edit"></i></a>
+				<a ng-show="surveyData.survey2_data == null" href="javarscipt:;" ng-click="openSurvey(2, 'create')" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="m-tooltip"  title="" data-original-title="Thêm"><i class="fa fa-plus"></i></a>
+			</td>
+		</tr>
+		<tr ng-show="surveyData.survey1_data != null && surveyData.survey2_data != null && surveyData.survey3_data">
+			<td class="text-center">3</td>
+			<td>Khảo sát chất lượng cuộc sống sau 06 tháng tốt nghiệp</td>
+			<td class="text-center">{{surveyData.qol_3}}</td>
+			<td class="text-center">
+				<a ng-show="surveyData.survey3_data != null" href="javarscipt:;" ng-click="openSurvey(3, 'update')" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="m-tooltip"  title="" data-original-title="Xem"><i class="la la-edit"></i></a>
+				<a ng-show="surveyData.survey3_data == null" href="javarscipt:;" ng-click="openSurvey(3, 'create')" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="m-tooltip"  title="" data-original-title="Thêm"><i class="fa fa-plus"></i></a>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<div class="modal fade" id="survey" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog"  style="width: 95%; max-width: 95%;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" ng-if="surveyFormId == 1">{{'Khảo sát chất lượng cuộc sống' | translate}}</h5>
+				<h5 class="modal-title" ng-if="surveyFormId == 2">{{'Khảo sát chất lượng cuộc sống sau khi hoàn thành khóa học' | translate}}</h5>
+				<h5 class="modal-title" ng-if="surveyFormId == 3">{{'Khảo sát chất lượng cuộc sống sau 06 tháng tốt nghiệp' | translate}}</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form validation-form submit-function="submitForm()" class="m-form m-form--fit m-form--label-align-right">
+
+					<div ng-if="version != 2">
+						<div class="m-portlet m-portlet--tabs m-portlet--head-solid-bg m-portlet--head-sm m-portlet--bordered " id="studentForm">
+							<div class="m-portlet__head accordion-toggle" >
+								<div class="m-portlet__head-caption">
+									<div class="m-portlet__head-title">
+										<h3 class="m-portlet__head-text">{{'Cải thiện chất lượng đời sống' | translate}}</h3>
+									</div>  
+								</div>
+							</div>
+							<div class="m-portlet__body collapse show" id="demo" aria-expanded="true" >
+								<div class="form-group m-form__group row m-margin-right-0 m-margin-left-0">
+									<div class="col-md-12">
+										<div class="row">
+											<label class="col-12 col-form-label">{{'1.	TÔI CÓ ĐỦ TIỀN ĐỂ CHI TIÊU CHO CÁC HOẠT ĐỘNG VUI CHƠI GIẢI TRÍ' | translate}} <span class="required">*</span></label>
+											<div class="col-12">
+												<div class="row m-margin-right-0 m-margin-left-0">
+		                                        	<label class="m-radio col-width-20">
+		                                                <input type="radio" name="du_tien_chi_tieu" value="0" ng-model="studentSurvey.du_tien_chi_tieu" required> {{'Hoàn toàn không đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="1" name="du_tien_chi_tieu" ng-model="studentSurvey.du_tien_chi_tieu" required> {{'Không đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" name="du_tien_chi_tieu" value="2" ng-model="studentSurvey.du_tien_chi_tieu" required> {{'Không có ý kiến' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="3" name="du_tien_chi_tieu" ng-model="studentSurvey.du_tien_chi_tieu" required> {{'Đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="4" name="du_tien_chi_tieu" ng-model="studentSurvey.du_tien_chi_tieu" required> {{'Hoàn toàn đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                        </div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="form-group m-form__group row m-margin-right-0 m-margin-left-0 m--margin-top-15">
+									<div class="col-md-12">
+										<div class="row">
+											<label class="col-12 col-form-label">{{'2.	TÔI CÓ THỂ TỰ MUA ĐƯỢC NHỮNG THỨ THIẾT YẾU CHO MÌNH BẰNG TIỀN CỦA MÌNH' | translate}} <span class="required">*</span></label>
+											<div class="col-12">
+												<div class="row m-margin-right-0 m-margin-left-0">
+		                                        	<label class="m-radio col-width-20">
+		                                                <input type="radio" name="mua_duoc_nhung_thu_thiet_yeu" value="0" ng-model="studentSurvey.mua_duoc_nhung_thu_thiet_yeu" required> {{'Hoàn toàn không đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="1" name="mua_duoc_nhung_thu_thiet_yeu" ng-model="studentSurvey.mua_duoc_nhung_thu_thiet_yeu" required> {{'Không đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" name="mua_duoc_nhung_thu_thiet_yeu" value="2" ng-model="studentSurvey.mua_duoc_nhung_thu_thiet_yeu" required> {{'Không có ý kiến' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="3" name="mua_duoc_nhung_thu_thiet_yeu" ng-model="studentSurvey.mua_duoc_nhung_thu_thiet_yeu" required> {{'Đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="4" name="mua_duoc_nhung_thu_thiet_yeu" ng-model="studentSurvey.mua_duoc_nhung_thu_thiet_yeu" required> {{'Hoàn toàn đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                        </div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="m-portlet m-portlet--tabs m-portlet--head-solid-bg m-portlet--head-sm m-portlet--bordered " id="studentForm">
+							<div class="m-portlet__head accordion-toggle" >
+								<div class="m-portlet__head-caption">
+									<div class="m-portlet__head-title">
+										<h3 class="m-portlet__head-text">{{'Việc làm ổn định' | translate}}</h3>
+									</div>  
+								</div>
+							</div>
+							<div class="m-portlet__body collapse show" id="demo" aria-expanded="true" >
+								<div class="form-group m-form__group row m-margin-right-0 m-margin-left-0">
+									<div class="col-md-12">
+										<div class="row">
+											<label class="col-12 col-form-label">{{'BẠN CÓ ĐI LÀM KHÔNG?' | translate}} <span class="required">*</span></label>
+											<div class="col-12">
+												<div class="row m-margin-right-0 m-margin-left-0">
+		                                        	<label class="m-radio col-md-12">
+		                                                <input type="radio" name="ban_co_di_lam_khong" value="Có" ng-model="studentSurvey.ban_co_di_lam_khong" required> {{'Có' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-md-12">
+		                                                <input type="radio" value="Không" name="ban_co_di_lam_khong" ng-model="studentSurvey.ban_co_di_lam_khong" required> {{'Không' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                        </div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="form-group m-form__group row m-margin-right-0 m-margin-left-0 m--margin-top-15" ng-show="surveyFormId == 3">
+									<div class="col-md-12">
+										<div class="row">
+											<label class="col-12 col-form-label">{{'NHÀ TUYỂN DỤNG CÓ KÝ HỢP ĐỒNG LAO ĐỘNG VỚI BẠN?' | translate}}</label>
+											<div class="col-12">
+												<div class="row m-margin-right-0 m-margin-left-0">
+		                                        	<label class="m-radio col-width-20">
+		                                                <input type="radio" name="nha_tuyen_dung_co_ky_hop_dong_lao_dong_voi_ban" value="0" ng-model="studentSurvey.nha_tuyen_dung_co_ky_hop_dong_lao_dong_voi_ban"> {{'Không ký' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="1" name="nha_tuyen_dung_co_ky_hop_dong_lao_dong_voi_ban" ng-model="studentSurvey.nha_tuyen_dung_co_ky_hop_dong_lao_dong_voi_ban"> {{'HĐ 3 tháng' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" name="nha_tuyen_dung_co_ky_hop_dong_lao_dong_voi_ban" value="2" ng-model="studentSurvey.nha_tuyen_dung_co_ky_hop_dong_lao_dong_voi_ban"> {{'HĐ 6 tháng' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="3" name="nha_tuyen_dung_co_ky_hop_dong_lao_dong_voi_ban" ng-model="studentSurvey.nha_tuyen_dung_co_ky_hop_dong_lao_dong_voi_ban"> {{'HĐ 1 năm' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="4" name="nha_tuyen_dung_co_ky_hop_dong_lao_dong_voi_ban" ng-model="studentSurvey.nha_tuyen_dung_co_ky_hop_dong_lao_dong_voi_ban"> {{'Khác' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                        </div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="form-group m-form__group row m-margin-right-0 m-margin-left-0 m--margin-top-15" ng-show="studentSurvey.ban_co_di_lam_khong == 'Có'">
+									<div class="col-md-12">
+										<div class="row">
+											<label class="col-12 col-form-label">{{'3.	BẠN HÀI LÒNG VỚI CÔNG VIỆC CỦA BẠN NHƯ THẾ NÀO?' | translate}}</label>
+											<div class="col-12">
+												<div class="row m-margin-right-0 m-margin-left-0">
+		                                        	<label class="m-radio col-width-20">
+		                                                <input type="radio" name="ban_hai_long_voi_cong_viec" value="0" ng-model="studentSurvey.ban_hai_long_voi_cong_viec"> {{'Rất không hài lòng' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="1" name="ban_hai_long_voi_cong_viec" ng-model="studentSurvey.ban_hai_long_voi_cong_viec"> {{'Không hài lòng' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" name="ban_hai_long_voi_cong_viec" value="2" ng-model="studentSurvey.ban_hai_long_voi_cong_viec"> {{'Bình thường' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="3" name="ban_hai_long_voi_cong_viec" ng-model="studentSurvey.ban_hai_long_voi_cong_viec"> {{'Hài lòng' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="4" name="ban_hai_long_voi_cong_viec" ng-model="studentSurvey.ban_hai_long_voi_cong_viec"> {{'Rất hài lòng' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                        </div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="form-group m-form__group row m-margin-right-0 m-margin-left-0 m--margin-top-15">
+									<div class="col-md-12">
+										<div class="row">
+											<label class="col-12 col-form-label">{{'4.	CÂU NÀO DƯỚI ĐÂY BẠN THẤY ĐÚNG VỚI MÌNH NHẤT' | translate}}</label>
+											<div class="col-12">
+												<div class="row m-margin-right-0 m-margin-left-0">
+		                                        	<label class="m-checkbox col-md-12">
+		                                                <input type="checkbox" name="cau_nao_duoi_day_ban_thay_dung_voi_minh_nhat" value="0" ng-model="studentSurvey.cau_nao_duoi_day_ban_thay_dung_voi_minh_nhat[0]"> {{'1.Không có khả năng để tìm được công việc mình cần' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-checkbox col-md-12">
+		                                                <input type="checkbox" value="1" name="cau_nao_duoi_day_ban_thay_dung_voi_minh_nhat" ng-model="studentSurvey.cau_nao_duoi_day_ban_thay_dung_voi_minh_nhat[1]"> {{'2.Có ít kiến thức và khả năng để tìm công việc mình cần' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-checkbox col-md-12">
+		                                                <input type="checkbox" name="cau_nao_duoi_day_ban_thay_dung_voi_minh_nhat" value="2" ng-model="studentSurvey.cau_nao_duoi_day_ban_thay_dung_voi_minh_nhat[2]"> {{'3.Cần được học nhiều hơn nữa để có được công việc mình cần' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-checkbox col-md-12">
+		                                                <input type="checkbox" value="3" name="cau_nao_duoi_day_ban_thay_dung_voi_minh_nhat" ng-model="studentSurvey.cau_nao_duoi_day_ban_thay_dung_voi_minh_nhat[3]"> {{'4.Tự tin mình có đủ khả năng để làm được công việc của mình' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-checkbox col-md-12">
+		                                                <input type="checkbox" value="4" name="cau_nao_duoi_day_ban_thay_dung_voi_minh_nhat" ng-model="studentSurvey.cau_nao_duoi_day_ban_thay_dung_voi_minh_nhat[4]"> {{'5.Có thể dạy cho người khác' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                        </div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="m-portlet m-portlet--tabs m-portlet--head-solid-bg m-portlet--head-sm m-portlet--bordered " id="studentForm">
+							<div class="m-portlet__head accordion-toggle" >
+								<div class="m-portlet__head-caption">
+									<div class="m-portlet__head-title">
+										<h3 class="m-portlet__head-text">{{'Lạc quan yêu đời' | translate }}</h3>
+									</div>  
+								</div>
+							</div>
+							<div class="m-portlet__body collapse show" id="demo" aria-expanded="true" >
+								<div class="form-group m-form__group row m-margin-right-0 m-margin-left-0">
+									<div class="col-md-12">
+										<div class="row">
+											<label class="col-12 col-form-label">{{'5. CÓ NHIỀU CƠ HỘI ĐẾN VỚI TÔI' | translate}} <span class="required">*</span></label>
+											<div class="col-12">
+												<div class="row m-margin-right-0 m-margin-left-0">
+		                                        	<label class="m-radio col-width-20">
+		                                                <input type="radio" name="co_nhieu_co_hoi_den_voi_toi" value="0" ng-model="studentSurvey.co_nhieu_co_hoi_den_voi_toi" required> {{'Hoàn toàn không đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="1" name="co_nhieu_co_hoi_den_voi_toi" ng-model="studentSurvey.co_nhieu_co_hoi_den_voi_toi" required> {{'Không đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" name="co_nhieu_co_hoi_den_voi_toi" value="2" ng-model="studentSurvey.co_nhieu_co_hoi_den_voi_toi" required> {{'Không có ý kiến' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="3" name="co_nhieu_co_hoi_den_voi_toi" ng-model="studentSurvey.co_nhieu_co_hoi_den_voi_toi" required> {{'Đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="4" name="co_nhieu_co_hoi_den_voi_toi" ng-model="studentSurvey.co_nhieu_co_hoi_den_voi_toi" required> {{'Hoàn toàn đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                        </div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="form-group m-form__group row m-margin-right-0 m-margin-left-0 m--margin-top-15">
+									<div class="col-md-12">
+										<div class="row">
+											<label class="col-12 col-form-label">{{'6.	TÔI CẢM THẤY YÊN TÂM VỀ CUỘC SỐNG CỦA MÌNH' | translate}} <span class="required">*</span></label>
+											<div class="col-12">
+												<div class="row m-margin-right-0 m-margin-left-0">
+		                                        	<label class="m-radio col-width-20">
+		                                                <input type="radio" name="cam_thay_yen_tam_ve_cuoc_song_cua_minh" value="0" ng-model="studentSurvey.cam_thay_yen_tam_ve_cuoc_song_cua_minh" required> {{'Hoàn toàn không đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="1" name="cam_thay_yen_tam_ve_cuoc_song_cua_minh" ng-model="studentSurvey.cam_thay_yen_tam_ve_cuoc_song_cua_minh" required> {{'Không đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" name="cam_thay_yen_tam_ve_cuoc_song_cua_minh" value="2" ng-model="studentSurvey.cam_thay_yen_tam_ve_cuoc_song_cua_minh" required> {{'Không có ý kiến' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="3" name="cam_thay_yen_tam_ve_cuoc_song_cua_minh" ng-model="studentSurvey.cam_thay_yen_tam_ve_cuoc_song_cua_minh" required> {{'Đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="4" name="cam_thay_yen_tam_ve_cuoc_song_cua_minh" ng-model="studentSurvey.cam_thay_yen_tam_ve_cuoc_song_cua_minh" required> {{'Hoàn toàn đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                        </div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="m-portlet m-portlet--tabs m-portlet--head-solid-bg m-portlet--head-sm m-portlet--bordered " id="studentForm"  ng-show="surveyFormId != 3">
+							<div class="m-portlet__head accordion-toggle" >
+								<div class="m-portlet__head-caption">
+									<div class="m-portlet__head-title">
+										<h3 class="m-portlet__head-text">{{'Cải thiện môi trường làm việc' | translate}}</h3>
+									</div>  
+								</div>
+							</div>
+							<div class="m-portlet__body collapse show" id="demo" aria-expanded="true" >
+								<div class="form-group m-form__group row m-margin-right-0 m-margin-left-0">
+									<div class="col-md-12">
+										<div class="row">
+											<label class="col-12 col-form-label">{{'7.	TÔI CÓ THỂ ĐỀ ĐẠT, BÀY TỎ Ý KIẾN CỦA MÌNH VỚI CẤP TRÊN HOẶC NGƯỜI QUẢN LÝ CỦA MÌNH' | translate}}</label>
+											<div class="col-12">
+												<div class="row m-margin-right-0 m-margin-left-0">
+		                                        	<label class="m-radio col-width-20">
+		                                                <input type="radio" name="de_dat_bay_to" value="0" ng-model="studentSurvey.de_dat_bay_to"> {{'Hoàn toàn không đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="1" name="de_dat_bay_to" ng-model="studentSurvey.de_dat_bay_to"> {{'Không đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" name="de_dat_bay_to" value="2" ng-model="studentSurvey.de_dat_bay_to"> {{'Không có ý kiến' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="3" name="de_dat_bay_to" ng-model="studentSurvey.de_dat_bay_to"> {{'Đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="4" name="de_dat_bay_to" ng-model="studentSurvey.de_dat_bay_to"> {{'Hoàn toàn đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                        </div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="form-group m-form__group row m-margin-right-0 m-margin-left-0 m--margin-top-15">
+									<div class="col-md-12">
+										<div class="row">
+											<label class="col-12 col-form-label">{{'8.	BẠN THẤY MÔI TRƯỜNG LÀM VIỆC HIỆN TẠI CỦA MÌNH NHƯ THẾ NÀO?' | translate}}</label>
+											<div class="col-12">
+												<div class="row m-margin-right-0 m-margin-left-0">
+		                                        	<label class="m-radio col-width-20">
+		                                                <input type="radio" name="moi_truong_lam_viec" value="0" ng-model="studentSurvey.moi_truong_lam_viec"> {{'Rất nguy hiểm' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="1" name="moi_truong_lam_viec" ng-model="studentSurvey.moi_truong_lam_viec"> {{'Nguy hiểm' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" name="moi_truong_lam_viec" value="2" ng-model="studentSurvey.moi_truong_lam_viec"> {{'Bình thường' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="3" name="moi_truong_lam_viec" ng-model="studentSurvey.moi_truong_lam_viec"> {{'An toàn' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="4" name="moi_truong_lam_viec" ng-model="studentSurvey.moi_truong_lam_viec"> {{'Rất an toàn' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                        </div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="m-portlet m-portlet--tabs m-portlet--head-solid-bg m-portlet--head-sm m-portlet--bordered " id="studentForm">
+							<div class="m-portlet__head accordion-toggle" >
+								<div class="m-portlet__head-caption">
+									<div class="m-portlet__head-title">
+										<h3 class="m-portlet__head-text">{{'Cảm giác có đóng góp cho xã hội' | translate}}</h3>
+									</div>  
+								</div>
+							</div>
+							<div class="m-portlet__body collapse show" id="demo" aria-expanded="true" >
+								<div class="form-group m-form__group row m-margin-right-0 m-margin-left-0">
+									<div class="col-md-12">
+										<div class="row">
+											<label class="col-12 col-form-label">{{'9.	TÔI CÓ THỂ SỐNG TỰ LẬP ĐƯỢC' | translate}} <span class="required">*</span></label>
+											<div class="col-12">
+												<div class="row m-margin-right-0 m-margin-left-0">
+		                                        	<label class="m-radio col-width-20">
+		                                                <input type="radio" name="toi_co_the_song_tu_lap_duoc" value="0" ng-model="studentSurvey.toi_co_the_song_tu_lap_duoc" required> {{'Hoàn toàn không đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="1" name="toi_co_the_song_tu_lap_duoc" ng-model="studentSurvey.toi_co_the_song_tu_lap_duoc" required> {{'Không đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" name="toi_co_the_song_tu_lap_duoc" value="2" ng-model="studentSurvey.toi_co_the_song_tu_lap_duoc" required> {{'Không có ý kiến' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="3" name="toi_co_the_song_tu_lap_duoc" ng-model="studentSurvey.toi_co_the_song_tu_lap_duoc" required> {{'Đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="4" name="toi_co_the_song_tu_lap_duoc" ng-model="studentSurvey.toi_co_the_song_tu_lap_duoc" required> {{'Hoàn toàn đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                        </div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="form-group m-form__group row m-margin-right-0 m-margin-left-0 m--margin-top-15">
+									<div class="col-md-12">
+										<div class="row">
+											<label class="col-12 col-form-label">{{'10.	TÔI BIẾT NHIỀU CÁCH GIÚP ĐỠ NGƯỜI KHÁC' | translate}} <span class="required">*</span></label>
+											<div class="col-12">
+												<div class="row m-margin-right-0 m-margin-left-0">
+		                                        	<label class="m-radio col-width-20">
+		                                                <input type="radio" name="toi_biet_nhieu_cach_giup_do_nguoi_khac" value="0" ng-model="studentSurvey.toi_biet_nhieu_cach_giup_do_nguoi_khac" required> {{'Hoàn toàn không đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="1" name="toi_biet_nhieu_cach_giup_do_nguoi_khac" ng-model="studentSurvey.toi_biet_nhieu_cach_giup_do_nguoi_khac" required> {{'Không đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" name="toi_biet_nhieu_cach_giup_do_nguoi_khac" value="2" ng-model="studentSurvey.toi_biet_nhieu_cach_giup_do_nguoi_khac" required> {{'Không có ý kiến' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="3" name="toi_biet_nhieu_cach_giup_do_nguoi_khac" ng-model="studentSurvey.toi_biet_nhieu_cach_giup_do_nguoi_khac" required> {{'Đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="4" name="toi_biet_nhieu_cach_giup_do_nguoi_khac" ng-model="studentSurvey.toi_biet_nhieu_cach_giup_do_nguoi_khac" required> {{'Hoàn toàn đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                        </div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div ng-if="version == 2">
+						<div class="m-portlet m-portlet--tabs m-portlet--head-solid-bg m-portlet--head-sm m-portlet--bordered " id="studentForm">
+							<div class="m-portlet__head accordion-toggle" >
+								<div class="m-portlet__head-caption">
+									<div class="m-portlet__head-title">
+										<h3 class="m-portlet__head-text">{{'QL1. Cải thiện cuộc sống gia đình' | translate}}</h3>
+									</div>  
+								</div>
+							</div>
+							<div class="m-portlet__body collapse show" id="demo" aria-expanded="true" >
+								<div class="form-group m-form__group row m-margin-right-0 m-margin-left-0">
+									<div class="col-md-12">
+										<div class="row">
+											<label class="col-12 col-form-label">{{'1.	Tôi có thể tự mua được những thứ thiết yếu cho mình bằng tiền của mình (vật dụng cá nhân, không phải đồ đắt tiền)' | translate}}</label>
+											<div class="col-12">
+												<div class="row m-margin-right-0 m-margin-left-0">
+		                                        	<label class="m-radio col-width-20">
+		                                                <input type="radio" name="mua_duoc_nhung_thu_thiet_yeu" value="0" ng-model="studentSurvey.mua_duoc_nhung_thu_thiet_yeu"> {{'Hoàn toàn không đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="1" name="mua_duoc_nhung_thu_thiet_yeu" ng-model="studentSurvey.mua_duoc_nhung_thu_thiet_yeu"> {{'Không đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" name="mua_duoc_nhung_thu_thiet_yeu" value="2" ng-model="studentSurvey.mua_duoc_nhung_thu_thiet_yeu"> {{'Không có ý kiến' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="3" name="mua_duoc_nhung_thu_thiet_yeu" ng-model="studentSurvey.mua_duoc_nhung_thu_thiet_yeu"> {{'Đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="4" name="mua_duoc_nhung_thu_thiet_yeu" ng-model="studentSurvey.mua_duoc_nhung_thu_thiet_yeu"> {{'Hoàn toàn đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                        </div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="form-group m-form__group row m-margin-right-0 m-margin-left-0">
+									<div class="col-md-12">
+										<div class="row">
+											<label class="col-12 col-form-label">{{'2.	Tôi có đủ tiền để chi tiêu cho các hoạt động vui chơi giải trí, gặp gỡ bạn bè (500.000 VND/tháng)' | translate}}</label>
+											<div class="col-12">
+												<div class="row m-margin-right-0 m-margin-left-0">
+		                                        	<label class="m-radio col-width-20">
+		                                                <input type="radio" name="du_tien_chi_tieu" value="0" ng-model="studentSurvey.du_tien_chi_tieu"> {{'Hoàn toàn không đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="1" name="du_tien_chi_tieu" ng-model="studentSurvey.du_tien_chi_tieu"> {{'Không đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" name="du_tien_chi_tieu" value="2" ng-model="studentSurvey.du_tien_chi_tieu"> {{'Không có ý kiến' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="3" name="du_tien_chi_tieu" ng-model="studentSurvey.du_tien_chi_tieu"> {{'Đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="4" name="du_tien_chi_tieu" ng-model="studentSurvey.du_tien_chi_tieu"> {{'Hoàn toàn đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                        </div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="form-group m-form__group row m-margin-right-0 m-margin-left-0">
+									<div class="col-md-12">
+										<div class="row">
+											<label class="col-12 col-form-label">{{'3.	Tôi có thể giúp đỡ/ gửi tiền cho gia đình một khoản tiền nhất định hàng tháng' | translate}}</label>
+											<div class="col-12">
+												<div class="row m-margin-right-0 m-margin-left-0">
+		                                        	<label class="m-radio col-width-20">
+		                                                <input type="radio" name="gui_tien_cho_gia_dinh" value="0" ng-model="studentSurvey.gui_tien_cho_gia_dinh"> {{'Hoàn toàn không đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="1" name="gui_tien_cho_gia_dinh" ng-model="studentSurvey.gui_tien_cho_gia_dinh"> {{'Không đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" name="gui_tien_cho_gia_dinh" value="2" ng-model="studentSurvey.gui_tien_cho_gia_dinh"> {{'Không có ý kiến' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="3" name="gui_tien_cho_gia_dinh" ng-model="studentSurvey.gui_tien_cho_gia_dinh"> {{'Đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="4" name="gui_tien_cho_gia_dinh" ng-model="studentSurvey.gui_tien_cho_gia_dinh"> {{'Hoàn toàn đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                        </div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="form-group m-form__group row m-margin-right-0 m-margin-left-0">
+									<div class="col-md-12">
+										<div class="row">
+											<label class="col-12 col-form-label">{{'4.	Tôi biết cách để tiếp cận các dịch vụ bảo hiểm y tế hoặc bảo hiểm thất nghiêp, nơi tìm việc làm nếu nghỉ việc' | translate}}</label>
+											<div class="col-12">
+												<div class="row m-margin-right-0 m-margin-left-0">
+		                                        	<label class="m-radio col-width-20">
+		                                                <input type="radio" name="tiep_can_dich_vu_bao_hiem" value="0" ng-model="studentSurvey.tiep_can_dich_vu_bao_hiem"> {{'Hoàn toàn không đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="1" name="tiep_can_dich_vu_bao_hiem" ng-model="studentSurvey.tiep_can_dich_vu_bao_hiem"> {{'Không đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" name="tiep_can_dich_vu_bao_hiem" value="2" ng-model="studentSurvey.tiep_can_dich_vu_bao_hiem"> {{'Không có ý kiến' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="3" name="tiep_can_dich_vu_bao_hiem" ng-model="studentSurvey.tiep_can_dich_vu_bao_hiem"> {{'Đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="4" name="tiep_can_dich_vu_bao_hiem" ng-model="studentSurvey.tiep_can_dich_vu_bao_hiem"> {{'Hoàn toàn đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                        </div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="form-group m-form__group row m-margin-right-0 m-margin-left-0">
+									<div class="col-md-12">
+										<div class="row">
+											<label class="col-12 col-form-label">{{'5.	Tôi có khả năng học lên cao' | translate}}</label>
+											<div class="col-12">
+												<div class="row m-margin-right-0 m-margin-left-0">
+		                                        	<label class="m-radio col-width-20">
+		                                                <input type="radio" name="kha_nang_hoc_len_cao" value="0" ng-model="studentSurvey.kha_nang_hoc_len_cao"> {{'Hoàn toàn không đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="1" name="kha_nang_hoc_len_cao" ng-model="studentSurvey.kha_nang_hoc_len_cao"> {{'Không đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" name="kha_nang_hoc_len_cao" value="2" ng-model="studentSurvey.kha_nang_hoc_len_cao"> {{'Không có ý kiến' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="3" name="kha_nang_hoc_len_cao" ng-model="studentSurvey.kha_nang_hoc_len_cao"> {{'Đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="4" name="kha_nang_hoc_len_cao" ng-model="studentSurvey.kha_nang_hoc_len_cao"> {{'Hoàn toàn đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                        </div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="m-portlet m-portlet--tabs m-portlet--head-solid-bg m-portlet--head-sm m-portlet--bordered " id="studentForm">
+							<div class="m-portlet__head accordion-toggle" >
+								<div class="m-portlet__head-caption">
+									<div class="m-portlet__head-title">
+										<h3 class="m-portlet__head-text">{{'QL2. Lạc quan yêu đời' | translate}}</h3>
+									</div>  
+								</div>
+							</div>
+							<div class="m-portlet__body collapse show" id="demo" aria-expanded="true" >
+								<div class="form-group m-form__group row m-margin-right-0 m-margin-left-0">
+									<div class="col-md-12">
+										<div class="row">
+											<label class="col-12 col-form-label">{{'6.	Có nhiều cơ hội đến với tôi (Cơ hội việc làm, học tập, giao lưu bạn bè,….)' | translate}}</label>
+											<div class="col-12">
+												<div class="row m-margin-right-0 m-margin-left-0">
+		                                        	<label class="m-radio col-width-20">
+		                                                <input type="radio" name="co_nhieu_co_hoi_den_voi_toi" value="0" ng-model="studentSurvey.co_nhieu_co_hoi_den_voi_toi"> {{'Hoàn toàn không đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="1" name="co_nhieu_co_hoi_den_voi_toi" ng-model="studentSurvey.co_nhieu_co_hoi_den_voi_toi"> {{'Không đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" name="co_nhieu_co_hoi_den_voi_toi" value="2" ng-model="studentSurvey.co_nhieu_co_hoi_den_voi_toi"> {{'Không có ý kiến' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="3" name="co_nhieu_co_hoi_den_voi_toi" ng-model="studentSurvey.co_nhieu_co_hoi_den_voi_toi"> {{'Đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="4" name="co_nhieu_co_hoi_den_voi_toi" ng-model="studentSurvey.co_nhieu_co_hoi_den_voi_toi"> {{'Hoàn toàn đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                        </div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="form-group m-form__group row m-margin-right-0 m-margin-left-0">
+									<div class="col-md-12">
+										<div class="row">
+											<label class="col-12 col-form-label">{{'7.	Tôi cảm thấy tự tin khi giới thiệu về mình' | translate}}</label>
+											<div class="col-12">
+												<div class="row m-margin-right-0 m-margin-left-0">
+		                                        	<label class="m-radio col-width-20">
+		                                                <input type="radio" name="tu_tin_gioi_thieu_ve_minh" value="0" ng-model="studentSurvey.tu_tin_gioi_thieu_ve_minh"> {{'Hoàn toàn không đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="1" name="tu_tin_gioi_thieu_ve_minh" ng-model="studentSurvey.tu_tin_gioi_thieu_ve_minh"> {{'Không đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" name="tu_tin_gioi_thieu_ve_minh" value="2" ng-model="studentSurvey.tu_tin_gioi_thieu_ve_minh"> {{'Không có ý kiến' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="3" name="tu_tin_gioi_thieu_ve_minh" ng-model="studentSurvey.tu_tin_gioi_thieu_ve_minh"> {{'Đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="4" name="tu_tin_gioi_thieu_ve_minh" ng-model="studentSurvey.tu_tin_gioi_thieu_ve_minh"> {{'Hoàn toàn đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                        </div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="m-portlet m-portlet--tabs m-portlet--head-solid-bg m-portlet--head-sm m-portlet--bordered " id="studentForm">
+							<div class="m-portlet__head accordion-toggle" >
+								<div class="m-portlet__head-caption">
+									<div class="m-portlet__head-title">
+										<h3 class="m-portlet__head-text">{{'QL3. Cảm giác có đóng góp cho xã hội' | translate}}</h3>
+									</div>  
+								</div>
+							</div>
+							<div class="m-portlet__body collapse show" id="demo" aria-expanded="true" >
+								<div class="form-group m-form__group row m-margin-right-0 m-margin-left-0">
+									<div class="col-md-12">
+										<div class="row">
+											<label class="col-12 col-form-label">{{'8.	Tôi có thể sống tự lập được' | translate}}</label>
+											<div class="col-12">
+												<div class="row m-margin-right-0 m-margin-left-0">
+		                                        	<label class="m-radio col-width-20">
+		                                                <input type="radio" name="toi_co_the_song_tu_lap_duoc" value="0" ng-model="studentSurvey.toi_co_the_song_tu_lap_duoc"> {{'Hoàn toàn không đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="1" name="toi_co_the_song_tu_lap_duoc" ng-model="studentSurvey.toi_co_the_song_tu_lap_duoc"> {{'Không đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" name="toi_co_the_song_tu_lap_duoc" value="2" ng-model="studentSurvey.toi_co_the_song_tu_lap_duoc"> {{'Không có ý kiến' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="3" name="toi_co_the_song_tu_lap_duoc" ng-model="studentSurvey.toi_co_the_song_tu_lap_duoc"> {{'Đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="4" name="toi_co_the_song_tu_lap_duoc" ng-model="studentSurvey.toi_co_the_song_tu_lap_duoc"> {{'Hoàn toàn đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                        </div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="form-group m-form__group row m-margin-right-0 m-margin-left-0">
+									<div class="col-md-12">
+										<div class="row">
+											<label class="col-12 col-form-label">{{'9.	Tôi có thể giúp đỡ người khác' | translate}}</label>
+											<div class="col-12">
+												<div class="row m-margin-right-0 m-margin-left-0">
+		                                        	<label class="m-radio col-width-20">
+		                                                <input type="radio" name="toi_co_the_giup_do_nguoi_khac" value="0" ng-model="studentSurvey.toi_co_the_giup_do_nguoi_khac"> {{'Hoàn toàn không đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="1" name="toi_co_the_giup_do_nguoi_khac" ng-model="studentSurvey.toi_co_the_giup_do_nguoi_khac"> {{'Không đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" name="toi_co_the_giup_do_nguoi_khac" value="2" ng-model="studentSurvey.toi_co_the_giup_do_nguoi_khac"> {{'Không có ý kiến' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="3" name="toi_co_the_giup_do_nguoi_khac" ng-model="studentSurvey.toi_co_the_giup_do_nguoi_khac"> {{'Đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="4" name="toi_co_the_giup_do_nguoi_khac" ng-model="studentSurvey.toi_co_the_giup_do_nguoi_khac"> {{'Hoàn toàn đồng ý' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                        </div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="m-portlet m-portlet--tabs m-portlet--head-solid-bg m-portlet--head-sm m-portlet--bordered " id="studentForm">
+							<div class="m-portlet__head accordion-toggle" >
+								<div class="m-portlet__head-caption">
+									<div class="m-portlet__head-title">
+										<h3 class="m-portlet__head-text">{{'QL4. Cải thiện môi trường làm việc' | translate}}</h3>
+									</div>  
+								</div>
+							</div>
+							<div class="m-portlet__body collapse show" id="demo" aria-expanded="true" >
+								<div class="form-group m-form__group row m-margin-right-0 m-margin-left-0">
+									<div class="col-md-12">
+										<div class="row">
+											<label class="col-12 col-form-label">{{'BẠN CÓ ĐI LÀM KHÔNG?' | translate}}</label>
+											<div class="col-12">
+												<div class="row m-margin-right-0 m-margin-left-0">
+		                                        	<label class="m-radio col-md-12">
+		                                                <input type="radio" name="ban_co_di_lam_khong" value="Có" ng-model="studentSurvey.ban_co_di_lam_khong"> {{'Có' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-md-12">
+		                                                <input type="radio" value="Không" name="ban_co_di_lam_khong" ng-model="studentSurvey.ban_co_di_lam_khong"> {{'Không' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                        </div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="form-group m-form__group row m-margin-right-0 m-margin-left-0"  ng-show="studentSurvey.ban_co_di_lam_khong == 'Có'">
+									<div class="col-md-12">
+										<div class="row">
+											<label class="col-12 col-form-label">{{'10.	Bạn thấy môi trường làm việc hiện tại của mình như thế nào?' | translate}}</label>
+											<div class="col-12">
+												<div class="row m-margin-right-0 m-margin-left-0">
+		                                        	<label class="m-radio col-width-20">
+		                                                <input type="radio" name="moi_truong_lam_viec" value="0" ng-model="studentSurvey.moi_truong_lam_viec"> {{'Rất nguy hiểm' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="1" name="moi_truong_lam_viec" ng-model="studentSurvey.moi_truong_lam_viec"> {{'Nguy hiểm' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" name="moi_truong_lam_viec" value="2" ng-model="studentSurvey.moi_truong_lam_viec"> {{'Bình thường' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="3" name="moi_truong_lam_viec" ng-model="studentSurvey.moi_truong_lam_viec"> {{'An toàn' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="4" name="moi_truong_lam_viec" ng-model="studentSurvey.moi_truong_lam_viec"> {{'Rất an toàn' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                        </div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="form-group m-form__group row m-margin-right-0 m-margin-left-0"  ng-show="studentSurvey.ban_co_di_lam_khong == 'Có'">
+									<div class="col-md-12">
+										<div class="row">
+											<label class="col-12 col-form-label">{{'11.	Cảm giác của bạn về công việc hiện tại' | translate}}</label>
+											<div class="col-12">
+												<div class="row m-margin-right-0 m-margin-left-0">
+		                                        	<label class="m-radio col-width-20">
+		                                                <input type="radio" name="cong_viec_hien_tai" value="0" ng-model="studentSurvey.cong_viec_hien_tai"> {{'Bấp bênh' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="1" name="cong_viec_hien_tai" ng-model="studentSurvey.cong_viec_hien_tai"> {{'Không hài lòng' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" name="cong_viec_hien_tai" value="2" ng-model="studentSurvey.cong_viec_hien_tai"> {{'Yên ổn' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="3" name="cong_viec_hien_tai" ng-model="studentSurvey.cong_viec_hien_tai"> {{'Yêu thích công việc' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-width-20">
+		                                                <input type="radio" value="4" name="cong_viec_hien_tai" ng-model="studentSurvey.cong_viec_hien_tai"> {{'Yêu thích và muốn phấn đấu làm nghề lâu dài hơn' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                        </div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="form-group m-form__group row m-margin-right-0 m-margin-left-0"  ng-show="studentSurvey.ban_co_di_lam_khong == 'Có'">
+									<div class="col-md-12">
+										<div class="row">
+											<label class="col-12 col-form-label">{{'12.	Câu nào dưới đây bạn thấy đúng với mình nhất' | translate}}</label>
+											<div class="col-12">
+												<div class="row m-margin-right-0 m-margin-left-0">
+		                                        	<label class="m-checkbox col-md-12">
+		                                                <input type="checkbox" name="cau_nao_duoi_day_ban_thay_dung_voi_minh_nhat" value="0" ng-model="studentSurvey.cau_nao_duoi_day_ban_thay_dung_voi_minh_nhat[0]"> {{'1. Không thể tìm được công việc mình cần vì không biết làm việc gì, tìm ở đâu' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-checkbox col-md-12">
+		                                                <input type="checkbox" value="1" name="cau_nao_duoi_day_ban_thay_dung_voi_minh_nhat" ng-model="studentSurvey.cau_nao_duoi_day_ban_thay_dung_voi_minh_nhat[1]"> {{'2. Chưa đủ kiến thức và kĩ năng để làm việc' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-checkbox col-md-12">
+		                                                <input type="checkbox" name="cau_nao_duoi_day_ban_thay_dung_voi_minh_nhat" value="2" ng-model="studentSurvey.cau_nao_duoi_day_ban_thay_dung_voi_minh_nhat[2]"> {{'3. Cần học thêm nữa để có được công việc mình cần' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-checkbox col-md-12">
+		                                                <input type="checkbox" value="3" name="cau_nao_duoi_day_ban_thay_dung_voi_minh_nhat" ng-model="studentSurvey.cau_nao_duoi_day_ban_thay_dung_voi_minh_nhat[3]"> {{'4. Tự tin mình có đủ khả năng để làm việc hoặc xin việc chỗ khác dễ dàng' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-checkbox col-md-12">
+		                                                <input type="checkbox" value="4" name="cau_nao_duoi_day_ban_thay_dung_voi_minh_nhat" ng-model="studentSurvey.cau_nao_duoi_day_ban_thay_dung_voi_minh_nhat[4]"> {{'5. Có thể dạy cho người khác về công việc của mình' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                        </div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-lg-7 ml-lg-auto">
+							<button type="reset" button-reset class="btn btn-secondary" data-dismiss="modal">{{'Quay lại' | translate}}</button>
+							<button button-submit  type="submit" class="btn btn-accent">{{'Lưu' | translate}}</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

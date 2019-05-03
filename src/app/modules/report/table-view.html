@@ -1,0 +1,18 @@
+<div ng-if="dataReport" class="m-portlet__body collapse show" style="padding: 5px; overflow-x: auto">
+  <table class="table table-striped table-bordered table-hover table-checkable dataTable no-footer"
+    style="width: 1680px" role="grid">
+    <thead>
+      <tr role="row">
+        <th class="text-center" style="width: 80px" ng-repeat="item in columns track by $index">{{item.title}}</th>
+      </tr>
+    </thead>
+    <tbody ng-repeat="group in dataReport">
+      <tr>
+        <td colspan="{{columns.length}}">{{group.center_name}}</td>
+      </tr>
+      <tr ng-repeat="item in group.items">
+        <td class="text-center" ng-repeat="col in columns">{{item[col.key]}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

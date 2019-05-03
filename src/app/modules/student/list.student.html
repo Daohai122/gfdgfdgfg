@@ -1,0 +1,197 @@
+<div class="m-content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="col-md-12" style="padding:0px">
+        <div class="m-portlet m-portlet--tab">
+          <div class="m-portlet__body">
+            <div
+              si-table
+              config="tableConfig"
+              reload-table="reloadTable"
+              ng-model="dataStudent"
+              search="filter"
+            >
+              <div
+                class="filter-region m-portlet m-portlet--tab collapse show"
+                id="collapseExample"
+              >
+                <div class="row m-portlet__body">
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <div class="m-input-icon m-input-icon--left">
+                        <input
+                          type="text"
+                          class="form-control m-input search_params"
+                          placeholder="Tìm kiếm"
+                          ng-model="filter.SearchString"
+                        />
+                        <span
+                          class="m-input-icon__icon m-input-icon__icon--left"
+                        >
+                          <span><i class="la la-search"></i></span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <div class="input-group m-input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">{{
+                            "Trung tâm" | translate
+                          }}</span>
+                        </div>
+                        <select
+                          class="form-control m-bootstrap-select m_selectpicker"
+                          si-selectpicker
+                          update="dataCenter"
+                          title="Chọn"
+                          ng-model="filter.list_center"
+                        >
+                          <option value="">Tất cả</option>
+                          <option
+                            ng-repeat="center in dataCenter"
+                            value="{{ center.code }}"
+                            >{{ center.name }}</option
+                          >
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <div class="input-group m-input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">{{
+                            "Khóa học" | translate
+                          }}</span>
+                        </div>
+                        <select
+                          title="Chọn"
+                          si-selectpicker
+                          class="form-control m-bootstrap-select m_selectpicker"
+                          update="dataBatches"
+                          ng-model="filter.list_batch"
+                        >
+                          <option value="">Tất cả</option>
+                          <option
+                            ng-repeat="data in dataBatches"
+                            value="{{ data.id }}"
+                            >{{ data.name }}</option
+                          >
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <div class="input-group m-input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">{{
+                            "Lớp học" | translate
+                          }}</span>
+                        </div>
+                        <select
+                          title="Chọn"
+                          si-selectpicker
+                          class="form-control m-bootstrap-select m_selectpicker"
+                          update="dataClass"
+                          ng-model="filter.list_class"
+                        >
+                          <option value="">Tất cả</option>
+                          <option
+                            ng-repeat="data in dataClass"
+                            value="{{ data.id }}"
+                            >{{ data.name }}</option
+                          >
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <div class="input-group m-input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">{{
+                            "Giới tính" | translate
+                          }}</span>
+                        </div>
+                        <div
+                          class="dropdown bootstrap-select input-group-btn form-control m-bootstrap-select m_"
+                        >
+                          <select
+                            title="Chọn"
+                            class="form-control"
+                            si-selectpicker
+                            ng-model="filter.gender"
+                          >
+                            <option value="">Tất cả</option>
+                            <option value="true">Nam</option>
+                            <option value="false">Nữ</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="btn btn-default" search-btn>
+                      {{ "Tìm kiếm" | translate }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="action-region">
+                <div
+                  class="btn btn-info"
+                  si-permission="Student.Create"
+                  ng-click="goToAdd()"
+                >
+                  {{ "Thêm mới" | translate }}
+                </div>
+                &nbsp;
+                <div class="btn btn-info" ng-click="openExcel()">
+                  {{ "Xuất excel" | translate }}
+                </div>
+                &nbsp;
+
+                <div
+                  class="btn btn-info"
+                  data-toggle="collapse"
+                  toggle-filter-btn
+                  data-target="#collapseExample"
+                >
+                  {{ "Ẩn/Hiện
+								tìm kiếm" | translate }}
+                </div>
+              </div>
+              <table
+                class="table table-bordered  table-striped table-hover table-checkable dataTable"
+              ></table>
+            </div>
+          </div>
+        </div>
+        <div class="modal fade" id="m_modal_excel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document" >
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{'Chọn cột cho xuất excel' | translate}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ul id="sortable_excel">
+                        <li class="ui-state-default" data-index="{{ $index }}" ng-repeat="item in columnsExcel"><label class="m-checkbox"><input ng-model="item.select" type="checkbox">{{item.title}}<span></span></label></li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" ng-click="exportData()" >{{'Xuất excel' | translate}}</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{'Đóng' | translate}}</button>
+                </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

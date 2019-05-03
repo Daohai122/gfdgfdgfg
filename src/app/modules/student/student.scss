@@ -1,0 +1,74 @@
+.m-list {
+	border-right: 1px solid #ebedf2;
+	.m-list__body {
+		border-top: 0.07rem solid #ebedf2;
+		max-height: 550px;
+		height: 550px;
+		.m-list__item {
+			cursor: pointer;
+			padding: 1.1rem;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			-webkit-box-pack: justify;
+			border-bottom: 0.07rem solid #ebedf2;
+			border-left: 0.07rem solid #ebedf2;
+			p {
+				text-transform: capitalize;
+			}
+			&:hover {
+				background-color: #f9f9f9;
+				box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+				p {
+					color: #716aca;
+				}
+			}
+			&.active {
+				background-color: #f9f9f9;
+				color: #716aca;
+			}
+		}
+	}
+}
+.student-image {
+	width: 100%;
+	height: 200px;
+	object-fit: cover;
+}
+p.form-control {
+	line-height: 2.25;
+	width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.anchor-position {
+	position: relative;
+}
+.child-right-position {
+	position: absolute;
+	right: 0;
+}
+.child-left-position {
+	position: absolute;
+	left: 0;
+}
+.child-top-position {
+	position: absolute;
+	top: 0;
+}
+.child-bottom-position {
+	position: absolute;
+	bottom: 0;
+}
+.hidden {
+	display: none;
+	&.show {
+		display: block;
+	}
+}
+.nav-btn {
+	position: absolute;
+	right: 20px;
+	top: -5px;
+}

@@ -1,0 +1,209 @@
+
+<div class="m-content">
+    <div class="row">
+        <div class="col-md-12">
+            <form validation-form submit-function="addCompany()" class="m-form m-form--fit m-form--label-align-right">
+                <div class="col-md-12" style="padding:0px">
+                    <div class="m-portlet m-portlet--tab">
+                        <div class="m-portlet__body">
+                            <div class="form-body col-lg-12 no-padding" style="margin-top: 20px" >
+                                <div class="form-group m-form__group row">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <label class="col-4 col-form-label">{{'Trung tâm' | translate}}</label>
+                                            <div class="col-8">
+                                                <select multiple si-selectpicker update='dataCenters' title="Chọn" ng-model="dataCompany.centers" class="form-control m-input"  >
+                                                    <option ng-repeat="data in dataCenters" value="{{data.code}}">{{data.name}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group row">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <label class="col-4 col-form-label">{{'Tên công ty' | translate}}<span class="required"> *</span></label>
+                                            <div class="col-8">
+                                                <input type="text" ng-model="dataCompany.name" maxlength="255" class="form-control m-input" placeholder="Nhập tên công ty" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <label class="col-4 col-form-label">{{'Tên người liên hệ' | translate}}<span class="required"> *</span></label>
+                                            <div class="col-8">
+                                                <input type="text" ng-model="dataCompany.contact_name" maxlength="100" class="form-control m-input" placeholder="Tên người liên hệ" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class=" m-form__group row">
+                                    <div class="col-md-6 form-group">
+                                        <div class="row">
+                                            <label class="col-4 col-form-label">{{'Doanh nghiệp của Reach' | translate}}<span class="required"> *</span></label>
+                                            <div class="col-8">
+                                                <select si-selectpicker ng-model="dataCompany.is_reach" title="Chọn" class="form-control m-input" required>
+                                                    <option value="">Chọn</option>
+                                                    <option value="true">Có</option>
+                                                    <option value="false">Không</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <div class="row">
+                                            <label class="col-4 col-form-label">{{'Quy mô công ty' | translate}}<span class="required"> *</span></label>
+                                            <div class="col-8">
+                                                <select si-selectpicker ng-model="dataCompany.scale" title="Chọn" class="form-control m-input" required>
+                                                    <option value="">Chọn</option>
+                                                    <option value="0">Nhỏ: 5 đến 200 nhân viên</option>
+                                                    <option value="1">Vừa: 201 dến 1000 nhân viên</option>
+                                                    <option value="2">Lớn: từ 1000 nhân viên chinh thức trở lên</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class=" m-form__group row">
+                                    <div class="col-md-6 form-group">
+                                        <div class="row">
+                                            <label class="col-4 col-form-label">{{'Hình thức liên lạc' | translate}}<span class="required"> *</span></label>
+                                            <div class="col-8">
+                                                <select si-selectpicker ng-model="dataCompany.contact_type" title="Chọn" class="form-control m-input" required>
+                                                    <option value="">Chọn</option>
+                                                    <option value="1">Email</option>
+                                                    <option value="2">Điện thoại</option>
+                                                    <option value="3">Gặp trực tiếp</option>
+                                                    <option value="4">Reach Website</option>
+                                                    <option value="5">Khác</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <div class="row">
+                                            <label class="col-4 col-form-label">{{'Vị trí người liên hệ' | translate}}:</label>
+                                            <div class="col-8">
+                                                <input type="text" maxlength="100" ng-model="dataCompany.contact_position" class="form-control m-input" placeholder="Nhập vị trí người liên hệ" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group row">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <label class="col-4 col-form-label">Email:</label>
+                                            <div class="col-8">
+                                                <input type="text"  maxlength="50" ng-model="dataCompany.contact_email" class="form-control m-input" placeholder="Nhập địa chỉ email" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <label class="col-4 col-form-label">{{'Địa chỉ' | translate}}:</label>
+                                            <div class="col-8">
+                                                <input type="text" maxlength="255" ng-model="dataCompany.address" class="form-control m-input" placeholder="Nhập địa chỉ">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group row">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <label class="col-4 col-form-label">{{'Tỉnh/thành phố' | translate}}<span class="required"> *</span></label>
+                                            <div class="col-8">
+                                                <select si-selectpicker ng-model="dataCompany.province_Code" title="Chọn" class="form-control m-input"  update="dataProvince"  required>
+                                                    <option value="">Chọn</option>
+                                                    <option ng-repeat="data in dataProvince" value="{{data.code}}">{{data.name}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <label class="col-4 col-form-label">{{'Điện thoại' | translate}}<span class="required"> *</span></label>
+                                            <div class="col-8">
+                                                <input type="text" phone maxlength="10" ng-model="dataCompany.contact_phone" class="form-control m-input" placeholder="Nhập số điện thoại" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class=" m-form__group row">
+                                    <div class="col-md-6 form-group">
+                                        <div class="row">
+                                            <label class="col-4 col-form-label">{{'Mã số thuế' | translate}}:</label>
+                                            <div class="col-8">
+                                                <input type="text" ng-model="dataCompany.mst" maxlength="50" class="form-control m-input" placeholder="Nhập mã số thuế"> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <div class="row">
+                                            <label class="col-4 col-form-label">{{'Loại hình kinh doanh' | translate}}<span class="required"> *</span></label>
+                                            <div class="col-8">
+                                                <select si-selectpicker ng-model="dataCompany.industry" title="Chọn" class="form-control" required>
+                                                    <option value="">Chọn</option>
+                                                    <option value="1">Nhà hàng/Café/Tiệm bánh</option>
+                                                    <option value="2">Hotel/Resort</option>
+                                                    <option value="3">Siêu thị</option>
+                                                    <option value="4">Cty TM/Bán hàng/Dịch vụ</option>
+                                                    <option value="5">Beauty Salon</option>
+                                                    <option value="6">Cty in ấn/Thiết kế</option>
+                                                    <option value="7">Khác</option>
+                                                </select>
+                                            </div>
+                                        </div>                                    
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group row">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <label class="col-4 col-form-label">Website:</label>
+                                            <div class="col-8">
+                                                <input type="text" ng-model="dataCompany.website" maxLength="255" class="form-control m-input" placeholder="Nhập địa chỉ website">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <label class="col-4 col-form-label">{{'Thời gian liên hệ' | translate}}:</label>
+                                            <div class="col-8 input-group date">
+                                                <input type="text" date-time-picker class="form-control" ng-model="dataCompany.contact_time"  placeholder="Chọn thời gian">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group row">
+                                    <div class="col-md-6">
+                                        <label class="">{{'Hình thức hợp tác' | translate}}:</label>
+                                        <div class="row">
+                                            <div class="col-md-6" ng-repeat="collaborate in collaborates">
+                                                <div class="m-checkbox-list">
+                                                    <label class="m-checkbox m-checkbox--state-success">
+                                                    <input ng-model="collaborate.selected" value="{{collaborate.value}}" name="selectedCollaborate[]" type="checkbox"> {{collaborate.name}}
+                                                    <span></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="m-portlet__foot m-portlet__foot--fit m-portlet__no-border">
+                          <div class="m-form__actions m-form__actions">
+                              <div class="row">
+                                  <div class="col-lg-7 ml-lg-auto">
+                                      <button type="reset" ng-click="goToList()" class="btn btn-secondary">{{'Quay lại' | translate}}</button>
+                                      <button type="submit" button-submit class="btn btn-accent">{{'Thêm' | translate}}</button>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+      

@@ -1,0 +1,214 @@
+<div class="m-content">
+    <div class="row">
+        <div class="col-md-12">
+                <div class="col-md-12" style="padding:0px">
+                    <div class="m-portlet m-portlet--tab">
+                        <div class="m-portlet__body">
+                            <form validation-form submit-function="updateGroup()" class="m-form m-form--fit m-form--label-align-right">
+                                <div class="form-body col-lg-12 no-padding" style="margin-top: 20px">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="row form-group m-form__group">
+                                                <label class="col-2 col-form-label">{{'Nhóm' | translate}}</label>
+                                                <div class="col-10">
+                                                    <select class="form-control" update="dataUserGroup" si-selectpicker ng-model="groupCode" title="Chọn nhóm người dùng" required>
+                                                        <option value="">Chọn nhóm người dùng</option>
+                                                        <option ng-repeat="group in dataUserGroup" value="{{group.id}}">{{group.name}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row flex-center">
+                                                <button type="button" class="btn btn-accent" ng-click="openModal()">{{'Thêm' | translate}}</button>
+                                                <button type="button" class="btn btn-danger m--margin-left-15" ng-click="deleteGroup()">{{'Xóa' | translate}}</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group m-form__group row">
+                                                <label class="col-2 col-form-label">{{'Tên nhóm' | translate}}<span class="required"> *</span></label>
+                                                <div class="col-10">
+                                                    <input maxlength="255" type="text" ng-model="dataGroup.name" class="form-control" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group m-form__group row">
+                                                <label class="col-2 col-form-label">{{'Mô tả' | translate}}:</label>
+                                                <div class="col-10">
+                                                    <textarea type="text" ng-model="dataGroup.description" class="form-control" rows="5"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group m-form__group row flex-center">
+                                                <button type="submit" button-submit class="btn btn-accent">{{'Sửa' | translate}}</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                        <div class="col-md-12 row no-margin" style="padding:0px">
+                            <div class="col-md-6">
+                                <div class="m-accordion m-accordion--bordered" role="tablist" style="padding-bottom:20px">
+                                    <div class="m-accordion__item">
+                                        <div class="m-accordion__item-head" role="tab" id="m_accordion_6_item_2_head">
+                                            <span class="m-accordion__item-title ">Danh sách user không thuộc nhóm</span>
+                                        </div>
+                                        <div class="m-accordion__item-body collapse show"> 
+                                            <div  class="m-accordion__item-content no-padding">
+                                                <div class="row m-portlet__header m--padding-10">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group m-margin-bottom-0">
+                                                            <div class="m-input-icon m-input-icon--left">
+                                                                <input type="text" class="form-control m-input search_params" placeholder="Tìm kiếm" ng-model="userSearch">
+                                                                <span class="m-input-icon__icon m-input-icon__icon--left">
+                                                                    <span><i class="la la-search"></i></span>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="btn btn-default" ng-click="getUserMobile()">{{'Tìm kiếm' | translate }}</div>
+                                                    </div>
+                                                    <div class="col-md-6 flex-right">
+                                                        <div class="btn btn-success" ng-click="show()">Thêm người dùng vào nhóm</div>
+                                                    </div>
+                                                </div>
+                                                <div class="m-portlet__body">
+                                                    <table class="table table-striped table-bordered table-hover table-checkable  no-footer m-margin-bottom-0" role="grid">
+                                                        <thead>
+                                                            <tr role='row'>
+                                                                <td style="width: 10%">{{'Chọn' | translate }}</td>
+                                                                <td style="width: 35%">{{'Tên' | translate }}</td>
+                                                                <td style="width: 30%">{{'Email' | translate }}</td>
+                                                                <td style="width: 25%">{{'Số điện thoại' | translate }}</td>
+                                                            </tr>
+                                                        </thead>
+                                                    </table>
+                                                    <div class="scroll_table" style="max-height: 400px;">
+                                                        <table ng-if="dataUserMobile.length > 0" class="table table-striped table-bordered table-hover table-checkable  no-footer m-margin-bottom-0" role="grid" style="table-layout: fixed;">
+                                                            <tbody>
+                                                                <tr ng-repeat ="data in dataUserMobile track by $index">
+                                                                    <td style="width: 10%"><input ng-model="data.value" type="checkbox"></td>
+                                                                    <td style="width: 35%; word-break: break-all;">{{data.name}}</td>
+                                                                    <td style="width: 30%; word-break: break-all;">{{data.emailAddress}}</td>
+                                                                    <td style="width: 25%">{{data.phone}}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <table ng-if="dataUserMobile.length == 0" class="table table-striped table-bordered table-hover table-checkable no-footer m-margin-bottom-0" role="grid" style="table-layout: fixed;">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td colspan="4" class="text-center">{{'Không tìm thấy kết quả' | translate}}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </div>
+                            <div class="col-md-6">
+                                <div class="m-accordion m-accordion--bordered" role="tablist" style="padding-bottom:20px">
+                                    <div class="m-accordion__item">
+                                        <div class="m-accordion__item-head" role="tab" id="m_accordion_6_item_2_head">
+                                            <span class="m-accordion__item-title ">Danh sách user đã thuộc nhóm</span>
+                                        </div>
+                                        <div class="m-accordion__item-body collapse show"> 
+                                            <div  class="m-accordion__item-content no-padding">
+                                                <div class="row m-portlet__header m--padding-10">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group m-margin-bottom-0">
+                                                            <div class="m-input-icon m-input-icon--left">
+                                                                <input type="text" class="form-control m-input search_params" placeholder="Tìm kiếm" ng-model="inGroupSearch">
+                                                                <span class="m-input-icon__icon m-input-icon__icon--left">
+                                                                    <span><i class="la la-search"></i></span>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="btn btn-default" ng-click="getUserForGroup('search')">{{'Tìm kiếm' | translate }}</div>
+                                                    </div>
+                                                    <div class="col-md-6 flex-right">
+                                                        <div class="btn btn-warning" ng-click="removeUser()">Xóa người dùng khỏi nhóm</div>
+                                                    </div>
+                                                </div>
+                                                <div class="m-portlet__body">
+                                                    <table class="table  table-striped table-bordered table-hover table-checkable no-footer m-margin-bottom-0" role="grid">
+                                                        <thead>
+                                                            <tr role='row'>
+                                                                <td style="width: 10%">{{'Chọn' | translate }}</td>
+                                                                <td style="width: 35%">{{'Tên' | translate }}</td>
+                                                                <td style="width: 30%">{{'Email' | translate }}</td>
+                                                                <td style="width: 25%">{{'Số điện thoại' | translate }}</td>
+                                                            </tr>
+                                                        </thead>
+                                                    </table>
+                                                    <div class="scroll_table" style="max-height: 400px;">
+                                                        <table ng-if="dataUserForGroup.length > 0" class="table table-striped table-bordered table-hover table-checkable no-footer m-margin-bottom-0" role="grid" style="table-layout: fixed;">
+                                                            <tbody>
+                                                                <tr ng-repeat ="data in dataUserForGroup track by $index">
+                                                                    <td style="width: 10%"><input ng-model="data.value" type="checkbox"></td>
+                                                                    <td style="width: 35%; word-break: break-all;">{{data.user.name}}</td>
+                                                                    <td style="width: 30%; word-break: break-all;">{{data.user.emailAddress}}</td>
+                                                                    <td style="width: 25%">{{data.user.phone}}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <table ng-if="dataUserForGroup.length == 0" class="table table-striped table-bordered table-hover table-checkable no-footer m-margin-bottom-0" role="grid" style="table-layout: fixed;">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td colspan="4" class="text-center">{{'Không tìm thấy kết quả' | translate}}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addGroupModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog"  style="width: 95%; max-width: 95%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{'Thêm nhóm' | translate}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form validation-form submit-function="addGroup()" class="m-form m-form--fit m-form--label-align-right">
+                    <div class="form-group m-form__group row">
+                        <label class="col-2 col-form-label">{{'Tên nhóm' | translate}} <span class="required"> *</span></label>
+                        <div class="col-10">
+                            <input maxlength="255" type="text" ng-model="dataAddGroup.name" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group m-form__group row">
+                        <label class="col-2 col-form-label">{{'Mô tả' | translate}}: </label>
+                        <div class="col-10">
+                            <textarea type="text" ng-model="dataAddGroup.description" class="form-control" rows="5"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-7 ml-lg-auto">
+                            <button type="reset" button-reset class="btn btn-secondary" data-dismiss="modal">{{'Quay lại' | translate}}</button>
+                            <button button-submit  type="submit" class="btn btn-accent">{{'Lưu' | translate}}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

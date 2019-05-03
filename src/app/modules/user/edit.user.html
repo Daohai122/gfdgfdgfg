@@ -1,0 +1,137 @@
+<div class="m-content">
+    <div class="row">
+        <div class="col-md-12">
+            <form validation-form submit-function="updateUser()" class="m-form m-form--fit m-form--label-align-right">
+                <div class="col-md-12" style="padding:0px">
+                    <div class="m-portlet m-portlet--tab">
+                        <div class="m-portlet__body row">
+                            <div class="col-md-6">
+                                <div class="form-group m-form__group" >
+                                    <div class=" row">
+                                        <label class="col-4 col-form-label">{{'Họ tên' | translate}}<span class="required"> *</span></label>
+                                        <div class="col-8">
+                                            <input type="text" ng-model="dataUser.name" maxlength="200" class="form-control m-input" placeholder="Nhập họ tên" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group" >
+                                    <div class=" row">
+                                        <label class="col-4 col-form-label">{{'Số điện thoại' | translate}}: <span class="required"> *</span></label>
+                                        <div class="col-8">
+                                            <input type="text" minlength="10" phone maxlength="50" ng-model="dataUser.phone" maxlength="12" class="form-control m-input" placeholder="Nhập số điện thoại" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group" >
+                                    <div class=" row">
+                                        <label class="col-4 col-form-label">{{'tài khoản' | translate}}<span class="required"> *</span></label>
+                                        <div class="col-8">
+                                            <input type="text" pattern="[a-zA-Z0-9_.@]{6,32}" minlength="6" ng-model="dataUser.userName" maxlength="32" class="form-control m-input" placeholder="Nhập tên đăng nhập" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group" >
+                                    <div class=" row">
+                                        <label class="col-4 col-form-label">{{'Email' | translate}}<span class="required"> *</span></label>
+                                        <div class="col-8">
+                                            <input type="text" email ng-model="dataUser.emailAddress" maxlength="200" class="form-control m-input" placeholder="Nhập email" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group" >
+                                    <div class=" row">
+                                        <label class="col-4 col-form-label">{{'Giới tính' | translate}}:</label>
+                                        <div class="m-radio-inline col-8" style="padding-left: 15px; padding-right: 15px">
+                                            <label class="m-radio">
+                                            <input type="radio" ng-model="dataUser.gender" name="example_3" ng-value="true"> Nam
+                                            <span></span>
+                                            </label>
+                                            <label class="m-radio">
+                                            <input type="radio" ng-model="dataUser.gender" name="example_3" ng-value="false"> Nữ
+                                            <span></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="m-accordion m-accordion--bordered" role="tablist">
+                                    <div class="m-accordion__item" style="    overflow: visible;">
+                                        <div class="m-accordion__item-head" role="tab" id="m_accordion_6_item_2_head">
+                                            <span class="m-accordion__item-title ">Phân quyền cho người dùng</span>
+                                        </div>
+                                        <div class="m-accordion__item-body collapse show"> 
+                                            <div  class="m-accordion__item-content no-padding">
+                                                <div class="m-portlet__body">
+                                                    <div class="form-group m-form__group" >
+                                                        <div class=" row">
+                                                            <label class="col-4 col-form-label">{{'Vai trò' | translate}}:</label>
+                                                            <div class="col-8">
+                                                                <div class="row">
+                                                                    <div class="col-md-6" ng-repeat="collaborate in collaborates">
+                                                                        <div class="m-checkbox-list">
+                                                                            <label class="m-checkbox m-checkbox--state-success">
+                                                                            <input ng-model="collaborate.selected" value="{{collaborate.name}}" name="selectedCollaborate[]" type="checkbox"> {{collaborate.displayName}}
+                                                                            <span></span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group m-form__group">
+                                                        <div class=" row">
+                                                        <label class="col-4 col-form-label">{{'Theo trung tâm' | translate }}:</label>
+                                                        <div class="col-8">
+                                                            <select class="form-control"  multiple si-selectpicker title="Chọn trung tâm"  ng-change="centerChange()" id='select-3'  update="center"  ng-model="dataUser.center_code_permissions">
+                                                                <option ng-repeat="item in center" value="{{item.code}}">{{item.name}}</option>
+                                                            </select>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group m-form__group">
+                                                        <div class=" row">
+                                                        <label class="col-4 col-form-label">{{'Theo khóa học' | translate }}:</label>
+                                                        <div class="col-8">
+                                                            <select class="form-control" multiple ng-change="batchChange()" id="select-1" si-selectpicker title="Chọn khóa"  update="batch"
+                                                            ng-model="dataUser.batch_permisisons" >
+                                                            <option ng-repeat="item in batch" value="{{item.id}}">{{item.name}}</option>
+                                                            </select>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group m-form__group" style="padding-bottom: 10px">
+                                                        <div class=" row">
+                                                        <label class="col-4 col-form-label">{{'Theo lớp học' | translate }}:</label>
+                                                        <div class="col-8">
+                                                            <select multiple  class="form-control" ng-model="dataUser.class_permissions" ng-change="changeClass()" si-selectpicker title="Chọn lớp"  update="class"  >
+                                                            <option ng-repeat="item in class" value="{{item.id}}">{{item.name}}</option>
+                                                            </select>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="m-portlet__foot m-portlet__foot--fit m-portlet__no-border">
+                            <div class="m-form__actions m-form__actions">
+                                <div class="row">
+                                    <div class="col-lg-12 button-center">
+                                        <button type="reset" class="btn btn-secondary" ng-click="goToList()">{{'Quay lại' | translate}}</button>
+                                        <button type="submit" button-submit class="btn btn-accent">{{'Lưu' | translate}}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>

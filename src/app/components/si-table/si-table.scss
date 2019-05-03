@@ -1,0 +1,49 @@
+[si-table] {
+  .dataTables_wrapper {
+    min-height: 300px;
+  }
+
+  .action-region {
+    // position: absolute;
+    right: 0px;
+    padding-right: 2.2rem;
+    z-index: 4;
+    text-align: right;
+  }
+
+  .table td {
+    padding: 0rem 5px !important;
+  }
+  .table tr:hover{
+    background-color: #E2E5EC;
+  }
+  tr {
+    min-height: 35px;
+  }
+  tr td {
+    height: 35px;
+  }
+  div.dataTables_wrapper div.dataTables_processing{
+    border: none;
+    background: none;
+    padding: 0px;
+    width: 65px;
+    color: #fff;
+    height: 65px;
+    img {
+      width: 65px;
+      height: 65px;
+    }
+  }
+  .table-bordered.dataTable th, .table-bordered.dataTable td {
+    .dataTables_wrapper .dataTables_paginate .paginate_button:hover{
+      border: none;
+      background-color:none;
+      background:none;
+    }
+    tr.highlight {
+      background-color: #f3f3f3;
+      font-weight: bold;
+    }
+  }
+}

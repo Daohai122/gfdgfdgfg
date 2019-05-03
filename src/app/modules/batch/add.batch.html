@@ -1,0 +1,117 @@
+<div class="m-content">
+    <div class="row">
+        <div class="col-md-12">
+            <form validation-form submit-function="addBatches()" class="m-form m-form--fit m-form--label-align-right">
+                <div class="col-md-12" style="padding:0px">
+                    <div class="m-portlet m-portlet--tab">
+                        <div class="m-portlet__body">
+                            <div class="form-body col-lg-12" style="margin-top: 20px">
+                                <div class="form-group m-form__group row">
+                                    <div class="col-md-6">
+                                        <div class=" row">
+                                            <label class="col-4 col-form-label">{{'Mã khóa học' | translate}}<span class="required"> *</span></label>
+                                            <div class="col-8">
+                                                <input type="text" ng-model="dataBatches.code" maxlength="50" class="form-control m-input" placeholder="Nhập mã khóa học" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class=" row">
+                                            <label class="col-4 col-form-label">{{'Trung tâm' | translate}}<span class="required"> *</span></label>
+                                            <div class="col-8">
+                                                <select class="form-control" si-selectpicker update="dataCenter" title="Chọn trung tâm" ng-model="dataBatches.center_code" required>
+
+                                                    <option value="">Chọn trung tâm</option>
+                                                    <option ng-repeat="data in dataCenter" value="{{data.code}}">{{data.name}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+
+                                
+                                <!-- <div class="form-group m-form__group row">
+                                    <div class="col-md-6">  
+                                        <div class=" row">
+                                            <label class="col-4 col-form-label">{{'Địa điểm tuyển sinh' | translate}}:</label>
+                                            <div class="col-8">
+                                                <input type="text" ng-model="dataBatches.localtion" maxlength="255" class="form-control" placeholder="Nhập địa điểm tuyển sinh" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class=" row">
+                                            <label class="col-4 col-form-label">{{'Cách làm và hoạt động' | translate}}:</label>
+                                            <div class="col-8">
+                                                <input type="text" maxlength="255" ng-model="dataBatches.method" placeholder="" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <div class="form-group m-form__group row">
+                                    <div class="col-md-6">  
+                                        <div class=" row">
+                                            <label class="col-4 col-form-label">{{'Thời gian bắt đầu tuyển sinh' | translate}}:</label>
+                                            <div class="col-8">
+                                                <input type="text" autocomplete="off"  ng-model="dataBatches.start_time" class="form-control" placeholder="nhập thời gian tuyển sinh" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class=" row">
+                                            <label class="col-4 col-form-label">{{'Mức lương chuẩn' | translate}} <span class="required"> *</span></label>
+                                            <div class="col-8">
+                                                <input type="text" min="0" pattern="[0-9,]*" format="currency" ng-model="dataBatches.standard_salary" class="form-control" placeholder="Nhập mức lương chuẩn" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group row">
+                                    <div class="col-md-6">  
+                                        <div class=" row">
+                                            <label class="col-4 col-form-label">{{'Mức lương trần' | translate}} <span class="required"> *</span></label>
+                                            <div class="col-8">
+                                                <input type="text" min="0" pattern="[0-9,]*"  format="currency"  ng-model="dataBatches.ceil_salary" class="form-control" placeholder="Nhập mức lương trần" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class=" row">
+                                            <label class="col-4 col-form-label">{{'Người phụ trách' | translate}} <span class="required"> *</span></label>
+                                            <div class="col-8">
+                                                <input type="text" maxlength="255"  ng-model="dataBatches.authorised_person" class="form-control" placeholder="Nhập họ tên người phụ trách" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group row">
+                                    <div class="col-md-6">
+                                        <div class=" row">
+                                            <label class="col-4 col-form-label">{{'Mục tiêu tuyển sinh' | translate}}:</label>
+                                            <div class="col-8">
+                                                <input type="text" class="form-control" maxlength="255"  ng-model="dataBatches.goal" placeholder="Nhập mục tiêu tuyển sinh">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="m-portlet__foot m-portlet__foot--fit m-portlet__no-border">
+                                <div class="m-form__actions m-form__actions">
+                                    <div class="row">
+                                        <div class="col-lg-7 ml-lg-auto">
+                                            <button type="reset" ng-click="goToList()" class="btn btn-secondary">{{'Quay lại' | translate}}</button>
+                                            <button button-submit  type="submit" class="btn btn-accent">{{'Lưu' | translate}}</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>

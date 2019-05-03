@@ -1,0 +1,123 @@
+<div class="m-content">
+  <div class="row">
+    <div class="col-md-12">
+      <form validation-form submit-function="updateMyProfile()" class="m-form m-form--fit m-form--label-align-right">
+        <div class="col-md-12" style="padding:0px">
+          <div class="m-portlet m-portlet--tab">
+            <div class="m-portlet__body row">
+              <div class="form-body col-md-6" style="margin-top: 20px">
+                <div class="form-group m-form__group">
+                  <label>{{'Tên' | translate}}<span class="required"> *</span></label>
+                  <input type="text" ng-model="dataUser.name" maxlength="200" class="form-control m-input" placeholder="Nhập họ tên"
+                    required>
+                </div>
+                <div class="form-group m-form__group">
+                  <label>{{'Giới tính' | translate}}<span class="required"> *</span></label>
+                  <div class="m-radio-inline">
+                    <label class="m-radio">
+                      <input type="radio" ng-model="dataUser.gender" name="example_3" ng-value="true"> {{'Nam' |
+                      translate}}
+                      <span></span>
+                    </label>
+                    <label class="m-radio">
+                      <input type="radio" ng-model="dataUser.gender" name="example_3" ng-value="false"> {{'Nữ' |
+                      translate}}
+                      <span></span>
+                    </label>
+                  </div>
+                </div>
+                <div class="form-group m-form__group">
+                  <label>{{'Số điện thoại' | translate}}<span class="required"> *</span></label>
+                  <input type="text" ng-model="dataUser.phone" phone minlength="10" class="form-control m-input"
+                    maxlength="12" placeholder="Nhập số điện thoại" required>
+                </div>
+
+                <div class="form-group m-form__group">
+                  <label>Email<span class="required"> *</span></label>
+                  <input type="text" email ng-model="dataUser.emailAddress" maxlength="255" class="form-control m-input"
+                    placeholder="Nhập họ tên" required>
+                </div>
+
+              </div>
+              <div class="form-body col-md-6" style="margin-top: 20px">
+                <div class="form-group m-form__group">
+                  <label>{{'Ảnh đại diện' | translate}}:</label>
+                  <div class="m-dropzone dropzone m-dropzone--primary dz-clickable" id="m-dropzone">
+                    <div style="position: absolute;">
+                      <button type="button" id="upload_img" class="btn btn-secondary" >{{'Thêm mới' | translate}}</button>
+                    </div>
+                    <div class="m-dropzone__msg dz-message needsclick">
+                      
+                    </div>
+                  </div>
+                </div>
+                <!-- <div class="form-group m-form__group">
+                  <label>{{'Vai trò' | translate}}</label>
+                  <div class="row">
+                    <div class="col-md-6" ng-repeat="collaborate in collaborates">
+                        <div class="m-checkbox-list">
+                            <label class="m-checkbox m-checkbox--state-success">
+                            <input ng-model="collaborate.selected" value="{{collaborate.name}}" name="selectedCollaborate[]" type="checkbox"> {{collaborate.displayName}}
+                            <span></span>
+                            </label>
+                        </div>
+                    </div>
+                  </div>
+                </div> -->
+              </div>
+            </div>
+            <div class="m-portlet__foot m-portlet__foot--fit m-portlet__no-border">
+              <div class="m-form__actions m-form__actions">
+                <div class="row">
+                  <div class="col-lg-12 text-center button-center">
+                    <button type="reset" class="btn btn-secondary" ng-click="goToList()">{{'Quay lại' | translate}}</button>
+                    <button type="button" class="btn btn-focus" data-toggle="modal" data-target="#m_modal_1">{{'Đổi Mật
+                      Khẩu' | translate}}</button>
+                    <button button-submit type="submit" class="btn btn-accent">{{'Lưu' | translate}}</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- doi mat khau -->
+  <div class="modal fade" id="m_modal_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <form validation-form submit-function="changePassword()" class="m-form m-form--fit m-form--label-align-right">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">{{'Đổi mật khẩu' | translate}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group m-form__group">
+              <label>{{'Mật khẩu cũ' | translate}}<span class="required"> *</span></label>
+              <input type="password" minlength="6" maxlength="32" ng-model="password.oldPassword" class="form-control m-input"
+                placeholder="Nhập mật khẩu cũ" required>
+            </div>
+            <div class="form-group m-form__group">
+              <label>{{'Mật khẩu mới' | translate}}<span class="required"> *</span></label>
+              <input type="password" minlength="6" maxlength="32" ng-model="password.newPassword" class="form-control m-input"
+                placeholder="Nhập mật khẩu" required>
+            </div>
+            <div class="form-group m-form__group">
+              <label>{{'Nhập lại mật khẩu cũ' | translate}}<span class="required"> *</span></label>
+              <input type="password" ng-model="password.confirmNewPassword" class="form-control m-input" placeholder="Nhập lại mật khẩu cũ"
+                required>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" button-reset class="btn btn-secondary" data-dismiss="modal">{{'Quay lại' | translate}}</button>
+            <button type="button" button-submit class="btn btn-primary">{{'Đổi mật khẩu' | translate}}</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

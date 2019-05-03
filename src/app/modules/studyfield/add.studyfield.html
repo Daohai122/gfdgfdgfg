@@ -1,0 +1,88 @@
+<div class="m-content">
+    <div class="row">
+        <div class="col-md-12">
+            <form validation-form submit-function="addStudyfield()" class="m-form m-form--fit m-form--label-align-right">
+                <div class="col-md-12" style="padding:0px">
+                    <div class="m-portlet m-portlet--tab">
+                        <div class="m-portlet__body">
+                            <div class="form-body col-lg-12" style="margin-top: 20px">
+                                <div class="form-group m-form__group row">
+                                    <div class="col-md-6">
+                                        <div class=" row">
+                                            <label class="col-4 col-form-label">Trung tâm:</label>
+                                            <div class="col-8">
+                                                <select  class="form-control" si-selectpicker id='select-3' update="center" 
+                                                    ng-model="dataStudyfield.center_code">
+                                                    <option value="">Chọn trung tâm</option>
+                                                    <option ng-repeat="item in center" value="{{item.code}}">{{item.name}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <div class=" row">
+                                            <label class="col-4 col-form-label">Mã ngành học:</label>
+                                            <div class="col-8">
+                                                <input type="text"  ng-model="dataStudyfield.code" maxlength="50" class="form-control m-input" placeholder="Nhập mã ngành học" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group row">
+                                    <div class="col-md-6">
+                                        <div class=" row">
+                                            <label class="col-4 col-form-label">Tên ngành học <span class="required"> *</span></label>
+                                            <div class="col-8">
+                                                <input type="text" ng-model="dataStudyfield.name" maxlength="100" class="form-control m-input" placeholder="Nhập tên ngành học" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class=" row">
+                                            <label class="col-4 col-form-label">Số tháng:</label>
+                                            <div class="col-8">
+                                                <input type="number" min="1" max="6" ng-model="dataStudyfield.month" maxlength="100" class="form-control m-input" placeholder="Nhập tên ngành học" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="form-group m-form__group row">
+                                    <div class="col-md-6">
+                                        <div class=" row">
+                                            <label class="col-4 col-form-label">Giáo viên:</label>
+                                            <div class="col-8">
+                                                <select multiple class="form-control" si-selectpicker  title="Chọn giáo viên" update="teacher" ng-model="dataStudyfield.teachers">
+                                                    <option ng-repeat="item in teacher" value="{{item.id}}">{{item.name}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group row">
+                                    <div class="col-md-12">
+                                        <label class="">Ghi chú:</label>
+                                        <textarea type="text" ng-model="dataStudyfield.description" maxlength="255" rows="5" class="form-control m-input" placeholder="Nhập ghi chú"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="m-portlet__foot m-portlet__foot--fit m-portlet__no-border">
+                                <div class="m-form__actions m-form__actions">
+                                    <div class="row">
+                                        <div class="col-lg-7 ml-lg-auto">
+                                            <button type="reset" class="btn btn-secondary"  ng-click="goToList()">Quay lại</button>
+                                            <button button-submit  type="submit" class="btn btn-accent">Lưu</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>

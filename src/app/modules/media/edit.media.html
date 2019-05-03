@@ -1,0 +1,126 @@
+<div class="m-content">
+    <div class="row">
+        <div class="col-md-12">
+            <form validation-form submit-function="updateMedia()" class="m-form m-form--fit m-form--label-align-right">
+                <div class="col-md-12" style="padding:0px">
+                    <div class="m-portlet m-portlet--tab">
+                        <div class="m-portlet__body row">
+                            <div class="form-body col-md-6 no-padding" style="margin-top: 20px">
+                                <div class="form-group m-form__group">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <label class="col-4 col-form-label">{{'Loại' | translate}} <span class="required">*</span></label>
+                                            <div class="col-8">
+                                                <select class="form-control" si-selectpicker ng-model="dataMedia.type" required title="Chọn loại">
+                                                    <option value="">Loại</option>
+                                                    <option value="1">Sản phẩm online</option>
+                                                    <option value="2">Sản phẩm offline</option>
+                                                    <option value="3">Sản phẩm reach</option>
+                                                    <option value="4">Chuyến thăm nhà tài trợ</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <label class="col-4 col-form-label" ng-if="dataMedia.type == 1 || dataMedia.type == 2 || dataMedia.type == null">{{'Tên bài đăng / video' | translate}} <span class="required">*</span></label>
+                                            <label class="col-4 col-form-label" ng-if="dataMedia.type == 3">{{'Tên ấn phẩm' | translate}} <span class="required">*</span></label>
+                                            <label class="col-4 col-form-label" ng-if="dataMedia.type == 4">{{'Tên chương' | translate}} trình <span class="required">*</span></label>
+                                            <div class="col-8">
+                                                <input type="text" validation="validation" ng-model="dataMedia.name" class="form-control m-input" maxlength='50' placeholder="Nhập tên bài đăng / video" required ng-if="dataMedia.type == 1 || dataMedia.type == 2 || dataMedia.type == null">
+                                                <input type="text" validation="validation" ng-model="dataMedia.name" class="form-control m-input" maxlength='50' placeholder="Nhập tên ấn phẩm" required ng-if="dataMedia.type == 3">
+                                                <input type="text" validation="validation" ng-model="dataMedia.name" class="form-control m-input" maxlength='50' placeholder="Nhập tên chương trình" required ng-if="dataMedia.type == 4">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <label class="col-4 col-form-label" ng-if="dataMedia.type == 1 || dataMedia.type == null">{{'Link tin bài đăng' | translate}} <span class="required">*</span></label>
+                                            <label class="col-4 col-form-label" ng-if="dataMedia.type != 1 && dataMedia.type != null">{{'Link tin' | translate}} <span class="required">*</span></label>
+                                            <div class="col-8">
+                                                <input type="text" validation="validation" ng-model="dataMedia.linkUrl" class="form-control m-input" maxlength='255' placeholder="Nhập link tin bài đăng" required ng-if="dataMedia.type == 1 || dataMedia.type == null">
+                                                <input type="text" validation="validation" ng-model="dataMedia.linkUrl" class="form-control m-input" maxlength='255' placeholder="Nhập link tin" required ng-if="dataMedia.type != 1 && dataMedia.type != null">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-body col-md-6 no-padding" style="margin-top: 20px">
+                                <div class="form-group m-form__group">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <label class="col-4 col-form-label" ng-if="dataMedia.type == 1 || dataMedia.type == 2 || dataMedia.type == null">{{'Tên đơn vị đối tác' | translate}} <span class="required">*</span></label>
+                                            <label class="col-4 col-form-label" ng-if="dataMedia.type == 3">{{'Tên đơn vị đối tác' | translate}} <span class="required">*</span></label>
+                                            <label class="col-4 col-form-label" ng-if="dataMedia.type == 4">{{'Tên tổ chức' | translate}} <span class="required">*</span></label>
+                                            <div class="col-8 dropdown">
+                                                <input type="text" validation="validation" ng-model="partner_name" class="form-control m-input" placeholder="Tìm kiếm" autocomplete="off" id="partner_input" required>
+                                                <div class="dropdown-menu custom-dropdown-search">
+                                                    <p class="dropdown-item" ng-repeat="partner in dataPartner" ng-click="selectPartner(partner.id, partner.name)">{{partner.name}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12" ng-show="partnerInfoName">
+                                        <div class="row">
+                                            <div class="col-4">{{'Thông tin đối tác' | translate}} </div>
+                                            <div class="col-8">{{partnerInfoName}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <label class="col-4 col-form-label" ng-if="dataMedia.type == 1 || dataMedia.type == 2 || dataMedia.type == null">{{'Ngày đăng' | translate}}</label>
+                                            <label class="col-4 col-form-label" ng-if="dataMedia.type == 3">{{'Ngày lưu hành' | translate}}</label>
+                                            <label class="col-4 col-form-label" ng-if="dataMedia.type == 4">{{'Ngày viếng thăm' | translate}}</label>
+                                            <div class="col-8 input-group date">
+                                                <input type="text" class="form-control" ng-model="dataMedia.publishedTime" date-picker readonly="" placeholder="Chọn ngày">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group m-form__group col-md-12" style="margin-top: 20px">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <label class="col-12 col-form-label" ng-if="dataMedia.type == 1 || dataMedia.type == 2 || dataMedia.type == null">{{'Upload hình ảnh' | translate}}</label>
+                                        <label class="col-12 col-form-label" ng-if="dataMedia.type == 3">{{'Upload ấn phẩm' | translate}}</label>
+                                        <label class="col-12 col-form-label" ng-if="dataMedia.type == 4">{{'Agenda' | translate}}</label>
+                                        <div class="col-12">
+                                            <div class="m-dropzone dropzone dz-clickable" id="m-dropzone" style="min-height: 60px;">
+                                                <div style="position: absolute;">
+                                                    <button type="button" id="upload_img" class="btn btn-secondary" >{{'Thêm mới' | translate}}</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group m-form__group col-md-12" style="margin-top: 20px">
+                                <div class="col-md-12">
+                                    <label class="">{{'Nội dung' | translate}} <span class="required">*</span></label>
+                                    <textarea type="text" summernote ng-model="dataMedia.content" class="form-control m-input" required-summernote></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="m-portlet__foot m-portlet__foot--fit m-portlet__no-border">
+                            <div class="m-form__actions m-form__actions">
+                                <div class="row">
+                                    <div class="col-lg-12 button-center">
+                                        <button type="reset" class="btn btn-secondary" ng-click="goToList()">{{'Quay lại' | translate}}</button>
+                                        <button type="submit" button-submit class="btn btn-accent">{{'Lưu' | translate}}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>

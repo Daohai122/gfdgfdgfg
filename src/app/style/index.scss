@@ -1,0 +1,405 @@
+// header modal
+.modal .modal-content .modal-header {
+  padding: 16px !important;
+}
+
+body {
+  font-size: 13px;
+  font-family: Arial, Helvetica, sans-serif
+}
+
+.m-portlet .m-portlet__body {
+  padding: 0.8rem;
+}
+
+.m-portlet {
+  margin-bottom: 1.2rem;
+}
+
+.m-widget3 .m-widget3__item .m-widget3__header .m-widget3__user-img .m-widget3__img {
+  height: 3.2rem;
+  object-fit: cover;
+}
+
+//mau border upload
+.m-dropzone.m-dropzone--primary {
+  border-color: #cecfd1;
+}
+
+//modal
+.modal .modal-content .modal-body,
+.modal .modal-content .modal-footer {
+  padding: 10px;
+}
+
+#modal_feedback .m-portlet .m-portlet__head {
+  height: 3.5rem;
+}
+
+// border bottom thead
+table.dataTable thead th {
+  border-bottom: 1px solid #d0cece;
+}
+
+hr,
+p {
+  margin: 0px !important;
+}
+
+// border ipnut
+.form-control[readonly],
+.form-control {
+  border-color: #cecfd1;
+}
+
+.btn.btn-default,
+.btn.btn-secondary {
+  border-color: #cecfd1;
+}
+
+.no-padding {
+  padding: 0px !important;
+}
+
+.no-margin {
+  margin: 0px !important;
+}
+
+.button-center {
+  text-align: center;
+}
+
+.text-center {
+  text-align: center;
+}
+
+// chieu cao select2 
+.select2-container2 .select2-selection--single {
+  height: auto !important;
+}
+
+.select2-selection.select2-selection--single {
+  border-color: #cecfd1 !important;
+}
+
+// padding label
+.m-form .form-control-label.col-form-label,
+.m-form label.col-form-label {
+  padding-top: 3px;
+}
+
+// do cao cua input
+.form-control {
+  height: 35px;
+  padding: 3px 1.15rem;
+}
+
+.no-margin-bottom {
+  margin-bottom: 0px;
+}
+
+.m-form .m-form__group {
+  padding-top: 0px;
+  padding-bottom: 10px;
+}
+
+.input-group-prepend {
+  height: 35px;
+}
+
+.bootstrap-select>.dropdown-toggle {
+  height: 35px;
+  padding: .6rem 2rem .85rem 1.15rem
+}
+
+.btn.btn-default,
+.btn.btn-secondary {
+  height: 35px;
+  padding: 0.6rem 1.15rem;
+}
+
+// border datatable
+.table-bordered,
+.table-bordered td,
+.table-bordered th {
+  border: 1px solid #cfd0d2;
+}
+
+.required {
+  color: #f4516c;
+}
+
+.help-block.help-block-error {
+  color: red;
+}
+
+.m-switch {
+  label {
+    margin-bottom: 0px;
+  }
+
+  span {
+    height: 25px !important;
+    line-height: 25px !important;
+
+    &:after {
+      font-size: .7rem !important;
+      height: 20px !important;
+      width: 20px !important;
+      line-height: 21px !important;
+      top: 2px !important;
+      bottom: 2px !important;
+    }
+  }
+
+  input:checked~span:after {
+    margin-left: 32px !important;
+  }
+}
+
+.btn {
+  font-family: Arial !important;
+  height: 35px;
+  padding: 0.6rem 1.15rem;
+}
+
+.dropzone .dz-preview:hover {
+  z-index: 90 !important;
+}
+
+// dropzone
+.m-dropzone {
+  border: 1px solid #cecfd1;
+  padding: 10px;
+}
+
+.dropzone .dz-preview {
+  margin: 0px;
+}
+
+.dropzone .dz-preview .dz-image {
+  border-radius: 10px;
+  width: 160px;
+  height: 160px;
+}
+
+.dropzone .dz-preview .dz-image img {
+  // width: 160px;
+  height: 160px;
+  margin: auto;
+
+}
+
+.dropzone .dz-preview:hover .dz-image img {
+  -webkit-filter: none;
+  filter: none;
+}
+
+.m-body {
+  height: 101vh;
+}
+
+table.dataTable thead th,
+table.dataTable thead td {
+  border-bottom: 1px solid #d0cece !important;
+  border-right: 1px solid #d0cece !important;
+}
+
+.select2 {
+  width: 100% !important;
+}
+
+.dataTables_processing {
+  z-index: 999;
+}
+
+.popover,
+.tooltip {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.m-accordion .m-accordion__item .m-accordion__item-head {
+  padding: 0.5rem 1rem !important;
+}
+
+.m-accordion__item.m-accordion__item--custom {
+  border: 1px solid #e89719 !important;
+
+  .m-accordion__item-head {
+    color: white;
+    background-color: #e89719 !important;
+
+    .m-accordion__item-mode {
+      color: white !important;
+    }
+  }
+}
+
+.m-portlet.m-portlet--head-sm .m-portlet__head {
+  height: 3.1rem;
+}
+
+.m-badge--white {
+  background-color: white;
+  color: white;
+}
+
+.m-padding-top-0 {
+  padding-top: 0 !important;
+}
+
+.m-padding-bottom-0 {
+  padding-bottom: 0 !important;
+}
+
+.m-padding-left-0 {
+  padding-left: 0 !important;
+}
+
+.m-padding-right-0 {
+  padding-right: 0 !important;
+}
+
+.m-padding-0 {
+  padding: 0 !important;
+}
+
+.m-margin-top-0 {
+  margin-top: 0 !important;
+}
+
+.m-margin-bottom-0 {
+  margin-bottom: 0 !important;
+}
+
+.m-margin-left-0 {
+  margin-left: 0 !important;
+}
+
+.m-margin-right-0 {
+  margin-right: 0 !important;
+}
+
+.m-margin-0 {
+  margin: 0 !important;
+}
+
+.max-height-250 {
+  height: 250px;
+  max-height: 250px;
+}
+
+.repply {
+  cursor: pointer;
+}
+
+.repply:hover {
+  color: #A7B5C3;
+}
+
+.flex-left {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.flex-right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+//border selectpicker
+.input-group .bootstrap-select.form-control .dropdown-toggle {
+  border: 1px solid #cecfd1;
+}
+
+.btn.dropdown-toggle.btn-light {
+  border: 1px solid #cecfd1;
+}
+
+.m-portlet__head {
+  padding: 0 1.2rem !important;
+}
+
+.border-right {
+  border-right: 1px solid #cecfd1;
+}
+
+.m-portlet .m-portlet__head .m-portlet__head-caption .m-portlet__head-title .m-portlet__head-text {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.col-width-20 {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 20%;
+  flex: 0 0 20%;
+  max-width: 20%;
+}
+
+.custom-dropdown-search {
+  position: absolute;
+  will-change: transform;
+  top: 35px;
+  left: 15px;
+  right: 15px;
+  max-height: 250px;
+
+  .dropdown-item {
+    cursor: pointer;
+  }
+}
+
+.padding-top-percent-3 {
+  padding-top: 3% !important;
+}
+
+.note-editable,
+.note-placeholder {
+  padding-top: 20px !important;
+}
+
+table.dataTable tbody tr.selected {
+  background-color: #0275d8 !important;
+}
+
+/**
+ * Hiển thị icon
+ */
+.m-btn--icon.m-btn--icon-only i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+// xuat excel
+#sortable_excel{ 
+  list-style-type: none; 
+  margin: auto; 
+  padding: 0; 
+  width: 80%;
+}
+#sortable_excel li{
+  cursor: move;
+  margin: 0 3px 3px 3px; 
+  padding: 0.4em; 
+  padding-left: 1.5em; 
+  font-size: 1.4em;
+  border: 1px solid #bdbcbc; 
+  background: #f3f1f1
+}
+
+//table
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  color: white !important;
+  border: 1px solid #e0e0e0 !important;
+  background-color: #dcdbdb !important;
+  background: linear-gradient(to bottom, #e0e0e0 0%, #dcdbdb 100%) !important;
+}

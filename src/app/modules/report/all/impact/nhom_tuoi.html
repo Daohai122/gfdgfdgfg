@@ -1,0 +1,36 @@
+<div class="row" ng-controller="Report.TacDong.NhomTuoi" ng-init="init()">
+  <div class="tab-pane active col-md-9 no-padding border-right"
+    ng-class="{'col-md-12': viewMode=='full', 'col-md-9': viewMode!='full' }">
+    <div class="m-portlet__body collapse show" style="padding: 5px">
+      <table ng-if="oldReport.length > 0"
+        class="table  table-striped table-bordered table-hover table-checkable dataTable no-footer" role="grid">
+        <thead>
+          <tr role='row'>
+            <th class="text-center" style="">Tên trung tâm</th>
+            <th ng-if='columns.from16To18' class="text-center" style="">16-18 (tuổi)</th>
+            <th ng-if='columns.from19To24' class="text-center" style="">19-24 (tuổi)</th>
+            <th ng-if='columns.from25To30' class="text-center" style="">25-30 (tuổi)</th>
+            <th ng-if='columns.over30' class="text-center" style="">>30 (tuổi)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="data in oldReport track by $index">
+            <td class="text-center">{{data.centerName}}</td>
+            <td ng-if='columns.from16To18' class="text-center">
+              {{data.age_group.from16To18.count}}&nbsp;({{data.age_group.from16To18.percent}}%)</td>
+            <td ng-if='columns.from19To24' class="text-center">
+              {{data.age_group.from19To24.count}}&nbsp;({{data.age_group.from19To24.percent}}%)</td>
+            <td ng-if='columns.from25To30' class="text-center">
+              {{data.age_group.from25To30.count}}&nbsp;({{data.age_group.from25To30.percent}}%)</td>
+            <td ng-if='columns.over30' class="text-center">
+              {{data.age_group.over30.count}}&nbsp;({{data.age_group.over30.percent}}%)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div ng-hide="genderReport.length < 1" id="chartPice"></div>
+  </div>
+  <div class="col-md-3" ng-hide="viewMode=='full'">
+    <div ng-include="'/app/modules/report/search.html'"></div>
+  </div>
+</div>

@@ -1,0 +1,134 @@
+<div class="m-content">
+        <div class="row">
+            <div class="col-md-12">
+                <form class="m-form m-form--fit m-form--label-align-right">
+                    <div class="col-md-12" style="padding:0px">
+                        <div class="m-portlet m-portlet--tab">
+                            <div class="m-portlet__body">
+                                <div si-table config="tableConfig" reload-table="reloadTable" ng-model="dataFeedbacks" search="filter">
+                                    <div class="filter-region m-portlet m-portlet--tab collapse show" id="collapseExample">
+                                        <div class="row m-portlet__body">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                <div class="m-input-icon m-input-icon--left">
+                                                    <input type="text" class="form-control m-input search_params" placeholder="Tìm kiếm" ng-model="filter.SearchString">
+                                                    <span class="m-input-icon__icon m-input-icon__icon--left">
+                                                    <span><i class="la la-search"></i></span>
+                                                    </span>
+                                                </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="input-group m-input-group">
+                                                        <div class="input-group-prepend">
+                                                        <span class="input-group-text">{{'Loại' | translate}}</span>
+                                                        </div>
+                                                        <div class="dropdown bootstrap-select input-group-btn form-control m-bootstrap-select m_">
+                                                            <select title="Chọn" class="form-control" si-selectpicker ng-model="filter.Type">
+                                                                <option value="">Tất cả</option>
+                                                                <option value="feedback">Phản hồi</option>
+                                                                <option value="initiative">Góp ý</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="input-group m-input-group">
+                                                        <div class="input-group-prepend">
+                                                        <span class="input-group-text">{{'Trạng thái' | translate}}</span>
+                                                        </div>
+                                                        <div class="dropdown bootstrap-select input-group-btn form-control m-bootstrap-select m_">
+                                                            <select title="Chọn" class="form-control" si-selectpicker ng-model="filter.IsProcessed">
+                                                                <option value="">Tất cả</option>
+                                                                <option value="true">Đã giải quyết</option>
+                                                                <option value="false">Chưa giải quyết</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="input-group m-input-group">
+                                                        <div class="input-group-prepend"><span class="input-group-text">{{'Từ ngày' | translate}}</span></div>
+                                                        <input type="text" class="form-control" date-picker ng-model="filter.FromDate">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="input-group m-input-group">
+                                                        <div class="input-group-prepend"><span class="input-group-text">{{'Đến ngày' | translate}}</span></div>
+                                                        <input type="text" class="form-control" date-picker update="filter.FromDate" start-date="true" ng-model="filter.ToDate">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="btn  btn-info" search-btn>{{'Tìm kiếm' | translate }}</div>
+                                            </div>
+                                        </div>                
+                                    </div>
+                                    <div class="action-region">
+                                        <div class="btn btn-info" data-toggle="collapse" toggle-filter-btn data-target="#collapseExample">{{
+                                        'Ẩn/Hiện
+                                        tìm kiếm' | translate }}</div>
+                                    </div>
+                                    <table class="table table-bordered  table-striped table-hover table-checkable dataTable">
+                        
+                                    </table>
+                                </div>
+                                <div class="modal fade" id="modal_feedback" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 ng-show="dataFeedback.type==1" class="modal-title text-center" id="exampleModalLabel">{{ 'Góp Ý' | translate }}</h5>
+                                            <h5 ng-show="dataFeedback.type==0" class="modal-title text-center" id="exampleModalLabel">{{ 'Phản hồi' | translate }}</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="m-portlet m-portlet--success m-portlet--head-solid-bg m-portlet--rounded">
+                                                <div class="m-portlet__head">
+                                                    <div class="m-portlet__head-caption">
+                                                        <div class="m-portlet__head-title">
+                                                            <span class="m-portlet__head-icon">
+                                                                <i class="flaticon-avatar"></i>
+                                                            </span>
+                                                            <h3 class="m-portlet__head-text">
+                                                                {{dataFeedback.name}}
+                                                            </h3>
+                                                        </div>			
+                                                    </div>
+                                                    <!-- <div ng-show="dataFeedback.fileUrl" class="m-portlet__head-tools">
+                                                        <ul class="m-portlet__nav">
+                                                            <li class="m-portlet__nav-item">
+                                                                <p ng-click="downloadData()" class="m-portlet__nav-link btn btn-light m-btn m-btn--pill m-btn--air">
+                                                                    Download
+                                                                </p>
+                                                            </li>
+                                                        </ul>
+                                                    </div> -->
+                                                </div>
+                                                <div class="m-portlet__body">
+                                                    {{dataFeedback.content}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    

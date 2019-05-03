@@ -1,0 +1,94 @@
+<div class="m-content">
+    <div class="row">
+        <div class="col-md-12">
+            <form validation-form submit-function="addClass()" class="m-form m-form--fit m-form--label-align-right">
+                <div class="col-md-12" style="padding:0px">
+                    <div class="m-portlet m-portlet--tab">
+                        <div class="m-portlet__body">
+                                <div class="form-body col-lg-12 row" style="margin-top: 20px">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-4 col-form-label">Mã lớp học</label>
+                                            <div class="col-8">
+                                                <input type="text" ng-model="dataCenter.code" maxlength="100" class="form-control m-input" placeholder="Nhập mã lớp học" required>
+                                            </div>
+                                        </div>
+                                        <div class=" form-group row">
+                                            <label class="col-4 col-form-label">Ngày bắt đầu:</label>
+                                            <div class="col-8">
+                                                <input type="text" date-picker  class="form-control" ng-model="dataClass.from_date" required>
+                                            </div>
+                                        </div>
+                                        <div class=" form-group row">
+                                            <label class="col-4 col-form-label">Ngày kết thúc:</label>
+                                            <div class="col-8">
+                                                <input type="text" date-picker class="form-control" ng-model="dataClass.to_date" required>
+                                            </div>
+                                        </div>
+                                        <div class=" form-group row">
+                                            <label class="col-4 col-form-label">Thời gian khóa học:</label>
+                                            <div class="col-8">
+                                                <input type="number" class="form-control" ng-model="dataClass.class_type" required>
+                                            </div>
+                                        </div>
+                                        <div class=" form-group row">
+                                            <label class="col-4 col-form-label">Thời gian theo dõi:</label>
+                                            <div class="col-8">
+                                                <input type="text" class="form-control" ng-model="dataClass.follow_type" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class=" form-group row">
+                                            <label class="col-4 col-form-label">Trung tâm:</label>
+                                            <div class="col-8">
+                                                <select class="form-control" get-data="getCenter()" si-select value-key="code" text-key="name" ng-model="centerCode" id="">
+                                                    <!-- <option  ng-repeat="data in dataCenters" value="{{data.code}}">{{data.name}}</option> -->
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class=" form-group row">
+                                            <label class="col-4 col-form-label">Khóa học:</label>
+                                            <div class="col-8">
+                                                <select class="form-control" get-data="getBatches()" update="centerCode" si-select value-key="id" text-key="name" update="centerCode" ng-model="dataClass.batch_id" >
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class=" form-group row">
+                                            <label class="col-4 col-form-label">Ngành học:</label>
+                                            <div class="col-8">
+                                                <select class="form-control" get-data="getStudyField()" update="centerCode"  si-select value-key="code" text-key="name" update="centerCode" ng-model="dataClass.field_code" id="">
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class=" form-group row">
+                                            <label class="col-4 col-form-label">Giáo viên:</label>
+                                            <div class="col-8">
+                                                <div class="input-group" ng-repeat="item in dataClass.teachers track by $index" style="margin-bottom: 10px">
+                                                        <input type="text" data-idx='{{$index}}' ng-model="dataClass.teachers[$index]" value="{{dataClass.teachers[$index]}}" class="form-control m-input" placeholder="Nhập họ tên">
+                                                        <div style="margin-left: 10px" class="input-group-prepend"><input type="button" ng-click="deleteTeacher($index)" class="btn btn-secondary" id="basic-addon2" value="Delete"></div>
+                                                    </div>
+                                                <button type="reset" ng-click="addTeacher()" class="btn btn-secondary">Thêm giáo viên</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="m-portlet__foot m-portlet__foot--fit m-portlet__no-border">
+                                    <div class="m-form__actions m-form__actions">
+                                        <div class="row">
+                                            <div class="col-lg-7 ml-lg-auto">
+                                                <button type="reset" class="btn btn-secondary" ng-click="goToList()">Quay lại</button>
+                                                <button button-submit  type="submit" class="btn btn-accent">Lưu</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>

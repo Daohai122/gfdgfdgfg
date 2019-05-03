@@ -1,0 +1,98 @@
+<div class="m-content">
+        <div class="row">
+            <div class="col-md-12">
+                <form validation-form submit-function="addCenter()" class="m-form m-form--fit m-form--label-align-right">
+                    <div class="col-md-12" style="padding:0px">
+                        <div class="m-portlet m-portlet--tab">
+                            <div class="m-portlet__body">
+                                <div class="form-body col-lg-12" style="margin-top: 20px">
+                                    <div class="form-group m-form__group row">
+                                        <div class="col-md-6">
+                                            <div class=" row">
+                                                <label class="col-4 col-form-label">{{'Tên trung tâm' | translate}}<span class="required"> *</span></label>
+                                                <div class="col-8">
+                                                        <input type="text" ng-model="dataCenter.name" maxlength="100" class="form-control m-input" placeholder="Nhập tên trung tâm" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class=" row">
+                                                <label class="col-4 col-form-label">{{'Mã trung tâm' | translate}}<span class="required"> *</span></label>
+                                                <div class="col-8">
+                                                        <input type="text" ng-model="dataCenter.code" maxlength="50" class="form-control m-input" placeholder="Nhập mã trung tâm" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group m-form__group row">
+                                        <div class="col-md-6">  
+                                            <div class=" row">
+                                                <label class="col-4 col-form-label">{{'Địa chỉ' | translate}}<span class="required"> *</span></label>
+                                                <div class="col-8">
+                                                    <input type="text"  ng-model="dataCenter.address" maxlength="255" class="form-control m-input" placeholder="Nhập địa chỉ" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class=" row">
+                                                <label class="col-4 col-form-label">{{'Vùng' | translate}}<span class="required"> *</span></label>
+                                                <div class="col-8">
+                                                    <select ng-model="dataCenter.region" class="form-control" name="option" required si-selectpicker>
+                                                        <option value="">Chọn</option>
+                                                        <option value="1">Miền bắc</option>
+                                                        <option value="2">Miền trung</option>
+                                                        <option value="3">Miền nam</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-form__group row">
+                                        <div class="col-md-6">  
+                                            <div class=" row">
+                                                <label class="col-4 col-form-label">{{'Trạng thái hoạt động' | translate}}</label>
+                                                <div class="col-8">
+                                                    <select title="Chọn" class="form-control" si-selectpicker ng-model="dataCenter.status">
+                                                        <option value="">Chọn</option>
+                                                        <option value="true">Hoạt động</option>
+                                                        <option value="false">Dừng hoạt động</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">  
+                                            <div class=" row">
+                                                <label class="col-4 col-form-label">{{'Ngày thành lập' | translate}}</label>
+                                                <div class="col-8">
+                                                    <input type="text" date-picker ng-model="dataCenter.build_date" maxlength="255" class="form-control m-input" placeholder="Chọn ngày thành lập" >
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-form__group row">
+                                        <div class="col-md-12">
+                                            <label class="">{{'Ghi chú' | translate}}:</label>
+                                            <textarea type="text" ng-model="dataCenter.note" maxlength="255" rows="5" class="form-control m-input" placeholder="Nhập nội dung"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="m-portlet__foot m-portlet__foot--fit m-portlet__no-border">
+                                <div class="m-form__actions m-form__actions">
+                                    <div class="row">
+                                        <div class="col-lg-7 ml-lg-auto">
+                                            <button ng-click="goToList()" type="reset" class="btn btn-secondary">{{'Quay lại' | translate}}</button>
+                                            <button button-submit  type="submit" class="btn btn-accent">{{'Thêm' | translate}}</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

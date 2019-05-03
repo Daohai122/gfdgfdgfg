@@ -1,0 +1,80 @@
+<div class="m-content">
+        <div class="row">
+            <div class="col-md-12">
+                <form class="m-form m-form--fit m-form--label-align-right">
+                    <div class="col-md-12" style="padding:0px">
+                        <div class="m-portlet m-portlet--tab">
+                            <div class="m-portlet__body">
+                                <div si-table config="tableConfig" reload-table="reloadTable" ng-model="dataArticle" search="filter">
+                                    <div class="filter-region m-portlet m-portlet--tab collapse show" id="collapseExample">
+                                        <div class="row m-portlet__body">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                <div class="m-input-icon m-input-icon--left">
+                                                    <input type="text" class="form-control m-input search_params" placeholder="Tìm kiếm" ng-model="filter.SearchString">
+                                                    <span class="m-input-icon__icon m-input-icon__icon--left">
+                                                    <span><i class="la la-search"></i></span>
+                                                    </span>
+                                                </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="input-group m-input-group">
+                                                        <div class="input-group-prepend"><span class="input-group-text">{{'Khóa học' | translate}}</span></div>
+                                                        <select class="form-control" ng-model="filter.batch_id" >
+                                                            <option value="">Chọn</option>
+                                                            <option  ng-repeat="data in dataBatches" value="{{data.id}}">{{data.name}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="input-group m-input-group">
+                                                        <div class="input-group-prepend"><span class="input-group-text">{{'Ngành học' | translate}}</span></div>
+                                                        <select  class="form-control" ng-model="filter.field_code" >
+                                                            <option value="">Chọn</option>
+                                                            <option ng-repeat="data in dataStudyField" value="{{data.code}}">{{data.name}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="input-group m-input-group">
+                                                        <div class="input-group-prepend"><span class="input-group-text">{{'Thời gian học' | translate}}</span></div>
+                                                        <input type="number" class="form-control m-input" placeholder="Nhập thời gian học" ng-model="filter.class_type">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="input-group m-input-group">
+                                                        <div class="input-group-prepend"><span class="input-group-text">{{'Thời gian theo dõi' | translate}}</span></div>
+                                                        <input type="number" class="form-control m-input" placeholder="Nhập thời theo dõi" ng-model="filter.follow_type">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="btn btn-info" search-btn>{{'Tìm kiếm' | translate }}</div>
+                                            </div>
+                                        </div>                
+                                    </div>
+                                    <div class="action-region">
+                                        <div class="btn btn-info" data-toggle="collapse" toggle-filter-btn data-target="#collapseExample">{{
+                                        'Ẩn/Hiện
+                                        tìm kiếm' | translate }}</div>
+                                    </div>
+                                    <table class="table table-bordered  table-striped table-hover table-checkable dataTable">
+                        
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    

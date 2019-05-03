@@ -1,0 +1,353 @@
+<table class="table  table-striped table-bordered table-hover table-checkable no-footer" role="grid">
+	<thead>
+		<tr role='row'>
+			<td>STT</td>
+			<td>Tiêu đề</td>
+			<td>Lần thực tập</td>
+			<td>Tên doanh nghiệp</td>
+			<td>Quản lý</td>
+			<td>Vị trí</td>
+			<td>Hành động</td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-show="!studentInternship.length > 0">
+			<td colspan="7" class="text-center">{{'Không có thông tin' | translate}}</td>
+		</tr>
+		<tr ng-show="studentInternship.length > 0" ng-repeat="internship in studentInternship track by $index">
+			<td>{{$index + 1}}</td>
+			<td>{{internship.title}}</td>
+			<td>{{internship.internship}}</td>
+			<td>{{internship.company_name}}</td>
+			<td>{{internship.manager}}</td>
+			<td>{{internship.position}}</td>
+			<td>
+				<a href="javarscipt:;" ng-click="updateInternship($index)" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="m-tooltip"  title="" data-original-title="Sửa"><i class="la la-edit"></i></a>
+				<a href="javascript:;" ng-click="deleteInternship($index)" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="m-tooltip"  title="" data-original-title="Xóa"><i class="flaticon-delete"></i></a>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<div class="modal fade" id="internshipFormModal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog"  style="width: 95%; max-width: 95%;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" ng-if="formMode == 'create'">{{'Thêm thực tập' | translate}}</h5>
+				<h5 class="modal-title" ng-if="formMode == 'update'">{{'Sửa thực tập' | translate}}</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form validation-form submit-function="submitForm()" class="m-form m-form--fit m-form--label-align-right">
+					<div class="m-portlet m-portlet--tabs m-portlet--head-solid-bg m-portlet--head-sm m-portlet--bordered " id="studentForm">
+						<div class="m-portlet__head accordion-toggle" >
+							<div class="m-portlet__head-caption">
+								<div class="m-portlet__head-title">
+									<h3 class="m-portlet__head-text">{{'Thông tin thực tập' | translate}}</h3>
+								</div>  
+							</div>
+						</div>
+						<div class="m-portlet__body collapse show" id="demo" aria-expanded="true" >
+							<div class="form-group m-form__group row">
+								<div class="col-md-6">
+									<div class="row">
+										<label class="col-4 col-form-label">{{'Tiêu đề' | translate}} <span class="required">*</span></label>
+										<div class="col-8">
+											<input type="text" validation="validation" ng-model="internshipFormData.title" class="form-control m-input" maxlength='100' placeholder="Nhập tiêu đề" required>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="row">
+										<label class="col-4 col-form-label">{{'Lần thực tập' | translate}} <span class="required">*</span></label>
+										<div class="col-8">
+											<input type="number" validation="validation" ng-model="internshipFormData.internship" class="form-control m-input" min="1" max="9" placeholder="Lần thực tập" required>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="form-group m-form__group row">
+								<div class="col-md-6">
+									<div class="row">
+										<label class="col-4 col-form-label">{{'Ngày giám sát' | translate}}</label>
+										<div class="col-8">
+											<input type="text" class="form-control" ng-model="internshipFormData.check_date" date-picker autocomplete="off" readonly="" placeholder="Chọn ngày">
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="row">
+										<label class="col-4 col-form-label">{{'Doanh nghiệp' | translate}}</label>
+										<div class="col-8 dropdown">
+											<input type="text" validation="validation" ng-model="company_name" class="form-control m-input" placeholder="Tìm kiếm doanh nghiệp" autocomplete="off" id="company_input">
+											<div class="dropdown-menu custom-dropdown-search">
+		                                        <p class="dropdown-item" ng-repeat="company in dataCompany" ng-click="selectCompany(company.id, company.name)">{{company.name}}</p>
+		                                    </div>
+										</div>
+										<div class="col-12 m--margin-top-10" ng-show="companyInfoName">
+											<div class="row">
+												<div class="col-4">{{'Thông tin doanh nghiệp' | translate}} </div>
+												<div class="col-8">{{companyInfoName}}</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="form-group m-form__group row">
+								<div class="col-md-6">
+									<div class="row">
+										<label class="col-4 col-form-label">{{'Tên quản lý thực tập' | translate}}</label>
+										<div class="col-8">
+											<input type="text" validation="validation" ng-model="internshipFormData.manager" class="form-control m-input" maxlength="100" placeholder="Nhập tên quản lý">
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="row">
+										<label class="col-4 col-form-label">{{'Vị trí' | translate}} <span class="required">*</span></label>
+										<div class="col-8">
+											<input type="text" validation="validation" ng-model="internshipFormData.position" class="form-control m-input" maxlength='200' placeholder="Nhập tiêu đề" required>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="form-group m-form__group row">
+								<div class="col-md-12">
+									<div class="row">
+		                                <label class="col-12 col-form-label">{{'Nhận xét thực tập' | translate}} <span class="required">*</span></label>
+		                                <div class="col-12">
+		                                    <textarea type="text" ng-model="internshipFormData.teacher_review" maxlength="255" rows="5" class="form-control m-input" placeholder="Nhập nôi dung" required></textarea>
+		                                </div>
+		                            </div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="m-portlet m-portlet--tabs m-portlet--head-solid-bg m-portlet--head-sm m-portlet--bordered " id="studentForm">
+						<div class="m-portlet__head accordion-toggle" >
+							<div class="m-portlet__head-caption">
+								<div class="m-portlet__head-title">
+									<h3 class="m-portlet__head-text">{{'Theo dõi thực tập' | translate}}</h3>
+								</div>  
+							</div>
+						</div>
+						<div class="m-portlet__body collapse show" id="demo" aria-expanded="true" >
+							<div class="form-group m-form__group row">
+								<table class="col-md-12 table table-bordered">
+									<thead>
+										<tr>
+											<th>{{'Tiêu chí đánh giá' | translate}}</th>
+											<th>{{'Kết quả' | translate}}</th>
+											<th>{{'Lý do' | translate}}</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td colspan="3">{{'1. Kiến thức, kỹ năng' | translate}}</td>
+										</tr>
+										<tr>
+											<td>{{'1.1 Thao tác/Thực hành nghiệp vụ đáp ứng theo tiêu chuẩn công việc' | translate}}</td>
+											<td colspan="2">
+												<div class="row no-margin">
+		                                        	<label class="m-radio col-md-6">
+		                                                <input type="radio" name="action_1-1" value="1" ng-model="internshipSurvey['1.1'].options"> {{'Thành thạo' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-md-6">
+		                                                <input type="radio" value="0" name="action_1-1" ng-model="internshipSurvey['1.1'].options"> {{'Chưa thành thạo' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                        </div>
+											</td>
+										</tr>
+										<tr>
+											<td>{{'1.2 Hiểu biết và thực hiện đúng quy trình nghiệp vụ nghề' | translate}}</td>
+											<td>
+												<div class="row no-margin">
+		                                        	<label class="m-checkbox col-md-6">
+		                                                <input type="checkbox" name="action_1-2" value="1" ng-model="internshipSurvey['1.2'].options['1']"> {{'Tốt' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-checkbox col-md-6">
+		                                                <input type="checkbox" name="action_1-2" value="1" ng-model="internshipSurvey['1.2'].options['2']"> {{'Cần cải thiện' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                        </div>
+											</td>
+											<td>
+												<div class="row no-margin">
+			                                        <div class="col-12">
+			                                            <textarea type="text" ng-model="internshipSurvey['1.2'].reason" maxlength="100" rows="5" class="form-control m-input" placeholder="Nhập nôi dung"></textarea>
+			                                        </div>
+			                                    </div>
+											</td>
+										</tr>
+										<tr>
+											<td colspan="3">{{'2. Ý thức - thái độ' | translate}}</td>
+										</tr>
+										<tr>
+											<td>{{'2.1 Tuân thủ nội quy của doanh nghiệp tiếp nhận cơ sở thực tập' | translate}}</td>
+											<td>
+												<div class="row no-margin">
+		                                        	<label class="m-checkbox col-md-6">
+		                                                <input type="checkbox" name="action_2-1" value="1" ng-model="internshipSurvey['2.1'].options['1']"> {{'Tốt' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-checkbox col-md-6">
+		                                                <input type="checkbox" value="1" name="action_2-1" ng-model="internshipSurvey['2.1'].options['2']"> {{'Cần cải thiện' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                        </div>
+											</td>
+											<td>
+												<div class="row no-margin">
+			                                        <div class="col-12">
+			                                            <textarea type="text" ng-model="internshipSurvey['2.1'].reason" maxlength="100" rows="5" class="form-control m-input" placeholder="Nhập nôi dung"></textarea>
+			                                        </div>
+			                                    </div>
+											</td>
+										</tr>
+										<tr>
+											<td>{{'2.2 Tự tin, chủ động trong công việc' | translate}}</td>
+											<td colspan="2">
+												<div class="row no-margin">
+		                                        	<label class="m-checkbox col-md-6">
+		                                                <input type="checkbox" name="action_2-2" value="1" ng-model="internshipSurvey['2.2'].options['1']"> {{'Tốt' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-checkbox col-md-6">
+		                                                <input type="checkbox" value="1" name="action_2-2" ng-model="internshipSurvey['2.2'].options['2']"> {{'Cần cải thiện' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                        </div>
+											</td>
+										</tr>
+										<tr>
+											<td>{{'2.3 Bị đuổi thực tập' | translate}}</td>
+											<td>
+												<div class="row no-margin">
+		                                        	<label class="m-radio col-md-6">
+		                                                <input type="radio" name="action_2-3" value="1" ng-model="internshipSurvey['2.3'].options"> {{'Có' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-md-6">
+		                                                <input type="radio" value="0" name="action_2-3" ng-model="internshipSurvey['2.3'].options"> {{'Không' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                        </div>
+											</td>
+											<td>
+												<div class="row no-margin">
+			                                        <div class="col-12">
+			                                            <select class="form-control" si-selectpicker ng-model="internshipSurvey['2.3'].reason" title="Lý do">
+			                                            	<option value="">Lý do</option>
+															<option value="mau_thuan">Mâu thuẫn, xung đột với nhân viên, quản lý cơ sở thực tập</option>
+															<option value="vo_to_chuc">Vô tổ chức kỷ luật</option>
+														</select>
+			                                        </div>
+			                                    </div>
+											</td>
+										</tr>
+										<tr>
+											<td>{{'2.4 Bỏ thực tập' | translate}}</td>
+											<td>
+												<div class="row no-margin">
+		                                        	<label class="m-radio col-md-6">
+		                                                <input type="radio" name="action_2-4" value="1" ng-model="internshipSurvey['2.4'].options"> {{'Có' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-md-6">
+		                                                <input type="radio" value="0" name="action_2-4" ng-model="internshipSurvey['2.4'].options"> {{'Không' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                        </div>
+											</td>
+											<td>
+												<div class="row no-margin">
+			                                        <div class="col-12">
+			                                            <select class="form-control" si-selectpicker ng-model="internshipSurvey['2.4'].reason" title="Lý do">
+			                                            	<option value="">Lý do</option>
+															<option value="dong_cua">Cơ sở thực tập đóng cửa</option>
+															<option value="viec_rieng">Gia đình có việc riêng</option>
+															<option value="viec_moi">Có công việc mới</option>
+														</select>
+			                                        </div>
+			                                    </div>
+											</td>
+										</tr>
+										<tr>
+											<td colspan="3">{{'3. Khác' | translate}}</td>
+										</tr>
+										<tr>
+											<td>{{'3.1 Doanh nghiệp chi trả hỗ trợ phí học việc/thực tập' | translate}}</td>
+											<td colspan="2">
+												<div class="row no-margin">
+			                                        <div class="col-12">
+			                                            <input type="text" min="0" format="currency" validation="validation" ng-model="internshipSurvey['3.1'].reason" class="form-control m-input" maxlength='128' placeholder="Số tiền">
+			                                        </div>
+			                                    </div>
+											</td>
+										</tr>
+										<tr>
+											<td>{{'3.2 Tần suất quản lý tại cơ sở thực tập trao đổi, hướng dẫn học viên mỗi ngày' | translate}}</td>
+											<td colspan="2">
+												<div class="row no-margin">
+		                                        	<label class="m-checkbox col-md-6">
+		                                                <input type="checkbox" value="1" name="action_3-2" ng-model="internshipSurvey['3.2'].options['1']"> {{'1 lần/ngày' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-checkbox col-md-6">
+		                                                <input type="checkbox" value="1" name="action_3-2" ng-model="internshipSurvey['3.2'].options['2']"> {{'Hơn 1 lần/ngày' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-checkbox col-md-6">
+		                                                <input type="checkbox" value="1" name="action_3-2" ng-model="internshipSurvey['3.2'].options['3']"> {{'Không' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                        </div>
+											</td>
+										</tr>
+										<tr>
+											<td>{{'3.3 Học viên được tiếp nhận sau thực tập' | translate}}</td>
+											<td>
+												<div class="row no-margin">
+		                                        	<label class="m-radio col-md-6">
+		                                                <input type="radio" name="action_3-3" value="1" ng-model="internshipSurvey['3.3'].options"> {{'Có' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                            <label class="m-radio col-md-6">
+		                                                <input type="radio" value="0" name="action_3-3" ng-model="internshipSurvey['3.3'].options"> {{'Không' | translate}}
+		                                                <span></span>
+		                                            </label>
+		                                        </div>
+											</td>
+										</tr>
+										<tr>
+											<td>{{'3.4 Ý kiến cải thiện thực tập của học viên (nếu có từ giáo viên/ doanh nghiệp)' | translate}}</td>
+											<td colspan="2">
+												<div class="row no-margin">
+			                                        <div class="col-12">
+			                                            <textarea type="text" ng-model="internshipSurvey['3.4'].comment" maxlength="255" rows="5" class="form-control m-input" placeholder="Nhập nôi dung"></textarea>
+			                                        </div>
+			                                    </div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-7 ml-lg-auto">
+							<button type="reset" button-reset class="btn btn-secondary" data-dismiss="modal">{{'Quay lại' | translate}}</button>
+							<button button-submit  type="submit" class="btn btn-accent">{{'Lưu' | translate}}</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
